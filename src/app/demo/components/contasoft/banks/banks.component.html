@@ -1,0 +1,303 @@
+
+
+
+
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <p-toast></p-toast>
+            <!-- <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    
+                </ng-template>
+
+               <ng-template pTemplate="center">
+                
+              
+                <p-calendar [(ngModel)]="rangeDates" placeholder="Desde" [iconDisplay]="'input'"  [showIcon]="true"></p-calendar>
+                <span class="m-3" >a</span>
+                <p-calendar [(ngModel)]="rangeDates" placeholder="Hasta" [iconDisplay]="'input'" [showIcon]="true"></p-calendar>
+
+               </ng-template >
+                <ng-template pTemplate="right">
+                    <button pButton pRipple label="Asignar" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+
+                    <button pButton pRipple label="Export" icon="pi pi-upload"  class="p-button-secondary" (click)="dt.exportCSV()"></button>
+                </ng-template>
+            </p-toolbar> -->
+
+            <p-table
+                #dt
+                [value]="banks"
+                [columns]="cols"
+                responsiveLayout="scroll"
+                [rows]="10"
+                [globalFilterFields]="['name', 'accountNumber','currency','saldo']"
+                [paginator]="true"
+                [rowsPerPageOptions]="[10, 20, 30]"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} bancos"
+                [rowHover]="true"
+                dataKey="id"
+            >
+                <ng-template pTemplate="caption">
+                    <h5 class="m-3">Lista de Bancos</h5>
+
+                    <div
+                        class="flex flex-column md:flex-row md:justify-content-between md:align-items-center"
+                    >
+                        <span class="block mt-2 md:mt-0 p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input
+                                pInputText
+                                type="text"
+                                (input)="onGlobalFilter(dt, $event)"
+                                placeholder="Buscar..."
+                                class="w-full sm:w-auto"
+                            />
+                        </span>
+                        <div>
+                            <button
+                                pButton
+                                pRipple
+                                label="Asignar"
+                                icon="pi pi-plus"
+                                class="p-button-success mr-2"
+                                (click)="openNew()"
+                            ></button>
+
+                            <!-- <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload> -->
+                            <button
+                                pButton
+                                pRipple
+                                label="Exportar"
+                                icon="pi pi-upload"
+                                class="p-button-secondary"
+                                (click)="dt.exportCSV()"
+                            ></button>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="currency" class="text-center">
+                            Moneda <p-sortIcon field="currency"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="name" class="text-center">
+                            Banco <p-sortIcon field="name"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="accountNumber" class="text-center">
+                            Cuenta
+                            <p-sortIcon field="accountNumber"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="saldo" class="text-center">
+                            Saldo Actual
+                            <p-sortIcon field="saldo"></p-sortIcon>
+                        </th>
+
+
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-bank>
+                    <tr>
+                        <td class="text-center" style="width: 10%; min-width: 10rem">
+                            <span class="p-column-title">Currency</span>
+                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + getCurrencyFlags(bank.currencyID).code.toLowerCase() " style="width: 22px"/>
+
+                        </td>
+                        <td class="text-center" style="width: 25%; min-width: 10rem">
+                            <span class="p-column-title ">Nombre</span>
+                            {{ bank.name }}
+                        </td>
+                        <td class="text-center" style="width: 25%; min-width: 10rem">
+                            <span class="p-column-title ">accountNumber</span>
+                            {{ bank.accountNumber }}
+                        </td>
+                        <td class="text-center" style="width: 25%; min-width: 10rem">
+                            <span class="p-column-title ">Saldo</span>
+                            {{ bank.initialBalance|number }}
+                        </td>
+
+                        <td>
+                            <div class="flex">
+                                <button
+                                    pButton
+                                    pRipple
+                                    icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-secondary mr-2"
+                                    (click)="editProduct(bank)"
+                                ></button>
+                                <button
+                                    pButton
+                                    pRipple
+                                    icon="pi pi-trash"
+                                    class="p-button-rounded p-button-danger"
+                                    (click)="deleteProduct(bank)"
+                                ></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <p-dialog
+            [(visible)]="bankDialog"
+            [style]="{ width: '550px' }"
+            header="Detalle de cuenta"
+            [modal]="true"
+            class="p-fluid"
+        >
+            <ng-template pTemplate="content">
+                <div class="p-formgrid grid">
+                    <div class="col-12 sm:col-6">
+                        <label for="name">Nombre de la cuenta.</label>
+                        <input
+                            type="text"
+                            pInputText
+                            id="accountName"
+                            [(ngModel)]="bank.accountName"
+                            required
+                        />
+                        <small
+                            class="ng-dirty ng-invalid"
+                            *ngIf="submitted && !bank.accountName"
+                            >Name is required.</small
+                        >
+                    </div>
+                    <div class="col-12 sm:col-6">
+                        <label for="status">Tipo</label>
+                        <p-dropdown
+                            [options]="accountType"
+                            id="accountType"
+                            appendTo="body"
+                            [(ngModel)]="bank.accountTypeID"
+                            required
+                            autofocus
+                            placeholder="Selecciona un tipo."
+                            optionValue="id"
+                            optionLabel="valor"
+                        ></p-dropdown>
+                    </div>
+                    <div class="col-12 sm:col-6">
+                        <label for="status">Moneda</label>
+                    
+                       
+                        <p-dropdown [options]="currency" appendTo="body" [(ngModel)]="bank.currencyID" optionValue="id" optionLabel="name" [showClear]="true" placeholder="Selecciona una moneda">
+                           
+                            <ng-template let-country pTemplate="item">
+                                <div class="flex align-items-center gap-2">
+                                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px"/>
+                                    <div>{{ country.name }}</div>
+                                </div>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+                    <div class="col-12 sm:col-6">
+                        <label for="status">Banco</label>
+                        <p-dropdown
+                            [options]="bancos"
+                            id="name"
+                            appendTo="body"
+                            [(ngModel)]="bank.id"
+                            required
+                            autofocus
+                            placeholder="Selecciona un banco."
+                            optionValue="id"
+                            optionLabel="name"
+                        ></p-dropdown>
+                    </div>
+                    <div class="col-12 sm:col-6">
+                        <label for="name">Numero de cuenta.</label>
+                        <input
+                            type="text"
+                            pInputText
+                            id="accountNumber"
+                            [(ngModel)]="bank.accountNumber"
+                            required
+                        />
+                        <small
+                            class="ng-dirty ng-invalid"
+                            *ngIf="submitted && !bank.accountNumber"
+                            >Name is required.</small
+                        >
+                    </div>
+                    <div class="col-12 sm:col-6">
+                        <label for="name">Saldo Actual</label>
+                        <p-inputNumber
+                            [(ngModel)]="bank.initialBalance"
+                            id="initialBalance"
+                            name="initialBalance"
+                            inputId="locale-us"
+                            mode="decimal"
+                            locale="en-US"
+                            [minFractionDigits]="2"
+                        >
+                        </p-inputNumber>
+                        <small
+                            class="ng-dirty ng-invalid"
+                            *ngIf="submitted && !bank.initialBalance"
+                            >Name is required.</small
+                        >
+                    </div>
+                </div>
+            </ng-template>
+
+            <ng-template pTemplate="footer">
+                <button
+                    pButton
+                    pRipple
+                    label="Cancel"
+                    icon="pi pi-times"
+                    class="p-button-text"
+                    (click)="hideDialog()"
+                ></button>
+                <button
+                    pButton
+                    pRipple
+                    label="Save"
+                    icon="pi pi-check"
+                    class="p-button-text"
+                    (click)="saveProduct()"
+                ></button>
+            </ng-template>
+        </p-dialog>
+
+        <p-dialog
+            [(visible)]="deleteBankDialog"
+            header="Confirm"
+            [modal]="true"
+            [style]="{ width: '450px' }"
+        >
+            <div class="flex align-items-center justify-content-center">
+                <i
+                    class="pi pi-exclamation-triangle mr-3"
+                    style="font-size: 2rem"
+                ></i>
+                <span *ngIf="bank"
+                    >Are you sure you want to delete <b>{{ bank.name }}</b
+                    >?</span
+                >
+            </div>
+            <ng-template pTemplate="footer">
+                <button
+                    pButton
+                    pRipple
+                    icon="pi pi-times"
+                    class="p-button-text"
+                    label="No"
+                    (click)="deleteProductDialog = false"
+                ></button>
+                <button
+                    pButton
+                    pRipple
+                    icon="pi pi-check"
+                    class="p-button-text"
+                    label="Yes"
+                    (click)="confirmDelete()"
+                ></button>
+            </ng-template>
+        </p-dialog>
+    </div>
+</div>

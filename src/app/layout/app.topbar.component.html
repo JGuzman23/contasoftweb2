@@ -1,0 +1,29 @@
+<div class="layout-topbar">
+    <a class="layout-topbar-logo" routerLink="">
+        <img src="assets/layout/images/{{layoutService.config().colorScheme === 'light' ? 'logo-dark' : 'logo-white'}}.svg" alt="logo">
+        <span>Contasoft</span>
+    </a>
+
+    <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()">
+        <i class="pi pi-bars"></i>
+    </button>
+
+    <button #topbarmenubutton class="p-link layout-topbar-menu-button layout-topbar-button" (click)="layoutService.showProfileSidebar()">
+        <i class="pi pi-ellipsis-v"></i>
+    </button>
+
+    <div #topbarmenu class="layout-topbar-menu" [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
+        <h4 class="py-1 text-3xl">{{companyName}}</h4>
+        <a routerLink="/"  class="p-link layout-topbar-button">
+            <i class="pi pi-th-large"></i>
+            <span>Home</span>
+        </a>
+        <button #btn (click)="menu.toggle($event)" class="p-link layout-topbar-button">
+            <i class="pi pi-user"></i>
+            <span>Profile</span>
+        </button>
+
+        <p-tieredMenu #menu [model]="items" [popup]="true"></p-tieredMenu>
+       
+    </div>
+</div>
