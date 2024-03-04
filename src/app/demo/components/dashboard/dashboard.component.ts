@@ -3,6 +3,9 @@ import { MenuItem } from 'primeng/api';
 import { Product } from '../../api/product';
 import { Subscription, debounceTime } from 'rxjs';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
+import { ChartService } from '../contasoft/service/chart.service';
+import { Chart } from '../contasoft/interfaces/chart.interface';
+import { response } from 'express';
 
 @Component({
     templateUrl: './dashboard.component.html',
@@ -14,12 +17,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     products!: Product[];
 
     chartData: any;
-
+    billCount:any;
+    invoiceCount:any;
     chartOptions: any;
+    skeleton = true
 
     subscription!: Subscription;
 
-    constructor( public layoutService: LayoutService) {
+    constructor( public layoutService: LayoutService, private chartService: ChartService) {
         this.subscription = this.layoutService.configUpdate$
         .pipe(debounceTime(25))
         .subscribe((config) => {
@@ -28,7 +33,28 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.initChart();
+        
+        var company = localStorage.getItem('company') || '';
+        var jsonCompany = JSON.parse(company);
+        
+        if (jsonCompany.id) {
+        this.chartService.GetAll(jsonCompany.id).subscribe((response)=>{
+            
+            this.billCount = response.data.reduce((acumulador, elemento) => {
+                acumulador.push( elemento.montoTotalGastos.toString());
+                return acumulador;
+            }, []);
+
+
+            this.invoiceCount =response.data.reduce((acumulador, elemento) => {
+                acumulador.push( elemento.montoTotalIngresos.toString());
+                return acumulador;
+            }, []);
+            console.log(this.invoiceCount);
+            this.skeleton=false
+             this.initChart();
+        })
+    }
 
         this.items = [
             { label: 'Add New', icon: 'pi pi-fw pi-plus' },
@@ -41,20 +67,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
         const textColor = documentStyle.getPropertyValue('--text-color');
         const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
         const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+       const proximos6Meses = this.obtenerUltimos6Meses()
         this.chartData = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            labels: proximos6Meses,
             datasets: [
                 {
-                    label: 'First Dataset',
-                    data: [65, 59, 80, 81, 56, 55, 40],
+                    label: 'Ingresos',
+                    data: this.invoiceCount,
                     fill: false,
-                    backgroundColor: documentStyle.getPropertyValue('--bluegray-700'),
-                    borderColor: documentStyle.getPropertyValue('--bluegray-700'),
+                    backgroundColor: documentStyle.getPropertyValue('--blue-700'),
+                    borderColor: documentStyle.getPropertyValue('--blue-700'),
                     tension: .4
                 },
                 {
-                    label: 'Second Dataset',
-                    data: [28, 48, 40, 19, 86, 27, 90],
+                    label: 'Gastos',
+                    data: this.billCount,
                     fill: false,
                     backgroundColor: documentStyle.getPropertyValue('--green-600'),
                     borderColor: documentStyle.getPropertyValue('--green-600'),
@@ -99,4 +126,26 @@ export class DashboardComponent implements OnInit, OnDestroy {
             this.subscription.unsubscribe();
         }
     }
+
+    obtenerUltimos6Meses(): string[] {
+        const meses: string[] = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        const fechaActual = new Date();
+        const mesActual = fechaActual.getMonth(); // Obtiene el mes actual (0 = enero, 1 = febrero, etc.)
+        const inicio = mesActual - 5 < 0 ? mesActual + 7 : mesActual + 1; // Ajusta el inicio si estamos en los primeros 6 meses del año
+    
+        const resultado: string[] = [];
+    
+        for (let i = 0; i < 6; i++) {
+            const indiceMes = (inicio + i) % 12;
+            resultado.push(meses[indiceMes]);
+        }
+    
+        return resultado;
+    }
+    
+   
+    
+    
+    
+    
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { CompanyService } from '../service/company.service';
 import { Router } from '@angular/router';
@@ -19,7 +19,7 @@ interface UploadEvent {
 
 export class HomeComponent implements OnInit {
 
-  
+  items!: MenuItem[];
   companyDialog: boolean = false;
 
   deleteCompanyDialog: boolean = false;
@@ -52,15 +52,15 @@ export class HomeComponent implements OnInit {
 
 
       this.cols = [
-          { field: 'product', header: 'Product' },
-          { field: 'price', header: 'Price' },
-          { field: 'category', header: 'Category' },
-          { field: 'rating', header: 'Reviews' },
-          { field: 'inventoryStatus', header: 'Status' }
+          { field: 'name', header: 'Nombre' },
+          { field: 'rnc', header: 'RNC' }
+          
       ];
+      
 
      
-  }
+}
+
 
   handleFileInput(event:any) {
     console.log(event);

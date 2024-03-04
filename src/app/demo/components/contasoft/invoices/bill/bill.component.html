@@ -140,20 +140,13 @@
 
                         <td style="width: 15%; min-width: 10rem">
                             <div class="flex justify-content-center">
-                                <button
-                                    pButton
-                                    pRipple
-                                    icon="pi pi-pencil"
-                                    class="p-button-rounded p-button-secondary mr-2"
-                                    (click)="editBill(bill)"
-                                ></button>
-                                <button
-                                    pButton
-                                    pRipple
-                                    icon="pi pi-trash"
-                                    class="p-button-rounded p-button-danger"
-                                    (click)="deleteBill(bill)"
-                                ></button>
+
+                                <p-button icon="pi pi-pencil" [rounded]="true" class=" mr-2" (click)="editBill(bill)" [text]="true" [raised]="true"></p-button>
+                             
+                                <p-button icon="pi pi-trash" [rounded]="true" severity="danger" [text]="true" [raised]="true" (click)="deleteBill(bill)"></p-button>
+                                
+                              
+                              
                             </div>
                         </td>
                     </tr>

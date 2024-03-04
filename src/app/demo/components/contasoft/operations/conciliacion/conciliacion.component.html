@@ -81,25 +81,7 @@
     <div class="col-12">
         <div class="card">
             <p-toast></p-toast>
-            <!-- <p-toolbar styleClass="mb-4">
-                <ng-template pTemplate="left">
-                    
-                </ng-template>
-
-               <ng-template pTemplate="center">
-                
-              
-                <p-calendar [(ngModel)]="rangeDates" placeholder="Desde" [iconDisplay]="'input'"  [showIcon]="true"></p-calendar>
-                <span class="m-3" >a</span>
-                <p-calendar [(ngModel)]="rangeDates" placeholder="Hasta" [iconDisplay]="'input'" [showIcon]="true"></p-calendar>
-
-               </ng-template >
-                <ng-template pTemplate="right">
-                    <button pButton pRipple label="Asignar" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
-
-                    <button pButton pRipple label="Export" icon="pi pi-upload"  class="p-button-secondary" (click)="dt.exportCSV()"></button>
-                </ng-template>
-            </p-toolbar> -->
+        
 
             <p-table
                 #dt
@@ -136,14 +118,14 @@
                             <button
                                 pButton
                                 pRipple
-                                label="Registrar"
+                                label="Crear"
                                 icon="pi pi-plus"
                                 class="p-button-success mr-2"
                                 (click)="openNew()"
                             ></button>
 
                             <!-- <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload> -->
-                            <button
+                            <!-- <button
                                 pButton
                                 pRipple
                                 label="Export"
@@ -151,7 +133,7 @@
                                 class="p-button-secondary"
                                 
                                 (click)="dt.exportCSV()"
-                            ></button>
+                            ></button> -->
                         </div>
                     </div>
                 </ng-template>

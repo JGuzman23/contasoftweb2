@@ -39,6 +39,7 @@
                 currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} bancos"
                 [rowHover]="true"
                 dataKey="id"
+                exportFilename="Lista de bancos"
             >
                 <ng-template pTemplate="caption">
                     <h5 class="m-3">Lista de Bancos</h5>
@@ -121,20 +122,10 @@
 
                         <td>
                             <div class="flex">
-                                <button
-                                    pButton
-                                    pRipple
-                                    icon="pi pi-pencil"
-                                    class="p-button-rounded p-button-secondary mr-2"
-                                    (click)="editProduct(bank)"
-                                ></button>
-                                <button
-                                    pButton
-                                    pRipple
-                                    icon="pi pi-trash"
-                                    class="p-button-rounded p-button-danger"
-                                    (click)="deleteProduct(bank)"
-                                ></button>
+                                <p-button icon="pi pi-pencil" [rounded]="true" class=" mr-2" (click)="editProduct(bank)" [text]="true" [raised]="true"></p-button>
+                             
+                                <p-button icon="pi pi-trash" [rounded]="true" severity="danger" [text]="true" [raised]="true" (click)="deleteProduct(bank)"></p-button>
+                                
                             </div>
                         </td>
                     </tr>

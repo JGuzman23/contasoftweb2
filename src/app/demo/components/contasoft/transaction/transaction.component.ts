@@ -26,7 +26,7 @@ export class TransactionComponent implements OnInit {
 
   submitted: boolean = false;
   public total = 0;
-
+    public companyName =''
   fechaHasta: string;
   fechadesde: string;
   cuentaSelected: string;
@@ -54,6 +54,7 @@ export class TransactionComponent implements OnInit {
       var jsonCompany = JSON.parse(company);
 
       if (jsonCompany.id) {
+        this.companyName=jsonCompany.name;
         this.getAllTransactionByCompany(jsonCompany.id);
           this.bankService
               .GetMyBanks(jsonCompany.id)

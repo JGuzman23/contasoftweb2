@@ -31,6 +31,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
+import { MenuModule } from 'primeng/menu';
+import { PanelMenuModule } from 'primeng/panelmenu';
 
 @NgModule({
     declarations: [
@@ -71,6 +73,9 @@ import { DialogModule } from 'primeng/dialog';
         InputNumberModule,
         DialogModule,
         AppConfigModule,
+        MenuModule,
+        PanelMenuModule,
+
        
     ],
     exports: [AppLayoutComponent,AppTopBarComponent]

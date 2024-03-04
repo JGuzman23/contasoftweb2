@@ -28,8 +28,8 @@ export class ConciliacionComponent implements OnInit {
     submitted: boolean = false;
     public total = 0;
 
-    fechaHasta: string;
-    fechadesde: string;
+    fechaHasta: Date = new Date();
+    fechadesde: Date = new Date();
     cuentaSelected: string;
     bancos: Bank[] = [];
     tipo: any[] = [
@@ -51,9 +51,10 @@ export class ConciliacionComponent implements OnInit {
     ) {}
 
     async ngOnInit() {
+        this.fechadesde.setDate(this.fechadesde.getDate() - 1);
         var company = localStorage.getItem('company') || '';
         var jsonCompany = JSON.parse(company);
-
+        
         if (jsonCompany.id) {
             this.bankService
                 .GetMyBanks(jsonCompany.id)
@@ -123,7 +124,12 @@ export class ConciliacionComponent implements OnInit {
                     (response) => {
                         // Manejar la respuesta de la solicitud HTTP aquí
                         this.transactions = response.data;
-
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Successful',
+                            detail: response.message,
+                            life: 3000,
+                        });
 
                         for (
                             let index = this.transactions.length - 1;
@@ -144,7 +150,12 @@ export class ConciliacionComponent implements OnInit {
                     },
                     (error) => {
                         // Manejar errores aquí
-                        console.error('Error al obtener la compañía:', error);
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Successful',
+                            detail: error.message,
+                            life: 3000,
+                        });
                     }
                 );
         }
