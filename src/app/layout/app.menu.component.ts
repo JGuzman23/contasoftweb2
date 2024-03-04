@@ -25,6 +25,7 @@ export class AppMenuComponent implements OnInit {
                 items: [
                     { label: 'Bancos', icon: ' fa-building-columns', routerLink: ['/contasoft/mod/banks'] },
                     { label: 'Clientes', icon: 'fas fa-users', routerLink: ['/contasoft/mod/clients'] },
+                    { label: 'Transacciones', icon: 'fas fa-money-bill-transfer', routerLink: ['/contasoft/mod/transaction'] },
                     {
                         label: 'Operaciones',
                         icon: 'fas fa-briefcase',

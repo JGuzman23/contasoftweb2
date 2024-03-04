@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
 import { TableModule } from 'primeng/table';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ButtonModule } from 'primeng/button';
@@ -15,32 +13,32 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
-import { HomeRoutingModule } from './home-routing.module';
-import { AppConfigModule } from 'src/app/layout/config/config.module';
+import { CalendarModule } from 'primeng/calendar';
+import { TransactionRoutingModule } from './transaction-routing.module';
+import { FormsModule } from '@angular/forms';
+import { TransactionComponent } from './transaction.component';
+
 
 @NgModule({
-    declarations: [],
-    imports: [
-        CommonModule,
-        HomeRoutingModule,
-        TableModule,
-        FileUploadModule,
-        FormsModule,
-        ButtonModule,
-        RippleModule,
-        ToastModule,
-        ToolbarModule,
-        RatingModule,
-        InputTextModule,
-        InputTextareaModule,
-        DropdownModule,
-        RadioButtonModule,
-        InputNumberModule,
-        DialogModule,
-        AppConfigModule,
-       
-        // AppLayoutModule
-        
-    ],exports:[]
+  declarations: [TransactionComponent],
+  imports: [
+    CommonModule,
+    TransactionRoutingModule,
+    FormsModule,
+    TableModule,
+    FileUploadModule,
+    ButtonModule,
+    RippleModule,
+    ToastModule,
+    ToolbarModule,
+    RatingModule,
+    InputTextModule,
+    InputTextareaModule,
+    DropdownModule,
+    RadioButtonModule,
+    InputNumberModule,
+    DialogModule,
+    CalendarModule
+  ]
 })
-export class HomeModule { }
+export class TransactionModule { }

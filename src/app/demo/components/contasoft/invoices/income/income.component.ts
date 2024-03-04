@@ -76,11 +76,11 @@ export class IncomeComponent implements OnInit {
 
 
       this.cols = [
-          { field: 'product', header: 'Product' },
-          { field: 'price', header: 'Price' },
-          { field: 'category', header: 'Category' },
-          { field: 'rating', header: 'Reviews' },
-          { field: 'inventoryStatus', header: 'Status' }
+          { field: 'fechaComprobante', header: 'Fecha de Facturacion' },
+          { field: 'rncCedulaPasaporte', header: 'RNC' },
+          { field: 'numeroComprobanteFiscal', header: 'NCF' },
+          { field: 'montoFacturado', header: 'Monto Facturado' },
+          { field: 'itbisFacturado', header: 'ITBIS Facturado' }
       ];
 
      

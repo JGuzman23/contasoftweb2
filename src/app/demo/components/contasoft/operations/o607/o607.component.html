@@ -32,10 +32,10 @@
                             <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar..."  class="w-full sm:w-auto"/>
                         </span>
                         <div>
-                            <button pButton pRipple label="Asignar" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+                            <button pButton pRipple label="Generar" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
 
                             <!-- <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload> -->
-                            <button pButton pRipple label="Export" icon="pi pi-upload"  class="p-button-secondary" (click)="dt.exportCSV()"></button>
+                            <!-- <button pButton pRipple label="Export" icon="pi pi-upload"  class="p-button-secondary" (click)="dt.exportCSV()"></button> -->
                         </div>
                     </div>
                 </ng-template>
@@ -55,10 +55,10 @@
                     <tr>
                         
                         <td style="width:10%; min-width:10rem;" class="text-center">
-                            {{o607.yearMonth}}
+                            {{o607.yearMonth  | date : "dd / MM / yyyy"}}
                         </td>
                         <td style="width:10%; min-width:10rem;" class="text-center">
-                            {{o607.amount}}
+                            {{o607.amount | number}}
                         </td>
                         <td style="width:20%; min-width:10rem;" class="text-center">
                            
@@ -68,7 +68,7 @@
                             {{o607.itbisTotal  | number}}
                         </td>
                         <td style="width :10%; min-width:10rem;" class="text-center">
-                            {{o607.createDate | date : "dd/MM/yyyy"}}
+                            {{o607.createDate  | date : "dd / MM / yyyy"}}
                         </td>
                         
                         <td style="width :20%; min-width:10rem;">

@@ -124,11 +124,13 @@ export class BillComponent implements OnInit {
 
 
       this.cols = [
-          { field: 'product', header: 'Product' },
-          { field: 'price', header: 'Price' },
-          { field: 'category', header: 'Category' },
-          { field: 'rating', header: 'Reviews' },
-          { field: 'inventoryStatus', header: 'Status' }
+          { field: 'fechaComprobante', header: 'Fecha Comprobante' },
+          { field: 'rncCedulaPasaporte', header: 'RNC' },
+          { field: 'numeroComprobanteFiscal', header: 'NCF' },
+          { field: 'totalMontoFacturado', header: 'Total Monto Facturado' },
+          { field: 'itbisFacturado', header: 'ITBIS Facturado' },
+
+        
       ];
 
      

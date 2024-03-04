@@ -1,7 +1,4 @@
 
-
-
-
 <div class="grid">
     <div class="col-12">
         <div class="card">
@@ -28,20 +25,21 @@
 
             <p-table
                 #dt
-                [value]="banks"
+                [value]="transactions"
                 [columns]="cols"
                 responsiveLayout="scroll"
                 [rows]="10"
-                [globalFilterFields]="['name', 'accountNumber','currencyID','initialBalance']"
+                [globalFilterFields]="['bankNumberOut', 'bankNumberIn','noCheck','transactionDate']"
                 [paginator]="true"
                 [rowsPerPageOptions]="[10, 20, 30]"
                 [showCurrentPageReport]="true"
-                currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} bancos"
+                currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} transacciones"
                 [rowHover]="true"
                 dataKey="id"
+                exportFilename="{{cuentaSelected}} transacciones {{fechadesde}} - {{fechaHasta}}"
             >
                 <ng-template pTemplate="caption">
-                    <h5 class="m-3">Lista de Bancos</h5>
+                    <h5 class="m-3">Lista de transacciones</h5>
 
                     <div
                         class="flex flex-column md:flex-row md:justify-content-between md:align-items-center"
@@ -60,7 +58,7 @@
                             <button
                                 pButton
                                 pRipple
-                                label="Asignar"
+                                label="Registrar"
                                 icon="pi pi-plus"
                                 class="p-button-success mr-2"
                                 (click)="openNew()"
@@ -70,9 +68,10 @@
                             <button
                                 pButton
                                 pRipple
-                                label="Exportar"
+                                label="Export"
                                 icon="pi pi-upload"
                                 class="p-button-secondary"
+                                
                                 (click)="dt.exportCSV()"
                             ></button>
                         </div>
@@ -80,166 +79,185 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th pSortableColumn="currencyID" class="text-center">
-                            Moneda 
+                        <th pSortableColumn="bankNumberIn">
+                            Banco Entrada 
                         </th>
-                        <th pSortableColumn="name" class="text-center">
-                            Banco <p-sortIcon field="name"></p-sortIcon>
+                        <th pSortableColumn="bankNumberOut">
+                            Banco Salida
                         </th>
-                        <th pSortableColumn="accountNumber" class="text-center">
-                            Cuenta
-                            <p-sortIcon field="accountNumber"></p-sortIcon>
+                        <th pSortableColumn="noCheck">
+                            No. Cheque / Transaccion
                         </th>
-                        <th pSortableColumn="initialBalance" class="text-center">
-                            Saldo Actual
-                            <p-sortIcon field="initialBalance"></p-sortIcon>
+                        <th pSortableColumn="concept">
+                            Concepto
                         </th>
-
-
-                        <th class="text-center">Acciones</th>
+                        <th pSortableColumn="transactionDate">
+                            Fecha
+                            <p-sortIcon field="transactionDate"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="amount">
+                            Crédito
+                        </th>
+                        <th pSortableColumn="amount">
+                            Débito
+                        </th>
+                        <!-- <th pSortableColumn="accountNumber">Total <p-sortIcon field="accountNumber"></p-sortIcon></th> -->
+                        <!-- <th>Acciones</th> -->
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-bank>
+                <ng-template pTemplate="body" let-transaction>
                     <tr>
-                        <td class="text-center" style="width: 10%; min-width: 10rem">
-                            <span class="p-column-title">Currency</span>
-                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + getCurrencyFlags(bank.currencyID).code.toLowerCase() " style="width: 22px"/>
+                        <td style="width: 35%; min-width: 10rem">
+                            <span class="p-column-title">Nombre</span>
+                            {{ transaction.bankNumberIn }}
+                        </td>
+                        <td style="width: 35%; min-width: 10rem">
+                            <span class="p-column-title">accountNumber</span>
+                            {{ transaction.bankNumberOut }}
+                        </td>
+                        <td style="width: 20%; min-width: 10rem">
+                            <span class="p-column-title">accountNumber</span>
+                            {{ transaction.noCheck }}
+                        </td>
+                        <td style="width: 20%; min-width: 10rem">
+                            <span class="p-column-title">accountNumber</span>
+                            {{ transaction.concept }}
+                        </td>
+                        <td style="width: 20%; min-width: 10rem">
+                            <span class="p-column-title">accountNumber</span>
+                            {{
+                                transaction.transactionDate
+                                 | date : "dd / MM / yyyy"
+                            }}
+                        </td>
 
+                        @if (transaction.tipo ==="debito") {
+                        <td style="width: 20%; min-width: 10rem">
+                            <span class="p-column-title">accountNumber</span>
+                            0.00
                         </td>
-                        <td class="text-center" style="width: 25%; min-width: 10rem">
-                            <span class="p-column-title ">Nombre</span>
-                            {{ bank.name }}
+                        <td style="width: 20%; min-width: 10rem">
+                            <span class="p-column-title">accountNumber</span>
+                            {{ transaction.amount | number }}
                         </td>
-                        <td class="text-center" style="width: 25%; min-width: 10rem">
-                            <span class="p-column-title ">accountNumber</span>
-                            {{ bank.accountNumber }}
+                        } @else {
+                        <td style="width: 20%; min-width: 10rem">
+                            <span class="p-column-title">accountNumber</span>
+                            {{ transaction.amount | number }}
                         </td>
-                        <td class="text-center" style="width: 25%; min-width: 10rem">
-                            <span class="p-column-title ">Saldo</span>
-                            {{ bank.initialBalance|number }}
+                        <td style="width: 20%; min-width: 10rem">
+                            <span class="p-column-title">accountNumber</span>
+                            0.00
                         </td>
 
-                        <td>
-                            <div class="flex">
-                                <button
-                                    pButton
-                                    pRipple
-                                    icon="pi pi-pencil"
-                                    class="p-button-rounded p-button-secondary mr-2"
-                                    (click)="editProduct(bank)"
-                                ></button>
-                                <button
-                                    pButton
-                                    pRipple
-                                    icon="pi pi-trash"
-                                    class="p-button-rounded p-button-danger"
-                                    (click)="deleteProduct(bank)"
-                                ></button>
-                            </div>
-                        </td>
+                        }
+                        <!-- <td style="width:20%; min-width:10rem;">
+                            <span class="p-column-title">accountNumber</span>
+                            {{transaction.total}}
+                        </td> -->
+                        <!-- <td></td> -->
                     </tr>
                 </ng-template>
             </p-table>
         </div>
 
         <p-dialog
-            [(visible)]="bankDialog"
+            [(visible)]="transactionDialog"
             [style]="{ width: '550px' }"
-            header="Detalle de cuenta"
+            header="Editar Banco"
             [modal]="true"
             class="p-fluid"
         >
             <ng-template pTemplate="content">
                 <div class="p-formgrid grid">
                     <div class="col-12 sm:col-6">
-                        <label for="name">Nombre de la cuenta.</label>
-                        <input
-                            type="text"
-                            pInputText
-                            id="accountName"
-                            [(ngModel)]="bank.accountName"
-                            required
-                        />
-                        <small
-                            class="ng-dirty ng-invalid"
-                            *ngIf="submitted && !bank.accountName"
-                            >Name is required.</small
-                        >
-                    </div>
-                    <div class="col-12 sm:col-6">
-                        <label for="status">Tipo</label>
+                        <span>Credito / Debito</span>
+
                         <p-dropdown
-                            [options]="accountType"
-                            id="accountType"
-                            appendTo="body"
-                            [(ngModel)]="bank.accountTypeID"
-                            required
-                            autofocus
-                            placeholder="Selecciona un tipo."
+                            [options]="tipo"
                             optionValue="id"
+                            [(ngModel)]="transaction.tipo"
+                            id="ListTipoBienesyServicios"
+                            name="ListTipoBienesyServicios"
+                            appendTo="body"
                             optionLabel="valor"
+                            class="w-full"
+                            [showClear]="true"
+                            placeholder="Selecciona"
                         ></p-dropdown>
                     </div>
                     <div class="col-12 sm:col-6">
-                        <label for="status">Moneda</label>
-                    
-                       
-                        <p-dropdown [options]="currency" appendTo="body" [(ngModel)]="bank.currencyID" optionValue="id" optionLabel="name" [showClear]="true" placeholder="Selecciona una moneda">
-                           
-                            <ng-template let-country pTemplate="item">
-                                <div class="flex align-items-center gap-2">
-                                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px"/>
-                                    <div>{{ country.name }}</div>
-                                </div>
-                            </ng-template>
-                        </p-dropdown>
+                        <span>No. Cheque/Transaccion</span>
+                        <input
+                            pInputText
+                            id="NCF"
+                            name="NCF"
+                            [(ngModel)]="transaction.noCheck"
+                            type="text"
+                        />
                     </div>
+
                     <div class="col-12 sm:col-6">
-                        <label for="status">Banco</label>
+                        <span>Desde</span>
                         <p-dropdown
                             [options]="bancos"
                             id="name"
                             appendTo="body"
-                            [(ngModel)]="bank.id"
+                            [(ngModel)]="transaction.bankNumberIn"
                             required
                             autofocus
                             placeholder="Selecciona un banco."
-                            optionValue="id"
+                            optionValue="name"
                             optionLabel="name"
                         ></p-dropdown>
                     </div>
                     <div class="col-12 sm:col-6">
-                        <label for="name">Numero de cuenta.</label>
-                        <input
-                            type="text"
-                            pInputText
-                            id="accountNumber"
-                            [(ngModel)]="bank.accountNumber"
+                        <span> Hasta</span>
+                        <p-dropdown
+                            [options]="bancos"
+                            id="name"
+                            appendTo="body"
+                            [(ngModel)]="transaction.bankNumberOut"
                             required
-                        />
-                        <small
-                            class="ng-dirty ng-invalid"
-                            *ngIf="submitted && !bank.accountNumber"
-                            >Name is required.</small
-                        >
+                            autofocus
+                            placeholder="Selecciona un banco."
+                            optionValue="name"
+                            optionLabel="name"
+                        ></p-dropdown>
                     </div>
+
                     <div class="col-12 sm:col-6">
-                        <label for="name">Saldo Actual</label>
+                        <span>Monto</span>
                         <p-inputNumber
-                            [(ngModel)]="bank.initialBalance"
-                            id="initialBalance"
-                            name="initialBalance"
+                            [(ngModel)]="transaction.amount"
+                            id="totalmf"
+                            name="totalmf"
                             inputId="locale-us"
                             mode="decimal"
                             locale="en-US"
                             [minFractionDigits]="2"
                         >
                         </p-inputNumber>
-                        <small
-                            class="ng-dirty ng-invalid"
-                            *ngIf="submitted && !bank.initialBalance"
-                            >Name is required.</small
-                        >
+                    </div>
+                    <div class="col-12 sm:col-6">
+                        <span>Fecha</span>
+                        <p-calendar
+                            appendTo="body"
+                            id="FCF"
+                            [(ngModel)]="transaction.transactionDate"
+                            name="FCF"
+                        ></p-calendar>
+                    </div>
+                    <div class="col-12">
+                        <span>Concepto</span>
+                        <textarea
+                            rows="5"
+                            cols="30"
+                            name="NCF"
+                            id="NCF"
+                            [(ngModel)]="transaction.concept"
+                            pInputTextarea
+                        ></textarea>
                     </div>
                 </div>
             </ng-template>
@@ -265,7 +283,7 @@
         </p-dialog>
 
         <p-dialog
-            [(visible)]="deleteBankDialog"
+            [(visible)]="deleteTransactionDialog"
             header="Confirm"
             [modal]="true"
             [style]="{ width: '450px' }"
@@ -275,8 +293,9 @@
                     class="pi pi-exclamation-triangle mr-3"
                     style="font-size: 2rem"
                 ></i>
-                <span *ngIf="bank"
-                    >Are you sure you want to delete <b>{{ bank.name }}</b
+                <span *ngIf="transaction"
+                    >Are you sure you want to delete
+                    <b>{{ transaction.name }}</b
                     >?</span
                 >
             </div>

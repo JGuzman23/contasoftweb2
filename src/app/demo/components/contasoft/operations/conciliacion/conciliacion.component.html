@@ -107,13 +107,14 @@
                 [columns]="cols"
                 responsiveLayout="scroll"
                 [rows]="10"
-                [globalFilterFields]="['name', 'accountNumber']"
+                [globalFilterFields]="['bankNumberOut', 'bankNumberIn','noCheck','transactionDate']"
                 [paginator]="true"
                 [rowsPerPageOptions]="[10, 20, 30]"
                 [showCurrentPageReport]="true"
-                currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} bancos"
+                currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} transacciones"
                 [rowHover]="true"
                 dataKey="id"
+                exportFilename="{{cuentaSelected}} transacciones {{fechadesde}} - {{fechaHasta}}"
             >
                 <ng-template pTemplate="caption">
                     <h5 class="m-3">Lista de transacciones</h5>
@@ -135,7 +136,7 @@
                             <button
                                 pButton
                                 pRipple
-                                label="Asignar"
+                                label="Registrar"
                                 icon="pi pi-plus"
                                 class="p-button-success mr-2"
                                 (click)="openNew()"
@@ -148,6 +149,7 @@
                                 label="Export"
                                 icon="pi pi-upload"
                                 class="p-button-secondary"
+                                
                                 (click)="dt.exportCSV()"
                             ></button>
                         </div>
@@ -155,32 +157,27 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th pSortableColumn="name">
-                            Banco Entrasa <p-sortIcon field="name"></p-sortIcon>
+                        <th pSortableColumn="bankNumberIn">
+                            Banco Entrada 
                         </th>
-                        <th pSortableColumn="Banco Salida">
+                        <th pSortableColumn="bankNumberOut">
                             Banco Salida
-                            <p-sortIcon field="accountNumber"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="No. Cheque / Transaccion">
+                        <th pSortableColumn="noCheck">
                             No. Cheque / Transaccion
-                            <p-sortIcon field="accountNumber"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="accountNumber">
+                        <th pSortableColumn="concept">
                             Concepto
-                            <p-sortIcon field="accountNumber"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="accountNumber">
+                        <th pSortableColumn="transactionDate">
                             Fecha
-                            <p-sortIcon field="accountNumber"></p-sortIcon>
+                            <p-sortIcon field="transactionDate"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="accountNumber">
+                        <th pSortableColumn="amount">
                             Crédito
-                            <p-sortIcon field="accountNumber"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="accountNumber">
+                        <th pSortableColumn="amount">
                             Débito
-                            <p-sortIcon field="accountNumber"></p-sortIcon>
                         </th>
                         <!-- <th pSortableColumn="accountNumber">Total <p-sortIcon field="accountNumber"></p-sortIcon></th> -->
                         <!-- <th>Acciones</th> -->
@@ -208,7 +205,7 @@
                             <span class="p-column-title">accountNumber</span>
                             {{
                                 transaction.transactionDate
-                                    | date : "dd - MM - yyyy"
+                                 | date : "dd / MM / yyyy"
                             }}
                         </td>
 

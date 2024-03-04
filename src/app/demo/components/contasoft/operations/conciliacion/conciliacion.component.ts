@@ -66,14 +66,17 @@ export class ConciliacionComponent implements OnInit {
         }
 
         this.cols = [
-            { field: 'name', header: 'Banco' },
-            { field: 'accountNumber', header: 'Cuenta' },
+            { field: 'bankNumberIn', header: 'Banco entrada' },
+            { field: 'bankNumberOut', header: 'Banco salida' },
+            { field: 'noCheck', header: 'Transaccion' },
+            { field: 'concept', header: 'Concepto' },
+            { field: 'transactionDate', header: 'Fecha' },
+            { field: 'amount', header: 'Credito' },
+            { field: 'amount', header: 'Debito' },
         ];
     }
     buscar() {
-        console.log(this.fechaHasta, 'fecha hasta');
-        console.log(this.fechadesde, 'fecha desde');
-        console.log(this.cuentaSelected, 'cuenta ');
+        
 
         var company = localStorage.getItem('company') || '';
         var jsonCompany = JSON.parse(company);
@@ -263,9 +266,14 @@ export class ConciliacionComponent implements OnInit {
     }
 
     onGlobalFilter(table: Table, event: Event) {
+        console.log(event);
+        console.log(table);
+        
+        
         table.filterGlobal(
             (event.target as HTMLInputElement).value,
             'contains'
         );
+        console.log(table);
     }
 }

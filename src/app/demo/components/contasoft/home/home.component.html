@@ -34,7 +34,7 @@
                                 </ng-template>
                             </p-toolbar> -->
                 
-                            <p-table #dt [value]="companies" [columns]="cols" responsiveLayout="scroll" selectionMode="single"  (onRowSelect)="onRowSelect($event)"  [rows]="10" [globalFilterFields]="['name','accountNumber']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} bancos" [(selection)]="selectedCompanies"  [rowHover]="true" dataKey="id">
+                            <p-table #dt [value]="companies" [columns]="cols" responsiveLayout="scroll" selectionMode="single"  (onRowSelect)="onRowSelect($event)"  [rows]="10" [globalFilterFields]="['name','accountNumber']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} empresas" [(selection)]="selectedCompanies"  [rowHover]="true" dataKey="id">
                                 <ng-template pTemplate="caption">
                                     <h5 class="m-3">Lista de empresas</h5>
                                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
@@ -44,7 +44,7 @@
                                             <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar..."  class="w-full sm:w-auto"/>
                                         </span>
                                         <div>
-                                            <button pButton pRipple label="Asignar" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+                                            <button pButton pRipple label="Crear" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
                 
                                             <!-- <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload> -->
                                             <button pButton pRipple label="Export" icon="pi pi-upload"  class="p-button-secondary" (click)="dt.exportCSV()"></button>
@@ -76,9 +76,10 @@
                                         
                                         <td>
                                             <div class="flex justify-content-center">
-                                                
-                                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-secondary mr-2" (click)="editProduct(product)"></button>
-                                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="deleteProduct(product)"></button>
+                                                <p-button icon="pi pi-pencil" [rounded]="true" class="mr-2" severity="secondary" [outlined]="true" (click)="editCompany(company)"></p-button>
+
+                                                <p-button icon="pi pi-trash" [rounded]="true" severity="danger" [outlined]="true" (click)="deleteCompany(company)"></p-button>
+
                                             </div>
                                         </td>
                                     </tr>
@@ -86,35 +87,105 @@
                             </p-table>
                         </div>
                 
-                        <!-- <p-dialog [(visible)]="companyDialog" [style]="{width: '450px'}" header="Editar Banco" [modal]="true" class="p-fluid">
-                            <ng-template pTemplate="content">
-                                <div class="field">
-                                    <label for="status">Inventory Status</label>
+                       <p-dialog [(visible)]="companyDialog" [style]="{width: '550px'}" header="Detalle de la empresa" [modal]="true" class="p-fluid">
+                        <ng-template pTemplate="content">
+                            <div class="p-formgrid grid">
+                                <div class="col-12 sm:col-12">
+                                    <label for="name">Nombre de la empresa.</label>
+                                    <input
+                                        type="text"
+                                        pInputText
+                                        id="accountName"
+                                        [(ngModel)]="company.name"
+                                        required
+                                    />
+                                    <small
+                                        class="ng-dirty ng-invalid"
+                                        *ngIf="submitted && !company.name"
+                                        >Name is required.</small
+                                    >
+                                </div>
+                               
+                               
+                                
+                                <div class="col-12 sm:col-6">
+                                    <label for="name">RNC o Cédula.</label>
+                                    <input
+                                        type="text"
+                                        pInputText
+                                        id="accountNumber"
+                                        [(ngModel)]="company.rnc"
+                                        required
+                                    />
+                                    <small
+                                        class="ng-dirty ng-invalid"
+                                        *ngIf="submitted && !company.rnc"
+                                        >Name is required.</small
+                                    >
+                                </div>
+                                
+                                <div class="col-12 sm:col-6">
+                                    <label for="name">Teléfono.</label>
+                                    <input
+                                        type="text"
+                                        pInputText
+                                        id="accountNumber"
+                                        [(ngModel)]="company.telefono"
+                                        required
+                                    />
+                                    <small
+                                        class="ng-dirty ng-invalid"
+                                        *ngIf="submitted && !company.telefono"
+                                        >Name is required.</small
+                                    >
+                                </div>
+                                <div class="col-12 sm:col-12">
+                                    <label for="name">Dirección</label>
+                                    <input
+                                        type="text"
+                                        pInputText
+                                        id="accountNumber"
+                                        [(ngModel)]="company.address"
+                                        required
+                                    />
+                                    <small
+                                        class="ng-dirty ng-invalid"
+                                        *ngIf="submitted && !company.address"
+                                        >Name is required.</small
+                                    >
+                                </div>
+                                <div class="col-12 sm:col-12">
+                                    <label for="name">Logo.</label>
+                                    <input
+                                        type="file"
+                                        pInputText
+                                        id="photo"
+                                        [(ngModel)]="company.photo"
+                                        required
+                                    />
+                                    <small
+                                        class="ng-dirty ng-invalid"
+                                        *ngIf="submitted && !company.address"
+                                        >Name is required.</small
+                                    >
+                                    <!-- <p-fileUpload (change)="handleFileInput($event)" [multiple]="false" accept="image/*" maxFileSize="1000000">
+                                       
+                                    </p-fileUpload> -->
                                   
                                 </div>
-                                <div class="field">
-                                    <label for="name">Numero de cuenta.</label>
-                                    <input type="text" pInputText id="name" [(ngModel)]="bank.accountNumber" required autofocus [ngClass]="{'ng-invalid ng-dirty' : submitted && !bank.accountNumber}"/>
-                                    <small class="ng-dirty ng-invalid" *ngIf="submitted && !bank.accountNumber">Name is required.</small>
-                                </div>
-                               
-                               
-                
-                               
-                
-                               
-                            </ng-template>
+                            </div>
+                        </ng-template>
                 
                             <ng-template pTemplate="footer">
                                 <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-                                <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
+                                <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveCompany()"></button>
                             </ng-template>
                         </p-dialog>
                 
-                        <p-dialog [(visible)]="deleteCompanyDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
+                        <p-dialog [(visible)]="deleteCompanyDialog" header="Confirmación" [modal]="true" [style]="{width:'450px'}">
                             <div class="flex align-items-center justify-content-center">
                                 <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                                <span *ngIf="company">Are you sure you want to delete <b>{{company.name}}</b>?</span>
+                                <span *ngIf="company">¿Estas seguro que deseas eliminar a <b>{{company.name}}</b>?</span>
                             </div>
                             <ng-template pTemplate="footer">
                                 <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteCompanyDialog = false"></button>
@@ -122,16 +193,7 @@
                             </ng-template>
                         </p-dialog>
                 
-                        <p-dialog [(visible)]="deleteCompaniesDialog" header="Confirm" [modal]="true" [style]="{width:'450px'}">
-                            <div class="flex align-items-center justify-content-center">
-                                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                                <span>Are you sure you want to delete selected products?</span>
-                            </div>
-                            <ng-template pTemplate="footer">
-                                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteCompaniesDialog = false"></button>
-                                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDeleteSelected()"></button>
-                            </ng-template>
-                        </p-dialog> -->
+                        
                     </div>
                 </div>
                 </div>

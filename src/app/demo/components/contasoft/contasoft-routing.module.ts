@@ -12,6 +12,7 @@ import { RouterModule } from '@angular/router';
         { path: 'income', loadChildren: () => import('./invoices/income/income.module').then(m => m.IncomeModule) },
         { path: 'conciliacion', loadChildren: () => import('./operations/conciliacion/conciliacion.module').then(m => m.ConciliacionModule) },
         { path: 'itbis', loadChildren: () => import('./operations/itbis/itbis.module').then(m => m.ItbisModule) },
+        { path: 'transaction', loadChildren: () => import('./transaction/transaction.module').then(m => m.TransactionModule) },
        
         { path: '**', redirectTo: '/notfound' }
     ])],

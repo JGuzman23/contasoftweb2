@@ -5,13 +5,21 @@ import { CompanyService } from '../service/company.service';
 import { Router } from '@angular/router';
 import { Company } from '../interfaces/company.interface';
 
+
+interface UploadEvent {
+  originalEvent: Event;
+  files: File[];
+}
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   providers: [MessageService]
 })
+
 export class HomeComponent implements OnInit {
 
+  
   companyDialog: boolean = false;
 
   deleteCompanyDialog: boolean = false;
@@ -19,7 +27,7 @@ export class HomeComponent implements OnInit {
   deleteCompaniesDialog: boolean = false;
 
   companies: Company[]=[]
-
+  uploadedFiles: any[] = [];
   company: Company = {};
 
   selectedCompanies: Company[] = [];
@@ -53,6 +61,23 @@ export class HomeComponent implements OnInit {
 
      
   }
+
+  handleFileInput(event:any) {
+    console.log(event);
+    
+   
+}
+  onUpload(event:UploadEvent) {
+    console.log(event);
+    
+    for(let file of event.files) {
+        this.uploadedFiles.push(file);
+    }
+    console.log(this.uploadedFiles);
+    
+
+    this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
+}
  getCompanies(userId:string){
      this.companyService.Get(userId)
     .subscribe(
@@ -109,34 +134,37 @@ export class HomeComponent implements OnInit {
       this.submitted = false;
   }
 
-  saveProduct() {
-      this.submitted = true;
+  saveCompany() {
+      //this.submitted = true;
 
-      if (this.company.name?.trim()) {
-          if (this.company.id) {
-              // @ts-ignore
+      console.log(this.company);
+      
+
+      // if (this.company.name?.trim()) {
+      //     if (this.company.id) {
+      //         // @ts-ignore
              
-              this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
-          } else {
+      //         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
+      //     } else {
              
-            this.companyService.create(this.company).subscribe(
-              (response) =>{
-                // this.getCompanies(1)
+      //       this.companyService.create(this.company).subscribe(
+      //         (response) =>{
+      //           // this.getCompanies(1)
                
-                this.messageService.add({ severity: 'success', summary: 'Successful', detail: response.message, life: 3000 });
-              },
-              (error) => {
+      //           this.messageService.add({ severity: 'success', summary: 'Successful', detail: response.message, life: 3000 });
+      //         },
+      //         (error) => {
                 
-                this.messageService.add({ severity: 'success', summary: 'Successful', detail: error.message, life: 3000 });
+      //           this.messageService.add({ severity: 'success', summary: 'Successful', detail: error.message, life: 3000 });
 
-              }
-            )
+      //         }
+      //       )
              
-          }
+      //     }
 
-          this.companyDialog = false;
-          this.company = {};
-      }
+      //     this.companyDialog = false;
+      //     this.company = {};
+      // }
   }
 
   findIndexById(id: number): number {

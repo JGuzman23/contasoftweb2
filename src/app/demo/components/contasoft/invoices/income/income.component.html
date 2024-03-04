@@ -29,11 +29,11 @@
                 responsiveLayout="scroll"
                 selectionMode="single"
                 [rows]="10"
-                [globalFilterFields]="['name', 'accountNumber']"
+                [globalFilterFields]="['rncCedulaPasaporte', 'numeroComprobanteFiscal','fechaComprobante']"
                 [paginator]="true"
                 [rowsPerPageOptions]="[10, 20, 30]"
                 [showCurrentPageReport]="true"
-                currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} bancos"
+                currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} facturas"
                 [(selection)]="selectedCompanies"
                 [rowHover]="true"
                 dataKey="id"
@@ -77,26 +77,26 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th pSortableColumn="name" class="text-center">
-                            Factura ID <p-sortIcon field="name"></p-sortIcon>
+                        <th pSortableColumn="id" class="text-center">
+                            Factura ID <p-sortIcon field="id"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="accountNumber" class="text-center">
-                            RNC <p-sortIcon field="accountNumber"></p-sortIcon>
+                        <th pSortableColumn="rncCedulaPasaporte" class="text-center">
+                            RNC <p-sortIcon field="rncCedulaPasaporte"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="accountNumber" class="text-center">
-                            NCF <p-sortIcon field="accountNumber"></p-sortIcon>
+                        <th pSortableColumn="numeroComprobanteFiscal" class="text-center">
+                            NCF <p-sortIcon field="numeroComprobanteFiscal"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="accountNumber" class="text-center">
+                        <th pSortableColumn="montoFacturado" class="text-center">
                             Monto Total
-                            <p-sortIcon field="accountNumber"></p-sortIcon>
+                            
                         </th>
-                        <th pSortableColumn="accountNumber" class="text-center">
+                        <th pSortableColumn="itbisFacturado" class="text-center">
                             ITBIS
-                            <p-sortIcon field="accountNumber"></p-sortIcon>
+                            
                         </th>
-                        <th pSortableColumn="accountNumber" class="text-center">
+                        <th pSortableColumn="fechaComprobante" class="text-center">
                             Fecha de Factura
-                            <p-sortIcon field="accountNumber"></p-sortIcon>
+                            <p-sortIcon field="fechaComprobante"></p-sortIcon>
                         </th>
                         <th class="text-center">Acciones</th>
                     </tr>
@@ -137,7 +137,7 @@
                             style="width: 15%; min-width: 10rem"
                             class="text-center"
                         >
-                            {{ income.fechaComprobante }}
+                            {{ income.fechaComprobante  | date : "dd / MM / yyyy" }}
                         </td>
 
                         <td style="width: 15%; min-width: 10rem">

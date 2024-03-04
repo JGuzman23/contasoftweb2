@@ -33,7 +33,7 @@ export class O606Component implements OnInit {
     async ngOnInit() {
         this.getAll606();
         this.cols = [
-            { field: 'anome', header: 'Año / Mes' },
+            { field: 'yearMonth', header: 'Año / Mes' },
             { field: 'amount', header: 'Cantidad de Facturas' },
             { field: 'monto', header: 'Monto Facturado' },
             { field: 'itbis', header: 'ITBIS Facturado' },

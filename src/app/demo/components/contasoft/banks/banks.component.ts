@@ -88,8 +88,8 @@ export class BanksComponent implements OnInit {
             { field: 'name', header: 'Banco' },
             { field: 'accountNumber', header: 'Cuenta' },
            
-            { field: 'saldo', header: 'Saldo Actual' },
-            { field: 'currency', header: 'Moneda' },
+            { field: 'initialBalance', header: 'Saldo Actual' },
+            { field: 'currencyID', header: 'Moneda' },
         ];
     }
 

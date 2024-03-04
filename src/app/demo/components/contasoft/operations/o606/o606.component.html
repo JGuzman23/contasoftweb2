@@ -22,7 +22,7 @@
                 </ng-template>
             </p-toolbar> -->
 
-            <p-table #dt [value]="o606s" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['anome']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} registros"  [rowHover]="true" dataKey="id">
+            <p-table #dt [value]="o606s" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['yearMonth']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} registros"  [rowHover]="true" dataKey="id">
                 <ng-template pTemplate="caption">
                     <h5 class="m-3">Lista de 606</h5>
 
@@ -32,17 +32,17 @@
                             <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar..."  class="w-full sm:w-auto"/>
                         </span>
                         <div>
-                            <button pButton pRipple label="Asignar" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+                            <button pButton pRipple label="Generar" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
 
                             <!-- <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload> -->
-                            <button pButton pRipple label="Export" icon="pi pi-upload"  class="p-button-secondary" (click)="dt.exportCSV()"></button>
+                            <!-- <button pButton pRipple label="Export" icon="pi pi-upload"  class="p-button-secondary" (click)="dt.exportCSV()"></button> -->
                         </div>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
                       
-                        <th pSortableColumn="anome" class="text-center">Año / Mes  <p-sortIcon field="anome"></p-sortIcon></th>
+                        <th pSortableColumn="yearMonth" class="text-center">Año / Mes  <p-sortIcon field="yearMonth"></p-sortIcon></th>
                         <th pSortableColumn="amount" class="text-center">Cantidad de Facturas </th>
                         <th pSortableColumn="monto" class="text-center">Total Monto Facturad </th>
                         <th pSortableColumn="itbis" class="text-center">Total ITBIS Facturado </th>
@@ -55,10 +55,10 @@
                     <tr>
                         
                         <td style="width:10%; min-width:10rem;" class="text-center">
-                            {{o606.yearMonth}}
+                            {{o606.yearMonth  | date : "dd / MM / yyyy"}}
                         </td>
                         <td style="width:10%; min-width:10rem;" class="text-center">
-                            {{o606.amount}}
+                            {{o606.amount | number}}
                         </td>
                         <td style="width:20%; min-width:10rem;" class="text-center">
                            
@@ -68,7 +68,7 @@
                             {{o606.itbisTotal  | number}}
                         </td>
                         <td style="width :10%; min-width:10rem;" class="text-center">
-                            {{o606.createDate | date : "dd/MM/yyyy"}}
+                            {{o606.createDate  | date : "dd / MM / yyyy"}}
                         </td>
                         
                         <td style="width :20%; min-width:10rem;">

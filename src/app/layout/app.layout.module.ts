@@ -18,7 +18,6 @@ import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppLayoutComponent } from "./app.layout.component";
 import { AppConfigModule } from './config/config.module';
 import { TieredMenuModule } from 'primeng/tieredmenu';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HomeComponent } from '../demo/components/contasoft/home/home.component';
 import { CommonModule } from '@angular/common';
 
@@ -55,7 +54,7 @@ import { DialogModule } from 'primeng/dialog';
         InputSwitchModule,
         RippleModule,
         RouterModule,
-        AppConfigModule,TieredMenuModule,FontAwesomeModule,
+        AppConfigModule,TieredMenuModule,
         CommonModule,
         TableModule,
         FileUploadModule,
@@ -72,7 +71,7 @@ import { DialogModule } from 'primeng/dialog';
         InputNumberModule,
         DialogModule,
         AppConfigModule,
-        FontAwesomeModule,
+       
     ],
     exports: [AppLayoutComponent,AppTopBarComponent]
 })

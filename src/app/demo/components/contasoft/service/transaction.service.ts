@@ -28,6 +28,10 @@ export class TransactionService {
     return this.http.get<any>(`${this.apiUrl}/Transactions?companyId=${companyId}&fromDate=${fechadesde}&endDate=${fechaHasta}&cuenta=${cuenta}`);
   }
 
+  GetAll(companyId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/Transactions/${companyId}`);
+  }
+
   create (model:Transaction): Observable<any>{
 
     return this.http.post<any>(`${this.apiUrl}/Transactions`, model,this.httpOptions)
