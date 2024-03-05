@@ -1,0 +1,76 @@
+<app-topbar></app-topbar>
+<app-config></app-config>
+
+<div class="layout-main-container">
+    <div class="layout-main">
+        <div class="card w-full h-full">
+            <h3>Configuración</h3>
+
+            <div class="grid">
+                <div class="col-12 sm:col-6">
+                    <p-fieldset legend="Cuenta de usuario">
+                        <div style="display: flex; flex-direction: column;">
+                                <p-button
+                                    (click)="showDialog()"
+                                    [link]="true"
+                                    icon="pi pi-user"
+                                    label="Mi perfil"
+                                ></p-button>
+                           
+                                <p-button
+                                    (click)="showDialog()"
+                                    [link]="true"
+                                    icon="pi pi-key"
+                                    label="Cambiar contraseña"
+                                ></p-button>
+                                <p-button
+                                (click)="showDialog()"
+                                [link]="true"
+                                icon="pi pi-users"
+                                label="Administrar usuarios"
+                            ></p-button>
+                           </div>
+                    </p-fieldset>
+                </div>
+
+                <div class="col-12 md:col-6">
+                    <p-fieldset legend="Membresia">
+                        <div style="display: flex; flex-direction: column;">
+                          <p-button
+                                (click)="showDialog()"
+                                [link]="true"
+                                icon="pi pi-star"
+                                label="Cambiar mi plan"
+                            ></p-button>
+                          
+                                <p-button
+                                (click)="showDialog()"
+                                [link]="true"
+                                icon="pi pi-paypal"
+                                label="Metodo de pago"
+                            ></p-button>
+                        </div>  
+                    </p-fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-footer></app-footer>
+</div>
+
+<p-dialog
+    header="Header"
+    [(visible)]="visible"
+    [maximizable]="true"
+    [style]="{ width: '50vw' }"
+>
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+        mollit anim id est laborum.
+    </p>
+</p-dialog>

@@ -60,7 +60,7 @@
                                 label="Asignar"
                                 icon="pi pi-plus"
                                 class="p-button-success mr-2"
-                                (click)="openNew()"
+                                routerLink="/contasoft/mod/factura"
                             ></button>
 
                             <!-- <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload> -->
@@ -137,7 +137,7 @@
                             style="width: 15%; min-width: 10rem"
                             class="text-center"
                         >
-                            {{ income.fechaComprobante  | date : "dd / MM / yyyy" }}
+                            {{ income.fechaComprobante  | date : "dd/MM/yyyy" }}
                         </td>
 
                         <td style="width: 15%; min-width: 10rem">
@@ -216,7 +216,7 @@
                             </ng-template>
                             <div class="p-formgrid grid">
                                 <div class=" col-12 sm:col-6">
-                                    <span>RNC Modificado</span>
+                                    <span>NCF Modificado</span>
                                     <input pInputText id="rncm" [(ngModel)]="income.numeroComprobanteFiscalModificado" name="rncm" type="text" />
                                 </div>
                                 <div class=" col-12 sm:col-6">

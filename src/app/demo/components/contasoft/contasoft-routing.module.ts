@@ -13,7 +13,9 @@ import { RouterModule } from '@angular/router';
         { path: 'conciliacion', loadChildren: () => import('./operations/conciliacion/conciliacion.module').then(m => m.ConciliacionModule) },
         { path: 'itbis', loadChildren: () => import('./operations/itbis/itbis.module').then(m => m.ItbisModule) },
         { path: 'transaction', loadChildren: () => import('./transaction/transaction.module').then(m => m.TransactionModule) },
-       
+        { path: 'setting', loadChildren: () => import('./setting/setting.module').then(m => m.SettingModule) },
+        { path: 'factura', loadChildren: () => import('./invoices/template-invoice/template-invoice.module').then(m => m.TemplateInvoiceModule) },
+
         { path: '**', redirectTo: '/notfound' }
     ])],
     exports: [RouterModule]

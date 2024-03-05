@@ -1,56 +1,58 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { LayoutService } from "./service/app.layout.service";
+import { LayoutService } from './service/app.layout.service';
 import { Router } from '@angular/router';
 import { UserService } from './service/user.service';
 
 @Component({
     selector: 'app-topbar',
-    templateUrl: './app.topbar.component.html'
+    templateUrl: './app.topbar.component.html',
 })
 export class AppTopBarComponent implements OnInit {
     public companyName = '';
-  public userID:string
-  username:string
+    public userID: string;
+    username: string;
     ngOnInit() {
-       this.userID = localStorage.getItem('userID')
-      
-         var company = localStorage.getItem('company');
-         if(company){
-          var jsonCompany = JSON.parse(company);
-    
-          if (jsonCompany.name) {
-           this.companyName = jsonCompany.name;
-         }
-         }
-        
-        this.items = [
-          {
-            label:  this.getUser(this.userID),
-            icon: 'pi pi-search',
-            command: () => {
+        this.userID = localStorage.getItem('userID');
+
+        var company = localStorage.getItem('company');
+        if (company) {
+            var jsonCompany = JSON.parse(company);
+
+            if (jsonCompany.name) {
+                this.companyName = jsonCompany.name;
             }
-          },
-          {
-            label: 'Configuración',
-            icon: 'pi pi-file',
-            
-          },
-         
-          {
-            separator: true
-          },
-          {
-            label: 'Cerrar sesion',
-            icon: 'pi pi-sign-out',
-            command: () => {
-                this.logout();
-             }
-          }
+        }
+
+        this.items = [
+            {
+                label: 'Configuración',
+                icon: 'pi pi-cog',
+                routerLink: ['/configuration'],
+            },
+
+            {
+                separator: true,
+            },
+            {
+                label: 'Cerrar sesion',
+                icon: 'pi pi-sign-out',
+                command: () => {
+                    this.logout();
+                },
+            },
         ];
-      }
+
+        this.sucursales=[
+          {
+            label:'La feria',
+            icon:''
+          }
+        ]
+    }
 
     items!: MenuItem[];
+    sucursales!: MenuItem[];
 
     @ViewChild('menubutton') menuButton!: ElementRef;
 
@@ -58,24 +60,23 @@ export class AppTopBarComponent implements OnInit {
 
     @ViewChild('topbarmenu') menu!: ElementRef;
 
-    constructor(public layoutService: LayoutService,private router: Router, private userService:UserService) { }
+    constructor(
+        public layoutService: LayoutService,
+        private router: Router,
+        private userService: UserService
+    ) {}
 
+    getUser(userid: string) {
+        this.userService.Get(userid).subscribe(
+            (response) => {
+                this.username = response.fullName;
+            },
+            (error) => {}
+        );
 
-    getUser(userid:string){
-      this.userService.Get(userid).subscribe(
-        (response)=>{
-          this.username = response.fullName
-          
-          
-        },(error)=>{
-
-        }
-      )
-
-      return this.username
+        return this.username;
     }
-    logout(){
-
+    logout() {
         localStorage.removeItem('token');
         localStorage.removeItem('company');
         localStorage.removeItem('userID');

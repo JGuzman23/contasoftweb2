@@ -13,20 +13,24 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
-import { CalendarModule } from 'primeng/calendar';
-import { TransactionRoutingModule } from './transaction-routing.module';
+import { DividerModule } from 'primeng/divider';
 import { FormsModule } from '@angular/forms';
-import { TransactionComponent } from './transaction.component';
+import { TabViewModule } from 'primeng/tabview';
+import { CalendarModule } from 'primeng/calendar';
+import { ImageModule } from 'primeng/image';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { TemplateInvoiceRoutingModule } from './template-invoice-routing.module';
+import { TemplateInvoiceComponent } from './template-invoice.component';
+
 
 @NgModule({
-  declarations: [TransactionComponent],
+  declarations: [TemplateInvoiceComponent],
   imports: [
     CommonModule,
-    TransactionRoutingModule,
-    FormsModule,
+    TemplateInvoiceRoutingModule,
     TableModule,
     FileUploadModule,
+    FormsModule,
     ButtonModule,
     RippleModule,
     ToastModule,
@@ -38,8 +42,11 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
     RadioButtonModule,
     InputNumberModule,
     DialogModule,
+    TabViewModule,
     CalendarModule,
+    DividerModule,
+    ImageModule,
     AutoCompleteModule
   ]
 })
-export class TransactionModule { }
+export class TemplateInvoiceModule { }

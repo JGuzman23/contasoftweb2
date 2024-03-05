@@ -1,0 +1,234 @@
+<div class="card">
+    <div class="grid">
+        <div class="col-12 sm:col-9">
+            <div class="card">
+                <div class="flex justify-content-between">
+                    <div>
+                        <p-image
+                            src="assets/logo.png"
+                            alt="Image"
+                            width="100"
+                        ></p-image>
+                    </div>
+                    <h3 >Factura de comprobante fiscal</h3>
+                   
+                </div>
+               
+                <div class="grid">
+                    
+                    <div class="col-12 sm:col-7">
+                        
+                        <div>
+                            <h2>Your Company</h2>
+                        </div>
+                        <div style="display: flex; flex-direction: column">
+                            <div style="display: flex">
+                                <label
+                                    style="
+                                        margin-right: 10px;
+                                        font-weight: bold;
+                                    "
+                                    >RNC:
+                                </label>
+                                <label for=""> 402-09382893-2</label>
+                            </div>
+                            <div style="display: flex">
+                                <label
+                                    style="
+                                        margin-right: 10px;
+                                        font-weight: bold;
+                                    "
+                                    >Sucursal:
+                                </label>
+                                <label for="">La mejor</label>
+                            </div>
+                            <div style="display: flex">
+                                <label
+                                    style="
+                                        margin-right: 10px;
+                                        font-weight: bold;
+                                    "
+                                    >Direccion:
+                                </label>
+                                <label for=""> C/La vida meos</label>
+                            </div>
+                            <div style="display: flex">
+                                <label
+                                    style="
+                                        margin-right: 10px;
+                                        font-weight: bold;
+                                    "
+                                    >Telefono:
+                                </label>
+                                <label for="">839-928-3938</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 sm:col-5">
+                       
+                        <div style="display: flex; flex-direction: column">
+                            <div
+                                style="
+                                    display: flex;
+                                    justify-content: space-between;
+                                    margin-bottom: 10px;
+                                "
+                            >
+                                <label
+                                    style="
+                                        margin-left: 0;
+                                        
+                                        font-weight: bold;
+                                        font-size: 16px;
+                                    "
+                                    >NCF:</label
+                                >
+                                <input
+                                    style="margin-right: 0px"
+                                    pInputText
+                                    type="text"
+                                    class="p-inputtext-sm"
+                                />
+                                
+                            </div>
+                            <div
+                                style="
+                                    display: flex;
+                                    justify-content: space-between;
+                                "
+                            >
+                                <label
+                                    style="
+                                        margin-right: 0;
+                                        font-weight: bold;
+                                        font-size: 16px;
+                                    "
+                                    >Fecha:</label
+                                >
+                                <p-calendar class="p-inputtext-sm" ></p-calendar>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p-divider></p-divider>
+
+                <div class="">
+                    <div class="grid">
+                        <div class="col-12 sm:col-6">
+                            <h4>Factura para:</h4>
+                            <span class="p-fluid">
+                                <p-autoComplete></p-autoComplete>
+                            </span>
+                        </div>
+                        <div class="col-12 sm:col-6">
+                            <h4>Detalle del pago:</h4>
+                            <div style="display: flex; flex-direction: column">
+                                <div style="display: flex">
+                                    <label
+                                        style="
+                                            margin-right: 10px;
+                                            margin-bottom: 10px;
+                                            font-weight: bold;
+                                        "
+                                        >Total:
+                                    </label>
+                                    <label for="">DOP$ 12,000.00</label>
+                                </div>
+                                <div style="display: flex">
+                                    <label
+                                        style="
+                                            margin-right: 10px;
+                                            margin-bottom: 10px;
+                                            font-weight: bold;
+                                        "
+                                        >Metodo de pago:
+                                    </label>
+                                    <label for="">Tranferencia</label>
+                                </div>
+
+                                <div style="display: flex">
+                                    <label
+                                        style="
+                                            margin-right: 10px;
+                                            margin-bottom: 10px;
+                                            font-weight: bold;
+                                        "
+                                        >Pais:
+                                    </label>
+                                    <label for="">Republica Dominicana</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p-divider></p-divider>
+                <div class="">
+                    <div class="grid">
+                        <div class="col-12 sm:col-6">
+                            <h4>Item de la factura</h4>
+                            
+                        </div>
+                        <div class="col-12 sm:col-6"></div>
+                    </div>
+                </div>
+                <p-divider></p-divider>
+                <div style="display: flex; flex-direction: column">
+                    
+                    <div
+                        style="
+                            display: flex; justify-content: space-between;
+                           
+                        "
+                        class="p-fluid"
+                    >
+                        <label
+                            style="
+                                margin-right: 10px;
+                                font-weight: bold;
+                                font-size: 16px;
+                            "
+                            >Nota:</label
+                        >
+                        <textarea rows="2" cols="30" pInputTextarea ></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 sm:col-3">
+            <div class="card">
+                <div class="p-fluid mb-3">
+                    <p-button
+                        label="Enviar por correo"
+                        icon="pi pi-send"
+                        [text]="true"
+                        [raised]="true"
+                    ></p-button>
+                </div>
+                <div class="p-fluid mb-3">
+                    <p-button
+                        label="Vista previa"
+                        icon="pi pi-eye"
+                        [text]="true"
+                        [raised]="true"
+                    ></p-button>
+                </div>
+                <div class="p-fluid">
+                    <p-button
+                        label="Descargar"
+                        icon="pi pi-download"
+                        [text]="true"
+                        [raised]="true"
+                    ></p-button>
+                </div>
+                <p-divider></p-divider>
+                <!-- <span>Tipo de Ingresos</span>
+                                  
+                <p-dropdown [options]="TiposIngresos" optionValue="id"  id="ListTipoBienesyServicios" name="ListTipoBienesyServicios" appendTo="body"  optionLabel="valor" class="w-full" [showClear]="true" placeholder="Selecciona"></p-dropdown>
+                 -->
+                <!-- <span>Forma de Pago</span>
+                <p-dropdown [options]="payType" optionValue="id"  appendTo="body" id="fp" name="fp"  optionLabel="valor" class="w-full" [showClear]="true" placeholder="Selecciona"></p-dropdown> -->
+            </div>
+        </div>
+    </div>
+</div>

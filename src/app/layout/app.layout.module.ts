@@ -33,6 +33,10 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { PanelMenuModule } from 'primeng/panelmenu';
+import { FieldsetModule } from 'primeng/fieldset';
+import { ConfigurationComponent } from '../demo/components/configuration/configuration.component';
+import { AvatarModule } from 'primeng/avatar';
+
 
 @NgModule({
     declarations: [
@@ -42,7 +46,8 @@ import { PanelMenuModule } from 'primeng/panelmenu';
         AppMenuComponent,
         AppSidebarComponent,
         AppLayoutComponent,
-        HomeComponent
+        HomeComponent,
+        ConfigurationComponent
     ],
     imports: [
         BrowserModule,
@@ -75,6 +80,8 @@ import { PanelMenuModule } from 'primeng/panelmenu';
         AppConfigModule,
         MenuModule,
         PanelMenuModule,
+        FieldsetModule,
+        AvatarModule
 
        
     ],

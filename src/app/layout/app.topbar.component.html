@@ -14,7 +14,9 @@
     </button>
 
     <div #topbarmenu class="layout-topbar-menu" [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
-        <h4 class="py-1 text-3xl">{{companyName}}</h4>
+        <p-menu #secursal [model]="sucursales" [popup]="true"></p-menu>
+
+        <button *ngIf="companyName" pButton type="button" (click)="secursal.toggle($event)"  label="{{companyName}}"></button>
         <a routerLink="/"  class="p-link layout-topbar-button">
             <i class="pi pi-th-large"></i>
             <span>Home</span>

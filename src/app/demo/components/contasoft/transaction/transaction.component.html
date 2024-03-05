@@ -127,7 +127,7 @@
                             <span class="p-column-title">accountNumber</span>
                             {{
                                 transaction.transactionDate
-                                 | date : "dd / MM / yyyy"
+                                 | date : "dd/MM/yyyy"
                             }}
                         </td>
 
@@ -199,7 +199,7 @@
 
                     <div class="col-12 sm:col-6">
                         <span>Desde</span>
-                        <p-dropdown
+                        <!-- <p-dropdown
                             [options]="bancos"
                             id="name"
                             appendTo="body"
@@ -209,11 +209,13 @@
                             placeholder="Selecciona un banco."
                             optionValue="name"
                             optionLabel="name"
-                        ></p-dropdown>
+                        ></p-dropdown> -->
+                        <p-autoComplete [(ngModel)]="transaction.bankNumberIn"
+                         id="name" appendTo="body" [suggestions]="bancosFiltrados" (completeMethod)="search($event)"></p-autoComplete>
                     </div>
                     <div class="col-12 sm:col-6">
                         <span> Hasta</span>
-                        <p-dropdown
+                        <!-- <p-dropdown
                             [options]="bancos"
                             id="name"
                             appendTo="body"
@@ -223,7 +225,11 @@
                             placeholder="Selecciona un banco."
                             optionValue="name"
                             optionLabel="name"
-                        ></p-dropdown>
+                        ></p-dropdown> -->
+
+                        <p-autoComplete [(ngModel)]="transaction.bankNumberOut" 
+                          id="name" appendTo="body"  [suggestions]="bancosFiltrados" (completeMethod)="search($event)"></p-autoComplete>
+
                     </div>
 
                     <div class="col-12 sm:col-6">

@@ -5,34 +5,14 @@
     <app-config></app-config>
   
 
-    <div class="layout-main-container">
+    <div style="margin-top: 100px;">
         <div class="layout-main">
             <div class=" ">
-
-
-                <div class="grid">
-                    <div class="col-12">
+                <div class="grid justify-content-center">
+                    <div class="col-12 sm:col-8">
                         <div class="card ">
                             <p-toast></p-toast>
-                            <!-- <p-toolbar styleClass="mb-4">
-                                <ng-template pTemplate="left">
-                                    
-                                </ng-template>
-                
-                               <ng-template pTemplate="center">
-                                
-                              
-                                <p-calendar [(ngModel)]="rangeDates" placeholder="Desde" [iconDisplay]="'input'"  [showIcon]="true"></p-calendar>
-                                <span class="m-3" >a</span>
-                                <p-calendar [(ngModel)]="rangeDates" placeholder="Hasta" [iconDisplay]="'input'" [showIcon]="true"></p-calendar>
-                
-                               </ng-template >
-                                <ng-template pTemplate="right">
-                                    <button pButton pRipple label="Asignar" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
-                
-                                    <button pButton pRipple label="Export" icon="pi pi-upload"  class="p-button-secondary" (click)="dt.exportCSV()"></button>
-                                </ng-template>
-                            </p-toolbar> -->
+                           
                 
                             <p-table #dt [value]="companies" exportFilename="Lista de empresas" [columns]="cols" responsiveLayout="scroll" selectionMode="single"  (onRowSelect)="onRowSelect($event)"  [rows]="10" [globalFilterFields]="['name','rnc']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} empresas" [(selection)]="selectedCompanies"  [rowHover]="true" dataKey="id">
                                 <ng-template pTemplate="caption">
@@ -46,7 +26,6 @@
                                         <div>
                                             <button pButton pRipple label="Crear" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
                 
-                                            <!-- <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload> -->
                                             <button pButton pRipple label="Export" icon="pi pi-upload"  class="p-button-secondary" (click)="dt.exportCSV()"></button>
                                         </div>
                                       
@@ -54,11 +33,10 @@
                                 </ng-template>
                                 <ng-template pTemplate="header">
                                     <tr>
-                                    
-                                        <th class="text-center" pSortableColumn="name">Nombre  <p-sortIcon field="name"></p-sortIcon></th>
-                                        <th class="text-center" pSortableColumn="rnc">RNC <p-sortIcon field="rnc"></p-sortIcon></th>
+                                        <th  pSortableColumn="name">Nombre  <p-sortIcon field="name"></p-sortIcon></th>
+                                        <th  pSortableColumn="rnc">RNC <p-sortIcon field="rnc"></p-sortIcon></th>
                                        
-                                        <th class="text-center">Acciones</th>
+                                        <!-- <th class="text-center">Acciones</th> -->
                                     </tr>
                                 </ng-template>
                                 <ng-template pTemplate="body" let-company>
@@ -66,15 +44,18 @@
                                         <!-- <td>
                                             <p-tableCheckbox [value]="company"></p-tableCheckbox>
                                         </td> -->
-                                        <td style="width:40%; min-width:10rem;" class="text-center"><span class="p-column-title">Nombre</span>
+                                       
+                                        <td style="width:40%; min-width:10rem;" ><span class="p-column-title">Nombre</span>
+                                            <p-avatar [label]="company.name[0]" styleClass="mr-2" size="large" [style]="{ 'background-color': '#2196F3', color: '#ffffff' }" shape="circle"></p-avatar>
+
                                             {{company.name}}
                                         </td>
-                                        <td style="width:40%; min-width:10rem; "class="text-center">
+                                        <td style="width:40%; min-width:10rem; ">
                                             <span class="p-column-title">accountNumber</span>
                                             {{company.rnc}}
                                         </td>
                                         
-                                        <td>
+                                        <!-- <td>
                                             <div class="flex justify-content-center">
 
                                                 <p-button icon="pi pi-pencil" [rounded]="true" class="mr-2" severity="secondary" [outlined]="true" (click)="editCompany(company)"></p-button>
@@ -82,7 +63,7 @@
                                                 <p-button icon="pi pi-trash" [rounded]="true" severity="danger" [outlined]="true" (click)="deleteCompany(company)"></p-button>
 
                                             </div>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                 </ng-template>
                             </p-table>

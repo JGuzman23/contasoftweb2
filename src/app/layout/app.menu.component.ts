@@ -73,6 +73,8 @@ export class AppMenuComponent implements OnInit {
                             },
                         ]
                     },
+                    { label: 'Configuración', icon: 'fas fa-sliders', routerLink: ['/contasoft/mod/setting'] },
+
                 ]
             },
         ];
