@@ -87,7 +87,7 @@ export class TransactionComponent implements OnInit {
             // Convertir el nombre de la cuenta a minúsculas para hacer la comparación
             let nombreCuenta = cuenta.name.toLowerCase();
             // Verificar si el nombre de la cuenta contiene "ba" o algún número contiene "ba"
-            return nombreCuenta.includes(event.query);
+            return nombreCuenta.includes(event.query.toLowerCase());
         }).map(cuenta => cuenta.name);
 
         // this.bancos = this.bancos.filter(x=>x.name== event.query);

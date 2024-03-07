@@ -3,6 +3,7 @@ import { MenuItem } from 'primeng/api';
 import { LayoutService } from './service/app.layout.service';
 import { Router } from '@angular/router';
 import { UserService } from './service/user.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
     selector: 'app-topbar',
@@ -10,11 +11,16 @@ import { UserService } from './service/user.service';
 })
 export class AppTopBarComponent implements OnInit {
     public companyName = '';
-    public userID: string;
+    public userName = 'Juan Guzman';
+
     username: string;
     ngOnInit() {
-        this.userID = localStorage.getItem('userID');
-
+       
+        let token = localStorage.getItem('token');
+        
+       let  decodedToken = jwtDecode(token);
+       console.log( decodedToken);
+       ;
         var company = localStorage.getItem('company');
         if (company) {
             var jsonCompany = JSON.parse(company);
@@ -66,6 +72,9 @@ export class AppTopBarComponent implements OnInit {
         private userService: UserService
     ) {}
 
+    goToDashboard(){
+        this.router.navigateByUrl('/contasoft/dashboard')
+    }
     getUser(userid: string) {
         this.userService.Get(userid).subscribe(
             (response) => {

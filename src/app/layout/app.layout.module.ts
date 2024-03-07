@@ -34,6 +34,7 @@ import { DialogModule } from 'primeng/dialog';
 import { MenuModule } from 'primeng/menu';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { FieldsetModule } from 'primeng/fieldset';
+import { CheckboxModule } from 'primeng/checkbox';
 import { ConfigurationComponent } from '../demo/components/configuration/configuration.component';
 import { AvatarModule } from 'primeng/avatar';
 
@@ -81,7 +82,8 @@ import { AvatarModule } from 'primeng/avatar';
         MenuModule,
         PanelMenuModule,
         FieldsetModule,
-        AvatarModule
+        AvatarModule,
+        CheckboxModule
 
        
     ],

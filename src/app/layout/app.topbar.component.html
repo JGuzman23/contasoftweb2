@@ -1,32 +1,60 @@
 <div class="layout-topbar">
     <a class="layout-topbar-logo" routerLink="">
-        <img src="assets/layout/images/{{layoutService.config().colorScheme === 'light' ? 'logo-dark' : 'logo-white'}}.png" alt="logo">
+        <img
+            src="assets/layout/images/{{
+                layoutService.config().colorScheme === 'light'
+                    ? 'logo-dark'
+                    : 'logo-white'
+            }}.png"
+            alt="logo"
+        />
         <span>Contasoft</span>
-        
     </a>
 
-    <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()">
+    <button
+        #menubutton
+        class="p-link layout-menu-button layout-topbar-button"
+        (click)="layoutService.onMenuToggle()"
+    >
         <i class="pi pi-bars"></i>
     </button>
 
-    <button #topbarmenubutton class="p-link layout-topbar-menu-button layout-topbar-button" (click)="layoutService.showProfileSidebar()">
+    <button
+        #topbarmenubutton
+        class="p-link layout-topbar-menu-button layout-topbar-button"
+        (click)="layoutService.showProfileSidebar()"
+    >
         <i class="pi pi-ellipsis-v"></i>
     </button>
 
-    <div #topbarmenu class="layout-topbar-menu" [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
-        <p-menu #secursal [model]="sucursales" [popup]="true"></p-menu>
+    <div
+        #topbarmenu
+        class="layout-topbar-menu"
+        [ngClass]="{
+            'layout-topbar-menu-mobile-active':
+                layoutService.state.profileSidebarVisible
+        }"
+    >
 
-        <button *ngIf="companyName" pButton type="button" (click)="secursal.toggle($event)"  label="{{companyName}}"></button>
-        <a routerLink="/"  class="p-link layout-topbar-button">
+        <button
+            *ngIf="companyName"
+            pButton
+            type="button"
+            (click)="goToDashboard()"
+            label="{{ companyName }}"
+        ></button>
+
+        <a routerLink="/" class="p-link layout-topbar-button">
             <i class="pi pi-th-large"></i>
             <span>Home</span>
         </a>
-        <button #btn (click)="menu.toggle($event)" class="p-link layout-topbar-button">
-            <i class="pi pi-user"></i>
-            <span>Profile</span>
+        <!-- <label class="mt-3 text-2xl">{{ userName }}</label> -->
+
+        <button  (click)="menu.toggle($event)" style="margin-left: -1px;" class="p-link layout-topbar-button">
+
+            <i class="pi pi-user" ></i>
         </button>
 
         <p-tieredMenu #menu [model]="items" [popup]="true"></p-tieredMenu>
-       
     </div>
 </div>

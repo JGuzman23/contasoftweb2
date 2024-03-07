@@ -11,20 +11,20 @@
                     <p-fieldset legend="Cuenta de usuario">
                         <div style="display: flex; flex-direction: column;">
                                 <p-button
-                                    (click)="showDialog()"
+                                    (click)="showDialoguserconf()"
                                     [link]="true"
                                     icon="pi pi-user"
                                     label="Mi perfil"
                                 ></p-button>
                            
                                 <p-button
-                                    (click)="showDialog()"
+                                    (click)="showDialogChangePasswordconf()"
                                     [link]="true"
                                     icon="pi pi-key"
                                     label="Cambiar contraseña"
                                 ></p-button>
                                 <p-button
-                                (click)="showDialog()"
+                                (click)="showDialogAdminUsersconf()"
                                 [link]="true"
                                 icon="pi pi-users"
                                 label="Administrar usuarios"
@@ -37,14 +37,14 @@
                     <p-fieldset legend="Membresia">
                         <div style="display: flex; flex-direction: column;">
                           <p-button
-                                (click)="showDialog()"
+                                (click)="showDialogPlanconf()"
                                 [link]="true"
                                 icon="pi pi-star"
                                 label="Cambiar mi plan"
                             ></p-button>
                           
                                 <p-button
-                                (click)="showDialog()"
+                                (click)="showDialogMenbershipconf()"
                                 [link]="true"
                                 icon="pi pi-paypal"
                                 label="Metodo de pago"
@@ -58,19 +58,281 @@
     <app-footer></app-footer>
 </div>
 
+
+<!-- //edir user -->
 <p-dialog
-    header="Header"
-    [(visible)]="visible"
-    [maximizable]="true"
-    [style]="{ width: '50vw' }"
+[(visible)]="showUserconf"
+[style]="{ width: '450px' }"
+header="Detalle de mi usuario"
+[maximizable]="true"
+[modal]="true"
+class="p-fluid"
 >
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.
-    </p>
+<ng-template pTemplate="content">
+    <div class="p-formgrid grid">
+        <div class="col-12 sm:col-12">
+            <label for="name">Usuario</label>
+            <input
+                type="text"
+                pInputText
+                id="accountName"
+                
+                required
+            />
+            <!-- <small
+                class="ng-dirty ng-invalid"
+                *ngIf="submitted && !bank.accountName"
+                >Name is required.</small
+            > -->
+        </div>
+        <div class="col-12 sm:col-12">
+            <label for="name">Nombre completo</label>
+            <input
+                type="text"
+                pInputText
+                id="accountName"
+                
+                required
+            />
+            <!-- <small
+                class="ng-dirty ng-invalid"
+                *ngIf="submitted && !bank.accountName"
+                >Name is required.</small
+            > -->
+        </div>
+        <div class="col-12 sm:col-12">
+            <label for="status">Correo electronico</label>
+            <input
+                type="text"
+                pInputText
+                id="accountName"
+               
+                required
+            />
+            <!-- <small
+                class="ng-dirty ng-invalid"
+                *ngIf="submitted && !bank.accountName"
+                >Name is required.</small
+            > -->
+        </div>
+       
+        <div class="col-12 sm:col-12">
+            <label for="name">Telefono</label>
+            <input
+                type="text"
+                pInputText
+                id="accountNumber"
+               
+                required
+            />
+            <!-- <small
+                class="ng-dirty ng-invalid"
+                *ngIf="submitted && !bank.accountNumber"
+                >Name is required.</small
+            > -->
+        </div>
+        <div class="col-12 sm:col-12">
+            <label for="name">Rol</label>
+            <input
+                type="text"
+                pInputText
+                id="Rol"
+                required
+            />
+            <!-- <small
+                class="ng-dirty ng-invalid"
+                *ngIf="submitted && !bank.initialBalance"
+                >Name is required.</small
+            > -->
+        </div>
+    </div>
+</ng-template>
+
+<ng-template pTemplate="footer">
+    <button
+        pButton
+        pRipple
+        label="Cancelar"
+        icon="pi pi-times"
+        class="p-button-text"
+        (click)="hideDialog()"
+    ></button>
+    <button
+        pButton
+        pRipple
+        label="Guardar"
+        icon="pi pi-check"
+        class="p-button-text"
+        (click)="saveProduct()"
+    ></button>
+</ng-template>
 </p-dialog>
+
+<!-- // change password -->
+<p-dialog
+[(visible)]="showChangePasswordconf"
+[style]="{ width: '450px' }"
+header="Cambiar contraseña"
+[maximizable]="true"
+[modal]="true"
+class="p-fluid"
+>
+<ng-template pTemplate="content">
+    <div class="p-formgrid grid">
+        <div class="col-12 sm:col-12">
+            <label for="name">Contraseña actual</label>
+            <input
+                type="text"
+                pInputText
+                id="accountName"
+                
+                required
+            />
+            <!-- <small
+                class="ng-dirty ng-invalid"
+                *ngIf="submitted && !bank.accountName"
+                >Name is required.</small
+            > -->
+        </div>
+        <div class="col-12 sm:col-12">
+            <label for="name">Contraseña nueva</label>
+            <input
+                type="text"
+                pInputText
+                id="accountName"
+                
+                required
+            />
+            <!-- <small
+                class="ng-dirty ng-invalid"
+                *ngIf="submitted && !bank.accountName"
+                >Name is required.</small
+            > -->
+        </div>
+        <div class="col-12 sm:col-12">
+            <label for="status">Confirmar contraseña</label>
+            <input
+                type="text"
+                pInputText
+                id="accountName"
+               
+                required
+            />
+            <!-- <small
+                class="ng-dirty ng-invalid"
+                *ngIf="submitted && !bank.accountName"
+                >Name is required.</small
+            > -->
+        </div>
+       
+       
+    </div>
+</ng-template>
+
+<ng-template pTemplate="footer">
+    <button
+        pButton
+        pRipple
+        label="Cancelar"
+        icon="pi pi-times"
+        class="p-button-text"
+        (click)="hideDialog()"
+    ></button>
+    <button
+        pButton
+        pRipple
+        label="Guardar"
+        icon="pi pi-check"
+        class="p-button-text"
+        (click)="saveProduct()"
+    ></button>
+</ng-template>
+</p-dialog>
+
+
+<!-- // admin users -->
+
+<p-dialog
+[(visible)]="showAdminUsersconf"
+[style]="{ width: '450px' }"
+header="Administrar usuaios"
+[maximizable]="true"
+[modal]="true"
+class="p-fluid"
+>
+<ng-template pTemplate="content">
+    <div class="p-formgrid grid">
+        <div class="col-12 sm:col-12">
+            <label for="name">Usuario</label>
+            <p-dropdown
+                            
+                            id="accountType"
+                            appendTo="body"
+                            
+                            required
+                            autofocus
+                            placeholder="Selecciona un usuario."
+                            optionValue="id"
+                            optionLabel="valor"
+                        ></p-dropdown>
+            <!-- <small
+                class="ng-dirty ng-invalid"
+                *ngIf="submitted && !bank.accountName"
+                >Name is required.</small
+            > -->
+        </div>
+        <div class="col-12 sm:col-12">
+            <label for="name">Roles</label>
+            <p-dropdown
+                            
+                            id="accountType"
+                            appendTo="body"
+                            
+                            required
+                            autofocus
+                            placeholder="Selecciona un rol."
+                            optionValue="id"
+                            optionLabel="valor"
+                        ></p-dropdown>
+            <!-- <small
+                class="ng-dirty ng-invalid"
+                *ngIf="submitted && !bank.accountName"
+                >Name is required.</small
+            > -->
+        </div>
+        <div class="col-12 sm:col-12">
+            <p-checkbox label="Esta activo?" name="pizza" value="true" [(ngModel)]="pizza"></p-checkbox>
+
+            <!-- <small
+                class="ng-dirty ng-invalid"
+                *ngIf="submitted && !bank.accountName"
+                >Name is required.</small
+            > -->
+        </div>
+       
+       
+    </div>
+</ng-template>
+
+<ng-template pTemplate="footer">
+    <button
+        pButton
+        pRipple
+        label="Cancelar"
+        icon="pi pi-times"
+        class="p-button-text"
+        (click)="hideDialog()"
+    ></button>
+    <button
+        pButton
+        pRipple
+        label="Guardar"
+        icon="pi pi-check"
+        class="p-button-text"
+        (click)="saveProduct()"
+    ></button>
+</ng-template>
+</p-dialog>
+
+
+
