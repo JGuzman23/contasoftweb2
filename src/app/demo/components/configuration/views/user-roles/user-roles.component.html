@@ -1,0 +1,85 @@
+<p-button
+(click)="showDialogAdminUsersconf()"
+[link]="true"
+icon="pi pi-wrench"
+label="Roles por usuarios"
+></p-button>
+
+<p-dialog
+[(visible)]="showAdminUsersconf"
+[style]="{ width: '450px' }"
+header="Administrar usuaios"
+[maximizable]="true"
+[modal]="true"
+class="p-fluid"
+>
+<ng-template pTemplate="content">
+    <div class="p-formgrid grid">
+        <div class="col-12 sm:col-12">
+            <label for="name">Usuario</label>
+            <p-dropdown
+                            
+                            id="accountType"
+                            appendTo="body"
+                            [options]="users"
+                            required
+                            autofocus
+                            placeholder="Selecciona un usuario."
+                            optionValue="id"
+                            optionLabel="username"
+                        ></p-dropdown>
+            <!-- <small
+                class="ng-dirty ng-invalid"
+                *ngIf="submitted && !bank.accountName"
+                >Name is required.</small
+            > -->
+        </div>
+        <div class="col-12 sm:col-12">
+            <label for="name">Roles</label>
+            <p-dropdown
+                            
+                            id="accountType"
+                            appendTo="body"
+                            
+                            required
+                            autofocus
+                            placeholder="Selecciona un rol."
+                            optionValue="id"
+                            optionLabel="valor"
+                        ></p-dropdown>
+            <!-- <small
+                class="ng-dirty ng-invalid"
+                *ngIf="submitted && !bank.accountName"
+                >Name is required.</small
+            > -->
+        </div>
+        <!-- <div class="col-12 sm:col-12">
+            <p-checkbox label="Esta activo?" name="pizza" value="true" [(ngModel)]="pizza"></p-checkbox>
+
+           
+        </div> -->
+       
+       
+       
+    </div>
+</ng-template>
+
+<ng-template pTemplate="footer">
+    <button
+        pButton
+        pRipple
+        label="Cancelar"
+        icon="pi pi-times"
+        class="p-button-text"
+        (click)="hideDialog()"
+    ></button>
+    <button
+        pButton
+        pRipple
+        label="Guardar"
+        icon="pi pi-check"
+        class="p-button-text"
+        (click)="saveProduct()"
+    ></button>
+</ng-template>
+</p-dialog>

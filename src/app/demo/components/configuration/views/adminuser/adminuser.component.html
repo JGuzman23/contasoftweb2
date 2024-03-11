@@ -1,0 +1,353 @@
+<p-button
+    [link]="true"
+    (onClick)="showDialogAdminUserconf()"
+    icon="pi pi-users"
+    label="Administrar usuarios"
+></p-button>
+
+<p-dialog
+    [(visible)]="showAdminUserconf"
+    [style]="{ width: '' }"
+    header="Administrar Usuarios"
+    [maximizable]="true"
+    [modal]="true"
+    class="p-fluid sm:w-full"
+>
+    <ng-template pTemplate="content">
+        <div class="grid">
+            <div class="col-12">
+                <div class="">
+                    <p-toast></p-toast>
+                    <!-- <p-toolbar styleClass="mb-4">
+                    <ng-template pTemplate="left">
+                        
+                    </ng-template>
+    
+                   <ng-template pTemplate="center">
+                    
+                  
+                    <p-calendar [(ngModel)]="rangeDates" placeholder="Desde" [iconDisplay]="'input'"  [showIcon]="true"></p-calendar>
+                    <span class="m-3" >a</span>
+                    <p-calendar [(ngModel)]="rangeDates" placeholder="Hasta" [iconDisplay]="'input'" [showIcon]="true"></p-calendar>
+    
+                   </ng-template >
+                    <ng-template pTemplate="right">
+                        <button pButton pRipple label="Asignar" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+    
+                        <button pButton pRipple label="Export" icon="pi pi-upload"  class="p-button-secondary" (click)="dt.exportCSV()"></button>
+                    </ng-template>
+                </p-toolbar> -->
+
+                    <p-table
+                        #dt
+                        [value]="users"
+                        [columns]="cols"
+                        responsiveLayout="scroll"
+                        [rows]="10"
+                        [globalFilterFields]="[
+                            'name',
+                            'accountNumber',
+                            'currencyID',
+                            'initialBalance'
+                        ]"
+                        [paginator]="true"
+                        [rowsPerPageOptions]="[10, 20, 30]"
+                        [showCurrentPageReport]="true"
+                        currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} usuarios"
+                        [rowHover]="true"
+                        dataKey="id"
+                        exportFilename="Lista de usuarios"
+                    >
+                        <ng-template pTemplate="caption">
+                            <div
+                                class="flex flex-column md:flex-row md:justify-content-between md:align-items-center"
+                            >
+                                <h5 class="m-3">Lista de usuarios</h5>
+                                <!-- <span
+                                    class="block mt-2 md:mt-0 p-input-icon-left"
+                                >
+                                    <i class="pi pi-search"></i>
+                                    <input
+                                        pInputText
+                                        type="text"
+                                        (input)="onGlobalFilter(dt, $event)"
+                                        placeholder="Buscar..."
+                                        class="w-full sm:w-auto"
+                                    />
+                                </span> -->
+                                <div>
+                                    <button
+                                        pButton
+                                        pRipple
+                                        label="Asignar"
+                                        icon="pi pi-plus"
+                                        class="p-button-success mr-2"
+                                        (click)="openNew()"
+                                    ></button>
+
+                                    <!-- <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block"></p-fileUpload> -->
+                                    <!-- <button
+                                        pButton
+                                        pRipple
+                                        label="Exportar"
+                                        icon="pi pi-upload"
+                                        class="p-button-secondary"
+                                        (click)="dt.exportCSV()"
+                                    ></button> -->
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th
+                                    pSortableColumn="currencyID"
+                                    class="text-center"
+                                >
+                                    Usuario
+                                </th>
+                                <th pSortableColumn="name" class="text-center">
+                                    Nombre completo
+                                </th>
+                                <th
+                                    pSortableColumn="accountNumber"
+                                    class="text-center"
+                                >
+                                    Correo
+                                </th>
+                                <th
+                                    pSortableColumn="initialBalance"
+                                    class="text-center"
+                                >
+                                    Estado
+                                </th>
+
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-user>
+                            <tr>
+                                <td
+                                    class="text-center"
+                                    style="width: 10%; min-width: 10rem"
+                                >
+                                    <span class="p-column-title">Currency</span>
+                                    {{ user.username }}
+                                </td>
+                                <td
+                                    class="text-center"
+                                    style="width: 25%; min-width: 10rem"
+                                >
+                                    <span class="p-column-title">Nombre</span>
+                                    {{ user.fullName }}
+                                </td>
+                                <td
+                                    class="text-center"
+                                    style="width: 25%; min-width: 10rem"
+                                >
+                                    <span class="p-column-title"
+                                        >accountNumber</span
+                                    >
+                                    {{ user.email }}
+                                </td>
+                                <td
+                                    class="text-center"
+                                    style="width: 25%; min-width: 10rem"
+                                >
+                                    <span class="p-column-title">Saldo</span>
+
+                                    @if (user.isActive) { activo }@else {
+                                    Inactivo }
+                                </td>
+
+                                <td>
+                                    <div class="flex">
+                                        <p-button
+                                            icon="pi pi-pencil"
+                                            [rounded]="true"
+                                            class="mr-2"
+                                            (click)="editUser(user)"
+                                            [text]="true"
+                                            [raised]="true"
+                                        ></p-button>
+
+                                        <p-button
+                                            icon="pi pi-trash"
+                                            [rounded]="true"
+                                            severity="danger"
+                                            [text]="true"
+                                            [raised]="true"
+                                            (click)="deleteUser(user)"
+                                        ></p-button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+
+                <p-dialog
+                    [(visible)]="userDialog"
+                    [style]="{ width: '550px' }"
+                    header="Detalles del usuario"
+                    [modal]="true"
+                    class="p-fluid"
+                >
+                    <ng-template pTemplate="content">
+                        <div class="p-formgrid grid">
+                            <div class="col-12 sm:col-12">
+                                <label for="name">Usuario</label>
+                                <input
+                                    type="text"
+                                    pInputText
+                                    id="username"
+                                    [(ngModel)]="user.username"
+                                    required
+                                />
+                                <!-- <small
+                                    class="ng-dirty ng-invalid"
+                                    *ngIf="submitted && !bank.accountName"
+                                    >Name is required.</small
+                                > -->
+                            </div>
+                            <div class="col-12 sm:col-12">
+                                <label for="name">Nombre completo</label>
+                                <input
+                                    type="text"
+                                    pInputText
+                                    id="fullname"
+                                    [(ngModel)]="user.fullName"
+                                    required
+                                />
+                                <!-- <small
+                                    class="ng-dirty ng-invalid"
+                                    *ngIf="submitted && !bank.accountName"
+                                    >Name is required.</small
+                                > -->
+                            </div>
+                            <div class="col-12 sm:col-12">
+                                <label for="status">Correo electronico</label>
+                                <input
+                                    type="text"
+                                    pInputText
+                                    id="correo"
+                                    [(ngModel)]="user.email"
+                                    required
+                                />
+                                <!-- <small
+                                    class="ng-dirty ng-invalid"
+                                    *ngIf="submitted && !bank.accountName"
+                                    >Name is required.</small
+                                > -->
+                            </div>
+
+                            <div class="col-12 sm:col-12">
+                                <label for="name">Telefono</label>
+                                <p-inputMask
+                                    type="text"
+                                    id="tel"
+                                    [(ngModel)]="user.cellphone"
+                                    required
+                                    mask="(999) 999-9999"
+                                ></p-inputMask>
+                                <!-- <small
+                                    class="ng-dirty ng-invalid"
+                                    *ngIf="submitted && !bank.accountNumber"
+                                    >Name is required.</small
+                                > -->
+                            </div>
+                            <div class="col-12 sm:col-12">
+                                <label for="name">Rol</label>
+                                <input
+                                    type="text"
+                                    pInputText
+                                    id="Rol"
+                                    required
+                                />
+                                <!-- <small
+                                    class="ng-dirty ng-invalid"
+                                    *ngIf="submitted && !bank.initialBalance"
+                                    >Name is required.</small
+                                > -->
+                            </div>
+                        </div>
+                    </ng-template>
+
+                    <ng-template pTemplate="footer">
+                        <button
+                            pButton
+                            pRipple
+                            label="Cancel"
+                            icon="pi pi-times"
+                            class="p-button-text"
+                            (click)="hideDialog()"
+                        ></button>
+                        <button
+                            pButton
+                            pRipple
+                            label="Save"
+                            icon="pi pi-check"
+                            class="p-button-text"
+                            (click)="saveUser()"
+                        ></button>
+                    </ng-template>
+                </p-dialog>
+
+                <p-dialog
+                    [(visible)]="deleteUserDialog"
+                    header="Confirmacion"
+                    [modal]="true"
+                    [style]="{ width: '450px' }"
+                >
+                    <div class="flex align-items-center justify-content-center">
+                        <i
+                            class="pi pi-exclamation-triangle mr-3"
+                            style="font-size: 2rem"
+                        ></i>
+                        <span *ngIf="user"
+                            >Quieres eliminar a {{user.username}}
+                            <b style="font-size: 16px;">{{user.name}}</b
+                            >?</span
+                        >
+                    </div>
+                    <ng-template pTemplate="footer">
+                        <button
+                            pButton
+                            pRipple
+                            icon="pi pi-times"
+                            class="p-button-text"
+                            label="No"
+                            (click)="deleteProductDialog = false"
+                        ></button>
+                        <button
+                            pButton
+                            pRipple
+                            icon="pi pi-check"
+                            class="p-button-text"
+                            label="Yes"
+                            (click)="confirmDelete()"
+                        ></button>
+                    </ng-template>
+                </p-dialog>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button
+            pButton
+            pRipple
+            label="Cancelar"
+            icon="pi pi-times"
+            class="p-button-text"
+            (click)="hideDialog()"
+        ></button>
+        <button
+            pButton
+            pRipple
+            label="Guardar"
+            icon="pi pi-check"
+            class="p-button-text"
+            (click)="saveProduct()"
+        ></button>
+    </ng-template>
+</p-dialog>

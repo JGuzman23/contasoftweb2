@@ -35,8 +35,14 @@ import { MenuModule } from 'primeng/menu';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { FieldsetModule } from 'primeng/fieldset';
 import { CheckboxModule } from 'primeng/checkbox';
+import { InputMaskModule } from 'primeng/inputmask';
 import { ConfigurationComponent } from '../demo/components/configuration/configuration.component';
 import { AvatarModule } from 'primeng/avatar';
+import { UserRolesComponent } from '../demo/components/configuration/views/user-roles/user-roles.component';
+import { UserComponent } from '../demo/components/configuration/views/user/user.component';
+import { ChangepasswordComponent } from '../demo/components/configuration/views/changepassword/changepassword.component';
+import { AdminuserComponent } from '../demo/components/configuration/views/adminuser/adminuser.component';
+import { UserCompanyComponent } from '../demo/components/configuration/views/user-company/user-company.component';
 
 
 @NgModule({
@@ -83,7 +89,13 @@ import { AvatarModule } from 'primeng/avatar';
         PanelMenuModule,
         FieldsetModule,
         AvatarModule,
-        CheckboxModule
+        CheckboxModule,
+        InputMaskModule,
+        UserRolesComponent,
+        UserComponent,
+        ChangepasswordComponent,
+        AdminuserComponent,
+        UserCompanyComponent
 
        
     ],

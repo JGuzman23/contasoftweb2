@@ -19,7 +19,6 @@ export class AppTopBarComponent implements OnInit {
         let token = localStorage.getItem('token');
         
        let  decodedToken = jwtDecode(token);
-       console.log( decodedToken);
        ;
         var company = localStorage.getItem('company');
         if (company) {

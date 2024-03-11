@@ -1,0 +1,89 @@
+<p-button
+    (click)="showDialogUserCompanyconf()"
+    [link]="true"
+    icon="pi pi-key"
+    label="Usuarios por compañia"
+></p-button>
+
+<p-dialog
+    [(visible)]="showUserCompanyconf"
+    [style]="{ width: '850px' }"
+    header="Usuarios por compañia"
+    [maximizable]="true"
+    [modal]="true"
+    class="p-fluid"
+>
+    <ng-template pTemplate="content">
+        <div class="col-12 sm:col-12">
+            <label for="name">Usuario</label>
+            <p-dropdown
+                id="accountType"
+                appendTo="body"
+                [options]="users"
+                required
+                autofocus
+                placeholder="Selecciona un usuario."
+                optionValue="id"
+                optionLabel="username"
+            ></p-dropdown>
+            <!-- <small
+                    class="ng-dirty ng-invalid"
+                    *ngIf="submitted && !bank.accountName"
+                    >Name is required.</small
+                > -->
+        </div>
+
+        <p-pickList
+            [source]="companies"
+            [target]="companiesSelected"
+            sourceHeader="Disponible"
+            targetHeader="Seleccionada"
+            [dragdrop]="true"
+            [responsive]="true"
+            [sourceStyle]="{ height: '30rem' }"
+            [targetStyle]="{ height: '30rem' }"
+            breakpoint="1400px"
+        >
+            <ng-template let-company pTemplate="item">
+                <div class="flex flex-wrap p-2 align-items-center gap-3">
+                    <img
+                        class="w-4rem shadow-2 flex-shrink-0 border-round"
+                        src="{{
+                            company.photo
+                        }}"
+                       
+                    />
+                    <div class="flex-1 flex flex-column gap-2">
+                        <span class="font-bold">{{ company.name }}</span>
+                        <!-- <div class="flex align-items-center gap-2">
+                            <i class="pi pi-tag text-sm"></i>
+                            <span>{{ product.category }}</span>
+                        </div> -->
+                    </div>
+                    <!-- <span class="font-bold text-900">{{
+                        "$" + product.price
+                    }}</span> -->
+                </div>
+            </ng-template>
+        </p-pickList>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button
+            pButton
+            pRipple
+            label="Cancelar"
+            icon="pi pi-times"
+            class="p-button-text"
+            (click)="hideDialog()"
+        ></button>
+        <button
+            pButton
+            pRipple
+            label="Guardar"
+            icon="pi pi-check"
+            class="p-button-text"
+            (click)="save()"
+        ></button>
+    </ng-template>
+</p-dialog>

@@ -1,0 +1,119 @@
+<p-button
+    (click)="showDialoguserconf()"
+    [link]="true"
+    icon="pi pi-user"
+    label="Mi perfil"
+></p-button>
+
+<!-- //edir user -->
+<p-dialog
+[(visible)]="showUserconf"
+[style]="{ width: '450px' }"
+header="Detalle de mi usuario"
+[maximizable]="true"
+[modal]="true"
+class="p-fluid"
+>
+<ng-template pTemplate="content">
+    <div class="p-formgrid grid">
+        <div class="col-12 sm:col-12">
+            <label for="name">Usuario</label>
+            <input
+                type="text"
+                pInputText
+                id="username"
+                [(ngModel)]="user.username"
+                required
+                [disabled]="true"
+            />
+            <!-- <small
+                class="ng-dirty ng-invalid"
+                *ngIf="submitted && !bank.accountName"
+                >Name is required.</small
+            > -->
+        </div>
+        <div class="col-12 sm:col-12">
+            <label for="name">Nombre completo</label>
+            <input
+                type="text"
+                pInputText
+                id="fullname"
+                [(ngModel)]="user.fullName"
+
+                required
+            />
+            <!-- <small
+                class="ng-dirty ng-invalid"
+                *ngIf="submitted && !bank.accountName"
+                >Name is required.</small
+            > -->
+        </div>
+        <div class="col-12 sm:col-12">
+            <label for="status">Correo electronico</label>
+            <input
+                type="text"
+                pInputText
+                id="correo"
+                [(ngModel)]="user.email"
+
+                required
+            />
+            <!-- <small
+                class="ng-dirty ng-invalid"
+                *ngIf="submitted && !bank.accountName"
+                >Name is required.</small
+            > -->
+        </div>
+       
+        <div class="col-12 sm:col-12">
+            <label for="name">Telefono</label>
+            <p-inputMask 
+                type="text"
+               
+                id="tel"
+                [(ngModel)]="user.cellphone"
+                required
+                mask="(999) 999-9999"
+            ></p-inputMask>
+            <!-- <small
+                class="ng-dirty ng-invalid"
+                *ngIf="submitted && !bank.accountNumber"
+                >Name is required.</small
+            > -->
+        </div>
+        <div class="col-12 sm:col-12">
+            <label for="name">Rol</label>
+            <input
+                type="text"
+                pInputText
+                id="Rol"
+                required
+            />
+            <!-- <small
+                class="ng-dirty ng-invalid"
+                *ngIf="submitted && !bank.initialBalance"
+                >Name is required.</small
+            > -->
+        </div>
+    </div>
+</ng-template>
+
+<ng-template pTemplate="footer">
+    <button
+        pButton
+        pRipple
+        label="Cancelar"
+        icon="pi pi-times"
+        class="p-button-text"
+        (click)="hideDialog()"
+    ></button>
+    <button
+        pButton
+        pRipple
+        label="Guardar"
+        icon="pi pi-check"
+        class="p-button-text"
+        (click)="saveProduct()"
+    ></button>
+</ng-template>
+</p-dialog>

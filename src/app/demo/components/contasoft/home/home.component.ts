@@ -5,190 +5,201 @@ import { CompanyService } from '../service/company.service';
 import { Router } from '@angular/router';
 import { Company } from '../interfaces/company.interface';
 
-
 interface UploadEvent {
-  originalEvent: Event;
-  files: File[];
+    originalEvent: Event;
+    files: File[];
 }
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  providers: [MessageService]
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    providers: [MessageService],
 })
-
 export class HomeComponent implements OnInit {
+    items!: MenuItem[];
+    companyDialog: boolean = false;
 
-  items!: MenuItem[];
-  companyDialog: boolean = false;
+    deleteCompanyDialog: boolean = false;
 
-  deleteCompanyDialog: boolean = false;
+    deleteCompaniesDialog: boolean = false;
 
-  deleteCompaniesDialog: boolean = false;
+    companies: Company[] = [];
+    uploadedFiles: any[] = [];
+    company: Company = {};
 
-  companies: Company[]=[]
-  uploadedFiles: any[] = [];
-  company: Company = {};
+    selectedCompanies: Company[] = [];
 
-  selectedCompanies: Company[] = [];
+    submitted: boolean = false;
 
-  submitted: boolean = false;
+    cols: any[] = [];
 
-  cols: any[] = [];
+    statuses: any[] = [];
 
-  statuses: any[] = [];
+    rowsPerPageOptions = [5, 10, 20];
 
-  rowsPerPageOptions = [5, 10, 20];
+    constructor(
+        private companyService: CompanyService,
+        private router: Router,
+        private messageService: MessageService
+    ) {}
 
-  constructor(private companyService: CompanyService,private router:Router, private messageService: MessageService) { }
-
-  ngOnInit() {
-    if (typeof localStorage !== 'undefined') {
-      localStorage.setItem('company', "")
+    ngOnInit() {
+        if (typeof localStorage !== 'undefined') {
+            localStorage.setItem('company', '');
         }
 
-      var userID =localStorage.getItem('userID') 
-      this.getCompanies(userID!)
+        var userID = localStorage.getItem('userID');
+        this.getCompanies(userID!);
 
-
-      this.cols = [
-          { field: 'name', header: 'Nombre' },
-          { field: 'rnc', header: 'RNC' }
-          
-      ];
-      
-
-     
-}
-
-
-  handleFileInput(event:any) {
-    console.log(event);
-    
-   
-}
-  onUpload(event:UploadEvent) {
-    console.log(event);
-    
-    for(let file of event.files) {
-        this.uploadedFiles.push(file);
+        this.cols = [
+            { field: 'name', header: 'Nombre' },
+            { field: 'rnc', header: 'RNC' },
+        ];
     }
-    console.log(this.uploadedFiles);
-    
 
-    this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
-}
- getCompanies(userId:string){
-     this.companyService.Get(userId)
-    .subscribe(
-      (response) => {
-    
-        this.companies = response.data
-      },
-      (error) => {
-        // Manejar errores aquí
-        console.error('Error al obtener la compañía:', error);
-      }
-    );
-  }
-  onRowSelect(seleccion :any){
-    localStorage.setItem('company', JSON.stringify(seleccion.data))
-    this.router.navigateByUrl('/contasoft/dashboard')
-  }
-  openNew() {
-      this.company = {};
-      this.submitted = false;
-      this.companyDialog = true;
-  }
+    handleFileInput(event: any) {
+        console.log(event);
+    }
+    onUpload(event: UploadEvent) {
+        console.log(event);
 
-  deleteSelectedProducts() {
-      this.deleteCompaniesDialog = true;
-  }
+        for (let file of event.files) {
+            this.uploadedFiles.push(file);
+        }
+        console.log(this.uploadedFiles);
 
-  editCompany(company: Company) {
-      this.company = { ...company };
-      this.companyDialog = true;
-  }
+        this.messageService.add({
+            severity: 'info',
+            summary: 'File Uploaded',
+            detail: '',
+        });
+    }
+    getCompanies(userId: string) {
+        this.companyService.Get(userId).subscribe(
+            (response) => {
+                this.companies = response.data;
+            },
+            (error) => {
+                // Manejar errores aquí
+                console.error('Error al obtener la compañía:', error);
+            }
+        );
+    }
+    onRowSelect(seleccion: any) {
+        localStorage.setItem('company', JSON.stringify(seleccion.data));
+        this.router.navigateByUrl('/contasoft/dashboard');
+    }
+    openNew() {
+        this.company = {};
+        this.submitted = false;
+        this.companyDialog = true;
+    }
 
-  deleteCompany(company: Company) {
-      this.deleteCompanyDialog = true;
-      this.company = { ...company };
-  }
+    deleteSelectedProducts() {
+        this.deleteCompaniesDialog = true;
+    }
 
-  confirmDeleteSelected() {
-      this.deleteCompanyDialog = false;
-      this.companies = this.companies.filter(val => !this.selectedCompanies.includes(val));
-      this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000 });
-      this.selectedCompanies = [];
-  }
+    editCompany(company: Company) {
+        this.company = { ...company };
+        this.companyDialog = true;
+    }
 
-  confirmDelete() {
-      this.deleteCompanyDialog = false;
-      this.companies = this.companies.filter(val => val.id !== this.company.id);
-      this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
-      this.company = {};
-  }
+    deleteCompany(company: Company) {
+        this.deleteCompanyDialog = true;
+        this.company = { ...company };
+    }
 
-  hideDialog() {
-      this.companyDialog = false;
-      this.submitted = false;
-  }
+    confirmDeleteSelected() {
+        this.deleteCompanyDialog = false;
+        this.companies = this.companies.filter(
+            (val) => !this.selectedCompanies.includes(val)
+        );
+        this.messageService.add({
+            severity: 'success',
+            summary: 'Successful',
+            detail: 'Products Deleted',
+            life: 3000,
+        });
+        this.selectedCompanies = [];
+    }
 
-  saveCompany() {
-      //this.submitted = true;
+    confirmDelete() {
+        this.deleteCompanyDialog = false;
+        this.companies = this.companies.filter(
+            (val) => val.id !== this.company.id
+        );
+        this.messageService.add({
+            severity: 'success',
+            summary: 'Successful',
+            detail: 'Product Deleted',
+            life: 3000,
+        });
+        this.company = {};
+    }
 
-      console.log(this.company);
-      
+    hideDialog() {
+        this.companyDialog = false;
+        this.submitted = false;
+    }
 
-      // if (this.company.name?.trim()) {
-      //     if (this.company.id) {
-      //         // @ts-ignore
-             
-      //         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
-      //     } else {
-             
-      //       this.companyService.create(this.company).subscribe(
-      //         (response) =>{
-      //           // this.getCompanies(1)
-               
-      //           this.messageService.add({ severity: 'success', summary: 'Successful', detail: response.message, life: 3000 });
-      //         },
-      //         (error) => {
-                
-      //           this.messageService.add({ severity: 'success', summary: 'Successful', detail: error.message, life: 3000 });
+    saveCompany() {
+        //this.submitted = true;
 
-      //         }
-      //       )
-             
-      //     }
+        console.log(this.company);
 
-      //     this.companyDialog = false;
-      //     this.company = {};
-      // }
-  }
+        // if (this.company.name?.trim()) {
+        //     if (this.company.id) {
+        //         // @ts-ignore
 
-  findIndexById(id: number): number {
-      let index = -1;
-      for (let i = 0; i < this.companies.length; i++) {
-          if (this.companies[i].id === id) {
-              index = i;
-              break;
-          }
-      }
+        //         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
+        //     } else {
 
-      return index;
-  }
+        //       this.companyService.create(this.company).subscribe(
+        //         (response) =>{
+        //           // this.getCompanies(1)
 
-  createId(): string {
-      let id = '';
-      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      for (let i = 0; i < 5; i++) {
-          id += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      return id;
-  }
+        //           this.messageService.add({ severity: 'success', summary: 'Successful', detail: response.message, life: 3000 });
+        //         },
+        //         (error) => {
 
-  onGlobalFilter(table: Table, event: Event) {
-      table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
-  }
+        //           this.messageService.add({ severity: 'success', summary: 'Successful', detail: error.message, life: 3000 });
+
+        //         }
+        //       )
+
+        //     }
+
+        //     this.companyDialog = false;
+        //     this.company = {};
+        // }
+    }
+
+    findIndexById(id: number): number {
+        let index = -1;
+        for (let i = 0; i < this.companies.length; i++) {
+            if (this.companies[i].id === id) {
+                index = i;
+                break;
+            }
+        }
+
+        return index;
+    }
+
+    createId(): string {
+        let id = '';
+        const chars =
+            'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        for (let i = 0; i < 5; i++) {
+            id += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return id;
+    }
+
+    onGlobalFilter(table: Table, event: Event) {
+        table.filterGlobal(
+            (event.target as HTMLInputElement).value,
+            'contains'
+        );
+    }
 }

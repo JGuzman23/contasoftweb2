@@ -1,26 +1,19 @@
 import { Component } from '@angular/core';
+import { UserService } from '../../service/user.service';
+import { User } from '../contasoft/interfaces/user.interface';
+import { response } from 'express';
 
 @Component({
     selector: 'app-configuration',
-
+    
     templateUrl: './configuration.component.html',
 })
 export class ConfigurationComponent {
-    showUserconf: boolean = false;
-    showChangePasswordconf: boolean = false;
-    showAdminUsersconf: boolean = false;
     showPlanconf: boolean = false;
     showMenbershipconf: boolean = false;
 
-    showDialoguserconf() {
-        this.showUserconf = true;
-    }
-    showDialogChangePasswordconf() {
-        this.showChangePasswordconf = true;
-    }
-    showDialogAdminUsersconf() {
-        this.showAdminUsersconf = true;
-    }
+  
+ 
     showDialogPlanconf() {
         this.showPlanconf = true;
     }
@@ -28,11 +21,8 @@ export class ConfigurationComponent {
         this.showMenbershipconf = true;
     }
 
-    hideDialog(){
-      this.showUserconf = false;
-      this.showChangePasswordconf = false;
-      this.showAdminUsersconf = false;
-      this.showPlanconf = false;
-      this.showMenbershipconf = false;
+    hideDialog() {
+        this.showPlanconf = false;
+        this.showMenbershipconf = false;
     }
 }
