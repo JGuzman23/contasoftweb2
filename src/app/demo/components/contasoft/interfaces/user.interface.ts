@@ -5,5 +5,6 @@ export interface User {
     cellphone:string;
     password:string;
     username:string;
-    planId:number
+    planId:number;
+    roleId:number;
   }

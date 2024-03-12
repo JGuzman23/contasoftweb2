@@ -80,6 +80,7 @@ export class AdminuserComponent {
             password: '',
             username: '',
             planId: 0,
+            roleId:0
         };
         this.userDialog = true;
     }

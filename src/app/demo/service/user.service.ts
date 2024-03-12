@@ -4,6 +4,7 @@ import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { User } from '../components/contasoft/interfaces/user.interface';
 
 
 
@@ -36,6 +37,13 @@ export class UserService {
   }
   getUserByCompany(userId:number, companyId:number):Observable<any>{
     return this.http.get<any>(`${this.apiUrl}/Users?userId=${userId}&companyId=${companyId}`,this.httpOptions)
+
+  }
+  createUser(user:User):Observable<any>{
+  
+    console.log('heo');
+    debugger
+    return this.http.post<any>(`${this.apiUrl}/Users`, user,this.httpOptions)
 
   }
 }
