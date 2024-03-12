@@ -13,24 +13,37 @@ import { StepsModule } from 'primeng/steps';
 import { DividerModule } from 'primeng/divider';
 import { RegisterComponent } from './register.component';
 import { InputMaskModule } from 'primeng/inputmask';
-
+import { RouterModule } from '@angular/router';
+import { PlanComponent } from './plan/plan.component';
+import { PayComponent } from './pay/pay.component';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
+import { PersonalComponent } from './personal/personal.component';
 
 @NgModule({
-  declarations: [RegisterComponent],
-  imports: [
-    
-    CommonModule,
-    RegisterRoutingModule,
-    ButtonModule,
-    CheckboxModule,
-    InputTextModule,
-    FormsModule,
-    PasswordModule,
-    ToastModule,
-    ProgressSpinnerModule,
-    StepsModule,
-    DividerModule,
-    InputMaskModule
-  ]
+    declarations: [RegisterComponent],
+    imports: [
+        CommonModule,
+        RegisterRoutingModule,
+        ButtonModule,
+        CheckboxModule,
+        InputTextModule,
+        FormsModule,
+        PasswordModule,
+        ToastModule,
+        ProgressSpinnerModule,
+        StepsModule,
+        DividerModule,
+        InputMaskModule,
+        RouterModule.forChild([
+            {
+				path: '', component: RegisterComponent, children: [
+                    { path: '', redirectTo: 'personal', pathMatch: 'full' },
+            { path: 'Personal', component: PersonalComponent },
+            { path: 'Plan', component: PlanComponent },
+            { path: 'Pago', component: PayComponent },
+            { path: 'Confirmacion', component: ConfirmationComponent },
+                ]}
+        ]),
+    ],
 })
-export class RegisterModule { }
+export class RegisterModule {}

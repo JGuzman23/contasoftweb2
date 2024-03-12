@@ -1,0 +1,101 @@
+<div class="flex justify-content-between mt-5">
+
+    <div class="grid">
+        <div class="col-12 xl:col-6">
+            <label for="username" class="block font-small mb-2"
+            >Usuario
+        </label>
+        <input
+            id="username"
+            [(ngModel)]="user.username"
+            type="text"
+            placeholder="Correo electrónico"
+            pInputText
+            class="w-full  mb-3"
+            style="padding: 1rem"
+        />
+        </div>
+       
+        <div class="col-12 xl:col-6">
+            <label for="fullName" class="block font-small mb-2"
+            >Nombre completo
+        </label>
+        <input
+            id="fullName"
+            [(ngModel)]="user.fullName"
+            type="text"
+            placeholder="Correo electrónico"
+            pInputText
+            class="w-full  mb-3"
+            style="padding: 1rem"
+        />
+        </div>
+
+       
+        <div class="col-12 xl:col-6">
+            <label for="cellphone" class="block font-small mb-2"
+            >Telefono
+        </label>
+        <input
+            id="cellphone"
+            [(ngModel)]="user.cellphone"
+            type="text"
+            placeholder="Telefono"
+            pInputText
+            class="w-full  mb-3"
+            style="padding: 1rem"
+        />
+        </div>
+       
+    <div class="col-12 xl:col-6">
+        <label for="email" class="block font-small mb-2"
+        >Correo electronico
+    </label>
+    <input
+        id="email"
+        [(ngModel)]="user.email"
+        type="text"
+        placeholder="Correo electrónico"
+        pInputText
+        class="w-full  mb-3"
+        style="padding: 1rem"
+    />
+    </div>
+       
+        <div class="col-12 xl:col-6">
+            <label for="password" class="block font-small mb-2"
+            >Contraseña</label
+        >
+        <p-password
+            id="password"
+            [(ngModel)]="user.password"
+            [toggleMask]="true"
+            placeholder="Contraseña"
+            promptLabel="Digita una contraseña"
+            weakLabel="Muy simple"
+            mediumLabel="Un poco mas compleja"
+            strongLabel="contraseña compleja"
+            styleClass="mb-3 w-full"
+            inputStyleClass="w-full p-3 "
+        >
+            <ng-template pTemplate="header">
+                <h6>Estado</h6>
+            </ng-template>
+            <ng-template pTemplate="footer">
+                <p-divider></p-divider>
+                <p class="mt-2">Sugerencia</p>
+                <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                    <li>Al menos una miniscula</li>
+                    <li>Al menos una mayuscula</li>
+                    <li>Al menos un numero</li>
+                    <li>Minimo 8 caracteres</li>
+                </ul>
+            </ng-template></p-password
+        >
+        </div>
+       
+
+       
+       
+    </div>
+</div>

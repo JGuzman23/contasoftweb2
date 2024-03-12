@@ -11,64 +11,80 @@ import { Router } from '@angular/router';
     templateUrl: './register.component.html',
 })
 export class RegisterComponent {
-    public user: User = {
-        id: 0,
-        fullName: '',
-        email: '',
-        cellphone: '',
-        password: '',
-        username: '',
-        planId: 0,
-        roleId:0
-    };
-    loading = false;
+  
+    // loading = false;
     items: MenuItem[] | undefined;
 
     activeIndex: number = 0;
     constructor(private messageService: MessageService, private userService: UserService, private router: Router) {}
+
+
+    ngOnInit() {
+        this.items = [
+            {
+                label: 'Personal',
+                routerLink: 'Personal'
+            },
+            {
+                label: 'Plan',
+                routerLink: 'Plan'
+
+            },
+            {
+                label: 'Pago',
+                routerLink: 'Pago'
+            },
+            {
+                label: 'Confirmacion',
+                routerLink: 'Confirmacion'
+            }
+        ];
+    }
+
+
     onActiveIndexChange(event: number) {
         this.activeIndex = event;
     }
 
-    registrar() {
+    // registrar() {
 
        
         
-        this.loading = true;
-        this.user.planId=1;
-        this.user.roleId=1;
-        this.userService
-            .createUser(this.user)
-            .subscribe((res) => {
-                console.log('la para');
+    //     this.loading = true;
+    //     this.user.planId=1;
+    //     this.user.roleId=1;
+    //     this.userService
+    //         .createUser(this.user)
+    //         .subscribe((res) => {
+    //             console.log('la para');
                 
-                if (res.success) {
+    //             if (res.success) {
                    
-                    console.log('entro');
+    //                 console.log('entro');
                     
-                    this.messageService.add({
-                        severity: 'success',
-                        summary: 'En hora buena!',
-                        detail: res.message,
-                        life: 3000,
-                    });
-                    this.router.navigateByUrl('/auth/login');
-                } else {
-                    console.log('entro');
+    //                 this.messageService.add({
+    //                     severity: 'success',
+    //                     summary: 'En hora buena!',
+    //                     detail: res.message,
+    //                     life: 3000,
+    //                 });
+    //                 this.router.navigateByUrl('/auth/login');
+    //             } else {
+    //                 console.log('entro');
 
-                    this.messageService.add({
-                        severity: 'error',
-                        summary: 'Error',
-                        detail: res.message,
-                        life: 3000,
-                    });
+    //                 this.messageService.add({
+    //                     severity: 'error',
+    //                     summary: 'Error',
+    //                     detail: res.message,
+    //                     life: 3000,
+    //                 });
 
-                    this.loading = false;
-                }
-            },(error)=>{
-                console.log(error.mensaje);
+    //                 this.loading = false;
+    //             }
+    //         },(error)=>{
+    //             console.log(error.mensaje);
                 
-            });
-    }
+    //         });
+    // }
 
 }
