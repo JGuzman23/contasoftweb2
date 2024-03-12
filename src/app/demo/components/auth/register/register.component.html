@@ -3,8 +3,9 @@
 >
     <p-toast></p-toast>
 
-    <div class="flex flex-column align-items-center justify-content-center">
+    <div class="flex">
         <div
+            class="w-12 sm:w-auto"
             style="
                 border-radius: 56px;
                 padding: 0.3rem;
@@ -13,6 +14,7 @@
                     var(--primary-color) 10%,
                     rgba(33, 150, 243, 0) 30%
                 );
+                width: 700px;
             "
         >
             <div
@@ -20,7 +22,7 @@
                 style="border-radius: 53px"
             >
                 <div
-                    class="text-left mb-5"
+                    class="text-left"
                     style="
                         height: 100%;
                         margin: 0;
@@ -37,13 +39,28 @@
                     />
                     <span class="text-5xl">Contasoft</span>
                 </div>
-                <p-steps [model]="items"  [readonly]="false" [activeIndex]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)"></p-steps>
-
-                <div class="mt-5">
-                    <router-outlet></router-outlet>
-
+                <div
+                    class="text-center mb-5"
+                    style="
+                        height: 100%;
+                        margin: 0;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    "
+                >
+                    <span class="text-5xl">Registrate!</span>
                 </div>
-               
+                <p-steps
+                    [model]="items"
+                    [readonly]="false"
+                    [activeIndex]="activeIndex"
+                    (activeIndexChange)="onActiveIndexChange($event)"
+                ></p-steps>
+
+                <div class=" mt-5">
+                    <router-outlet></router-outlet>
+                </div>
             </div>
         </div>
     </div>

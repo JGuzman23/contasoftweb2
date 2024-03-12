@@ -6,6 +6,12 @@ export const environment = {
   production: false,
 
  baseUrl: "https://localhost:7188/api",
+
+
+ //Paypal
+
+ ClientID:"AY5i6FREzsNfAIUq-XosmXommWUktn5K732e8Cqw0cgDd-gvg08oqT3OAh5yXLY-L4DP8ArFriAoc17x",
+ ClientSecred:""
 //baseUrl: "https://webhostdo.online/api",
 };
 
