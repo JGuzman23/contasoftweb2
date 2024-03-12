@@ -31,6 +31,7 @@
         "@fullcalendar/timegrid": "^6.0.3",
         "@paypal/sdk-client": "^4.0.183",
         "chart.js": "^3.3.2",
+        "creditcardpayments": "^1.0.3",
         "express": "^4.18.2",
         "file-saver": "^2.0.5",
         "jwt-decode": "^4.0.0",
