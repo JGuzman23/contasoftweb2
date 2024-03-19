@@ -34,8 +34,10 @@ export class HomeComponent implements OnInit {
     cols: any[] = [];
 
     statuses: any[] = [];
+    userID =''
 
     rowsPerPageOptions = [5, 10, 20];
+    imageUrl: string | ArrayBuffer | null = null;
 
     constructor(
         private companyService: CompanyService,
@@ -48,8 +50,8 @@ export class HomeComponent implements OnInit {
             localStorage.setItem('company', '');
         }
 
-        var userID = localStorage.getItem('userID');
-        this.getCompanies(userID!);
+         this.userID = localStorage.getItem('userID');
+        this.getCompanies(this.userID!);
 
         this.cols = [
             { field: 'name', header: 'Nombre' },
@@ -57,23 +59,22 @@ export class HomeComponent implements OnInit {
         ];
     }
 
-    handleFileInput(event: any) {
-        console.log(event);
-    }
-    onUpload(event: UploadEvent) {
-        console.log(event);
-
-        for (let file of event.files) {
-            this.uploadedFiles.push(file);
+   
+    onFileSelected(event: any) {
+        const file: File = event.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = () => {
+            this.imageUrl = reader.result;
+            var image = this.imageUrl as string;
+            this.company.photo = image.replace('data:image/png;base64,', '')
+          };
         }
-        console.log(this.uploadedFiles);
-
-        this.messageService.add({
-            severity: 'info',
-            summary: 'File Uploaded',
-            detail: '',
-        });
-    }
+      }
+    
+     
+      
     getCompanies(userId: string) {
         this.companyService.Get(userId).subscribe(
             (response) => {
@@ -144,34 +145,29 @@ export class HomeComponent implements OnInit {
 
     saveCompany() {
         //this.submitted = true;
-
+        this.company.userid= Number.parseInt(this.userID) 
         console.log(this.company);
 
-        // if (this.company.name?.trim()) {
-        //     if (this.company.id) {
-        //         // @ts-ignore
+        if (this.company.name?.trim()) {
+            
+              this.companyService.create(this.company).subscribe(
+                (response) =>{
+                    this.messageService.add({ severity: 'success', summary: 'Successful', detail: response.message, life: 3000 });
 
-        //         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000 });
-        //     } else {
+                   this.getCompanies(this.userID)
 
-        //       this.companyService.create(this.company).subscribe(
-        //         (response) =>{
-        //           // this.getCompanies(1)
+                },
+                (error) => {
 
-        //           this.messageService.add({ severity: 'success', summary: 'Successful', detail: response.message, life: 3000 });
-        //         },
-        //         (error) => {
+                  this.messageService.add({ severity: 'error', summary: 'Error', detail: error.message, life: 3000 });
 
-        //           this.messageService.add({ severity: 'success', summary: 'Successful', detail: error.message, life: 3000 });
+                }
+              )
 
-        //         }
-        //       )
 
-        //     }
-
-        //     this.companyDialog = false;
-        //     this.company = {};
-        // }
+            this.companyDialog = false;
+            this.company = {};
+        }
     }
 
     findIndexById(id: number): number {

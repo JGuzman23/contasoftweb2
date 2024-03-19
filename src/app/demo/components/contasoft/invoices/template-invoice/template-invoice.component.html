@@ -168,25 +168,64 @@
                         <div class="col-12">
                             <div class="flex justify-content-between mb-3">
                                 <h4>Elementos de la factura</h4>
-                                <p-button  label="Add"></p-button>
+                                <p-button (onClick)="agregar()" icon="pi pi-plus" label="Elementos"></p-button>
                             </div>
                             
 
-                            <p-table  [tableStyle]="{ 'min-width': '50rem' }">
+                            <p-table [value]="products" dataKey="id" editMode="row" [tableStyle]="{ 'min-width': '50rem' }">
                                 <ng-template pTemplate="header">
                                     <tr>
                                         <th>Producto </th>
                                         <th>Cantidad</th>
                                         <th>Precio</th>
                                         <th>Total</th>
+                                        <th></th>
                                     </tr>
                                 </ng-template>
-                                <ng-template pTemplate="body" let-product>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                <ng-template  pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
+                                    <tr [pEditableRow]="product">
+                                        <td>
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input">
+                                                    <input pInputText type="text" [(ngModel)]="product.name">
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    {{product.name}}
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                        <td>
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input">
+                                                    <input pInputText type="text" [(ngModel)]="product.amount">
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    {{product.amount}}
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                        <td>
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input">
+                                                    <input pInputText type="text" [(ngModel)]="product.price">
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    {{product.price}}
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                        <td>
+                                           
+                                        </td>
+                                        <td>
+                                            <div class="flex align-items-center justify-content-center gap-2">
+                                                <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(product)" class="p-button-rounded p-button-text"></button>
+                                                <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-times" (click)="onRowdelete(product.id)" class="p-button-rounded p-button-text  p-button-danger"></button>
+
+                                                <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(product)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                                                <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(product, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </ng-template>
                             </p-table>

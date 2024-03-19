@@ -1,61 +1,116 @@
+<app-topbar></app-topbar>
 
-  
-  <app-topbar></app-topbar>
+<app-config></app-config>
 
-    <app-config></app-config>
-  
+<div style="margin-top: 100px">
+    <div class="layout-main">
+        <div class=" ">
+            <div class="grid justify-content-center">
+                <div class="col-12 sm:col-8">
+                    <div class="card">
+                        <p-toast></p-toast>
 
-    <div style="margin-top: 100px;">
-        <div class="layout-main">
-            <div class=" ">
-                <div class="grid justify-content-center">
-                    <div class="col-12 sm:col-8">
-                        <div class="card ">
-                            <p-toast></p-toast>
-                           
-                
-                            <p-table #dt [value]="companies" exportFilename="Lista de empresas" [columns]="cols" responsiveLayout="scroll" selectionMode="single"  (onRowSelect)="onRowSelect($event)"  [rows]="10" [globalFilterFields]="['name','rnc']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} empresas" [(selection)]="selectedCompanies"  [rowHover]="true" dataKey="id">
-                                <ng-template pTemplate="caption">
-                                    <h5 class="m-3">Lista de empresas</h5>
-                                    <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                                        
-                                        <span class="block mt-2 md:mt-0 p-input-icon-left w-auto">
-                                            <i class="pi pi-search"></i>
-                                            <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Buscar..."  class="w-full sm:w-auto"/>
-                                        </span>
-                                        <div>
-                                            <button pButton pRipple label="Crear" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
-                
-                                            <button pButton pRipple label="Export" icon="pi pi-upload"  class="p-button-secondary" (click)="dt.exportCSV()"></button>
-                                        </div>
-                                      
+                        <p-table
+                            #dt
+                            [value]="companies"
+                            exportFilename="Lista de empresas"
+                            [columns]="cols"
+                            responsiveLayout="scroll"
+                            selectionMode="single"
+                            (onRowSelect)="onRowSelect($event)"
+                            [rows]="10"
+                            [globalFilterFields]="['name', 'rnc']"
+                            [paginator]="true"
+                            [rowsPerPageOptions]="[10, 20, 30]"
+                            [showCurrentPageReport]="true"
+                            currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} empresas"
+                            [(selection)]="selectedCompanies"
+                            [rowHover]="true"
+                            dataKey="id"
+                        >
+                            <ng-template pTemplate="caption">
+                                <h5 class="m-3">Lista de empresas</h5>
+                                <div
+                                    class="flex flex-column md:flex-row md:justify-content-between md:align-items-center"
+                                >
+                                    <span
+                                        class="block mt-2 md:mt-0 p-input-icon-left w-auto"
+                                    >
+                                        <i class="pi pi-search"></i>
+                                        <input
+                                            pInputText
+                                            type="text"
+                                            (input)="onGlobalFilter(dt, $event)"
+                                            placeholder="Buscar..."
+                                            class="w-full sm:w-auto"
+                                        />
+                                    </span>
+                                    <div>
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="Crear"
+                                            icon="pi pi-plus"
+                                            class="p-button-success mr-2"
+                                            (click)="openNew()"
+                                        ></button>
+
+                                        <button
+                                            pButton
+                                            pRipple
+                                            label="Export"
+                                            icon="pi pi-upload"
+                                            class="p-button-secondary"
+                                            (click)="dt.exportCSV()"
+                                        ></button>
                                     </div>
-                                </ng-template>
-                                <ng-template pTemplate="header">
-                                    <tr>
-                                        <th  pSortableColumn="name">Nombre  <p-sortIcon field="name"></p-sortIcon></th>
-                                        <th  pSortableColumn="rnc">RNC <p-sortIcon field="rnc"></p-sortIcon></th>
-                                       
-                                        <!-- <th class="text-center">Acciones</th> -->
-                                    </tr>
-                                </ng-template>
-                                <ng-template pTemplate="body" let-company>
-                                    <tr [pSelectableRow]="company">
-                                        <!-- <td>
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th pSortableColumn="name">
+                                        Nombre
+                                        <p-sortIcon field="name"></p-sortIcon>
+                                    </th>
+                                    <th pSortableColumn="rnc">
+                                        RNC
+                                        <p-sortIcon field="rnc"></p-sortIcon>
+                                    </th>
+
+                                    <!-- <th class="text-center">Acciones</th> -->
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-company>
+                                <tr [pSelectableRow]="company">
+                                    <!-- <td>
                                             <p-tableCheckbox [value]="company"></p-tableCheckbox>
                                         </td> -->
-                                       
-                                        <td style="width:40%; min-width:10rem;" ><span class="p-column-title">Nombre</span>
-                                            <p-avatar [label]="company.name[0]" styleClass="mr-2" size="large" [style]="{ 'background-color': '#2196F3', color: '#ffffff' }" shape="circle"></p-avatar>
 
-                                            {{company.name}}
-                                        </td>
-                                        <td style="width:40%; min-width:10rem; ">
-                                            <span class="p-column-title">accountNumber</span>
-                                            {{company.rnc}}
-                                        </td>
-                                        
-                                        <!-- <td>
+                                    <td style="width: 40%; min-width: 10rem">
+                                        <span class="p-column-title"
+                                            >Nombre</span
+                                        >
+                                        <p-avatar
+                                            [label]="company.name[0]"
+                                            styleClass="mr-2"
+                                            size="large"
+                                            [style]="{
+                                                'background-color': '#2196F3',
+                                                color: '#ffffff'
+                                            }"
+                                            shape="circle"
+                                        ></p-avatar>
+
+                                        {{ company.name }}
+                                    </td>
+                                    <td style="width: 40%; min-width: 10rem">
+                                        <span class="p-column-title"
+                                            >accountNumber</span
+                                        >
+                                        {{ company.rnc }}
+                                    </td>
+
+                                    <!-- <td>
                                             <div class="flex justify-content-center">
 
                                                 <p-button icon="pi pi-pencil" [rounded]="true" class="mr-2" severity="secondary" [outlined]="true" (click)="editCompany(company)"></p-button>
@@ -64,16 +119,24 @@
 
                                             </div>
                                         </td> -->
-                                    </tr>
-                                </ng-template>
-                            </p-table>
-                        </div>
-                
-                       <p-dialog [(visible)]="companyDialog" [style]="{width: '550px'}" header="Detalle de la empresa" [modal]="true" class="p-fluid">
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+
+                    <p-dialog
+                        [(visible)]="companyDialog"
+                        [style]="{ width: '550px' }"
+                        header="Detalle de la empresa"
+                        [modal]="true"
+                        class="p-fluid"
+                    >
                         <ng-template pTemplate="content">
                             <div class="p-formgrid grid">
                                 <div class="col-12 sm:col-12">
-                                    <label for="name">Nombre de la empresa.</label>
+                                    <label for="name"
+                                        >Nombre de la empresa.</label
+                                    >
                                     <input
                                         type="text"
                                         pInputText
@@ -87,9 +150,7 @@
                                         >Name is required.</small
                                     >
                                 </div>
-                               
-                               
-                                
+
                                 <div class="col-12 sm:col-6">
                                     <label for="name">RNC o Cédula.</label>
                                     <input
@@ -105,7 +166,7 @@
                                         >Name is required.</small
                                     >
                                 </div>
-                                
+
                                 <div class="col-12 sm:col-6">
                                     <label for="name">Teléfono.</label>
                                     <input
@@ -136,49 +197,106 @@
                                         >Name is required.</small
                                     >
                                 </div>
-                                <div class="col-12 sm:col-12">
-                                    <label for="name">Logo.</label>
-                                    <input
-                                        type="file"
-                                        pInputText
-                                        id="photo"
-                                        [(ngModel)]="company.photo"
-                                        required
-                                    />
-                                    <small
-                                        class="ng-dirty ng-invalid"
-                                        *ngIf="submitted && !company.address"
-                                        >Name is required.</small
-                                    >
-                                    <!-- <p-fileUpload (change)="handleFileInput($event)" [multiple]="false" accept="image/*" maxFileSize="1000000">
-                                       
-                                    </p-fileUpload> -->
-                                  
+                                <div class="col-12 sm:col-4">
+                                    <label for="name">Logo de la empresa</label>
+                                    <div class="card w-full">
+                                        <label
+                                            for="image_uploads"
+                                            title="Publicar Foto"
+                                            style="
+                                                font-size: 20px;
+                                                cursor: pointer;
+                                            "
+                                        >
+                                            <i
+                                                class="fa-solid fa-plus"
+                                                style="height: 20px"
+                                            ></i>
+                                        </label>
+
+                                        <input
+                                            type="file"
+                                            style="display: none"
+                                            id="image_uploads"
+                                            (change)="onFileSelected($event)"
+                                            accept="image/*"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="col-12 sm:col-8">
+                                               
+                                    <img *ngIf="imageUrl" width="250px" [src]="imageUrl" alt="Imagen seleccionada">
+
+                                        <!-- <p-image
+                                            [src]="imageUrl"
+                                            alt="Image"
+                                            class=" w-30rem w-max"
+                                        ></p-image> -->
+                                   
                                 </div>
                             </div>
                         </ng-template>
-                
-                            <ng-template pTemplate="footer">
-                                <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-                                <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveCompany()"></button>
-                            </ng-template>
-                        </p-dialog>
-                
-                        <p-dialog [(visible)]="deleteCompanyDialog" header="Confirmación" [modal]="true" [style]="{width:'450px'}">
-                            <div class="flex align-items-center justify-content-center">
-                                <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-                                <span *ngIf="company">¿Estas seguro que deseas eliminar a <b>{{company.name}}</b>?</span>
-                            </div>
-                            <ng-template pTemplate="footer">
-                                <button pButton pRipple icon="pi pi-times" class="p-button-text" label="No" (click)="deleteCompanyDialog = false"></button>
-                                <button pButton pRipple icon="pi pi-check" class="p-button-text" label="Yes" (click)="confirmDelete()"></button>
-                            </ng-template>
-                        </p-dialog>
-                
-                        
-                    </div>
+
+                        <ng-template pTemplate="footer">
+                            <button
+                                pButton
+                                pRipple
+                                label="Cancel"
+                                icon="pi pi-times"
+                                class="p-button-text"
+                                (click)="hideDialog()"
+                            ></button>
+                            <button
+                                pButton
+                                pRipple
+                                label="Save"
+                                icon="pi pi-check"
+                                class="p-button-text"
+                                (click)="saveCompany()"
+                            ></button>
+                        </ng-template>
+                    </p-dialog>
+
+                    <p-dialog
+                        [(visible)]="deleteCompanyDialog"
+                        header="Confirmación"
+                        [modal]="true"
+                        [style]="{ width: '450px' }"
+                    >
+                        <div
+                            class="flex align-items-center justify-content-center"
+                        >
+                            <i
+                                class="pi pi-exclamation-triangle mr-3"
+                                style="font-size: 2rem"
+                            ></i>
+                            <span *ngIf="company"
+                                >¿Estas seguro que deseas eliminar a
+                                <b>{{ company.name }}</b
+                                >?</span
+                            >
+                        </div>
+                        <ng-template pTemplate="footer">
+                            <button
+                                pButton
+                                pRipple
+                                icon="pi pi-times"
+                                class="p-button-text"
+                                label="No"
+                                (click)="deleteCompanyDialog = false"
+                            ></button>
+                            <button
+                                pButton
+                                pRipple
+                                icon="pi pi-check"
+                                class="p-button-text"
+                                label="Yes"
+                                (click)="confirmDelete()"
+                            ></button>
+                        </ng-template>
+                    </p-dialog>
                 </div>
-                </div>
+            </div>
         </div>
     </div>
-
+</div>

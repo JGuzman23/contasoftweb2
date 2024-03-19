@@ -12,7 +12,8 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const excludedUrls = [
       '/Auth',
-      '/Users', // Añade aquí otras rutas que deseas excluir
+      '/Users',
+      '/Plan' // Añade aquí otras rutas que deseas excluir
     ];
 
     // Verifica si la URL actual debe ser excluida

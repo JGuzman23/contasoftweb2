@@ -1,0 +1,37 @@
+.midiv {
+    width: 100%; /* Puedes establecer un ancho fijo aquí */
+    max-width: 750px;
+    min-width: 750px; /* O utilizar max-width para limitar el ancho */
+   background-color: yellow;
+    
+    /* Agrega otros estilos según sea necesario */
+}
+
+/* Consulta @media para pantallas de hasta 768px de ancho */
+@media (max-width: 768px) {
+    .midiv {
+        background-color: red;
+        max-width: 568px;
+    min-width: 568px;
+        /* Ajusta otros estilos según sea necesario para pantallas más pequeñas */
+    }
+}
+
+/* Consulta @media para pantallas de hasta 576px de ancho */
+@media (max-width: 576px) {
+    .midiv {
+        background-color: blue;
+        max-width: 350px;
+       min-width: 350px;
+        /* Ajusta otros estilos según sea necesario para pantallas aún más pequeñas */
+    }
+}
+
+@media (max-width: 376px) {
+    .midiv {
+        background-color: black;
+        max-width: 300px;
+       min-width: 300px;
+        /* Ajusta otros estilos según sea necesario para pantallas aún más pequeñas */
+    }
+}

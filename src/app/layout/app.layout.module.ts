@@ -43,7 +43,7 @@ import { UserComponent } from '../demo/components/configuration/views/user/user.
 import { ChangepasswordComponent } from '../demo/components/configuration/views/changepassword/changepassword.component';
 import { AdminuserComponent } from '../demo/components/configuration/views/adminuser/adminuser.component';
 import { UserCompanyComponent } from '../demo/components/configuration/views/user-company/user-company.component';
-
+import { ImageModule } from 'primeng/image';
 
 @NgModule({
     declarations: [
@@ -95,7 +95,8 @@ import { UserCompanyComponent } from '../demo/components/configuration/views/use
         UserComponent,
         ChangepasswordComponent,
         AdminuserComponent,
-        UserCompanyComponent
+        UserCompanyComponent,
+        ImageModule
 
        
     ],

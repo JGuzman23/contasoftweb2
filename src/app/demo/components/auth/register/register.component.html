@@ -1,6 +1,5 @@
-<div
-    class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden"
->
+
+<div class="surface-ground flex align-items-center justify-content-center mt-5">
     <p-toast></p-toast>
 
     <div class="flex">
@@ -18,7 +17,7 @@
             "
         >
             <div
-                class="w-full surface-card py-8 px-5 sm:px-8"
+                class="midiv surface-card py-8 px-5 sm:px-8"
                 style="border-radius: 53px"
             >
                 <div
@@ -29,15 +28,17 @@
                         display: flex;
                         justify-content: start;
                         align-items: start;
+                       
                     "
                 >
-                    <img
-                        src="assets/logo.png"
-                        alt="Image"
-                        height="50"
-                        class="mr-2"
-                    />
-                    <span class="text-5xl">Contasoft</span>
+                        <img
+                            src="assets/logo.png"
+                            alt="Image"
+                            height="25"
+                            class="mr-2"
+                        />
+                        <span class="text-2xl">Contasoft</span>
+                   
                 </div>
                 <div
                     class="text-center mb-5"
@@ -58,10 +59,19 @@
                     (activeIndexChange)="onActiveIndexChange($event)"
                 ></p-steps>
 
-                <div class=" mt-5">
-                    <router-outlet></router-outlet>
+                <div class="mt-5">
+                    <router-outlet  ></router-outlet>
                 </div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <span>Tienes una cuenta?</span>
+                    <a routerLink="/auth/login" class="no-underline ml-2  cursor-pointer" style="color: var(--primary-color)">Iniciar Session</a>
+                
+                </div>
+                
             </div>
+            
         </div>
+        
     </div>
 </div>
+

@@ -115,10 +115,13 @@
                             />
                         </span>
                         <div>
+                           
+
                             <button
+                            *ngIf="isReady"
                                 pButton
                                 pRipple
-                                label="Crear"
+                                label="Generar"
                                 icon="pi pi-plus"
                                 class="p-button-success mr-2"
                                 (click)="openNew()"
@@ -224,121 +227,32 @@
         <p-dialog
             [(visible)]="transactionDialog"
             [style]="{ width: '550px' }"
-            header="Editar Banco"
+            header="Crear conciliacion"
             [modal]="true"
             class="p-fluid"
         >
             <ng-template pTemplate="content">
-                <div class="p-formgrid grid">
-                    <div class="col-12 sm:col-6">
-                        <span>Credito / Debito</span>
-
-                        <p-dropdown
-                            [options]="tipo"
-                            optionValue="id"
-                            [(ngModel)]="transaction.tipo"
-                            id="ListTipoBienesyServicios"
-                            name="ListTipoBienesyServicios"
-                            appendTo="body"
-                            optionLabel="valor"
-                            class="w-full"
-                            [showClear]="true"
-                            placeholder="Selecciona"
-                        ></p-dropdown>
-                    </div>
-                    <div class="col-12 sm:col-6">
-                        <span>No. Cheque/Transaccion</span>
-                        <input
-                            pInputText
-                            id="NCF"
-                            name="NCF"
-                            [(ngModel)]="transaction.noCheck"
-                            type="text"
-                        />
-                    </div>
-
-                    <div class="col-12 sm:col-6">
-                        <span>Desde</span>
-                        <p-dropdown
-                            [options]="bancos"
-                            id="name"
-                            appendTo="body"
-                            [(ngModel)]="transaction.bankNumberIn"
-                            required
-                            autofocus
-                            placeholder="Selecciona un banco."
-                            optionValue="name"
-                            optionLabel="name"
-                        ></p-dropdown>
-                    </div>
-                    <div class="col-12 sm:col-6">
-                        <span> Hasta</span>
-                        <p-dropdown
-                            [options]="bancos"
-                            id="name"
-                            appendTo="body"
-                            [(ngModel)]="transaction.bankNumberOut"
-                            required
-                            autofocus
-                            placeholder="Selecciona un banco."
-                            optionValue="name"
-                            optionLabel="name"
-                        ></p-dropdown>
-                    </div>
-
-                    <div class="col-12 sm:col-6">
-                        <span>Monto</span>
-                        <p-inputNumber
-                            [(ngModel)]="transaction.amount"
-                            id="totalmf"
-                            name="totalmf"
-                            inputId="locale-us"
-                            mode="decimal"
-                            locale="en-US"
-                            [minFractionDigits]="2"
-                        >
-                        </p-inputNumber>
-                    </div>
-                    <div class="col-12 sm:col-6">
-                        <span>Fecha</span>
-                        <p-calendar
-                            appendTo="body"
-                            id="FCF"
-                            [(ngModel)]="transaction.transactionDate"
-                            name="FCF"
-                        ></p-calendar>
-                    </div>
-                    <div class="col-12">
-                        <span>Concepto</span>
-                        <textarea
-                            rows="5"
-                            cols="30"
-                            name="NCF"
-                            id="NCF"
-                            [(ngModel)]="transaction.concept"
-                            pInputTextarea
-                        ></textarea>
-                    </div>
-                </div>
+                <span>Generar conciliacion de <b>{{cuentaSelected}} {{fechadesden}} - {{fechaHastan}}</b> </span>
             </ng-template>
 
             <ng-template pTemplate="footer">
                 <button
                     pButton
                     pRipple
-                    label="Cancel"
+                    label="Cancelar"
                     icon="pi pi-times"
                     class="p-button-text"
                     (click)="hideDialog()"
                 ></button>
-                <button
+                <button type="button" pButton pRipple icon="pi pi-check" (click)="exportPdf()" class="p-button-text mr-2" pTooltip="PDF" label="Generar" tooltipPosition="bottom"></button>
+                <!-- <button
                     pButton
                     pRipple
-                    label="Save"
+                    label="Generar"
                     icon="pi pi-check"
                     class="p-button-text"
                     (click)="saveProduct()"
-                ></button>
+                ></button> -->
             </ng-template>
         </p-dialog>
 

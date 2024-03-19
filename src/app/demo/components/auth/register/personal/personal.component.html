@@ -1,101 +1,199 @@
 <div class="flex justify-content-between mt-5">
-
-    <div class="grid">
+    <div class="grid p-fluid">
         <div class="col-12 xl:col-6">
-            <label for="username" class="block font-small mb-2"
-            >Usuario
-        </label>
-        <input
-            id="username"
-            [(ngModel)]="user.username"
-            type="text"
-            placeholder="Correo electrónico"
-            pInputText
-            class="w-full  "
-            style="padding: 1rem"
-        />
+            <label for="username" class="block font-small mb-2">Usuario </label>
+            <input
+                #username="ngModel"
+                id="username"
+                [(ngModel)]="user.username"
+                type="text"
+                placeholder="Nombre de Usuario"
+                pInputText
+                required
+                class="w-full"
+                style="padding: 1rem"
+                [ngClass]="{
+                    'ng-dirty':
+                        (username.invalid && submitted) ||
+                        (username.dirty && username.invalid)
+                }"
+            />
+            <small
+                class="p-error"
+                *ngIf="
+                    (username.invalid && submitted) ||
+                    (username.dirty && username.invalid)
+                "
+                >Parametro requerido.</small
+            >
         </div>
-       
+
         <div class="col-12 xl:col-6">
             <label for="fullName" class="block font-small mb-2"
-            >Nombre completo
-        </label>
-        <input
-            id="fullName"
-            [(ngModel)]="user.fullName"
-            type="text"
-            placeholder="Correo electrónico"
-            pInputText
-            class="w-full  "
-            style="padding: 1rem"
-        />
+                >Nombre completo
+            </label>
+            <input
+            #fullname="ngModel"
+                id="fullname"
+                [(ngModel)]="user.fullName"
+                type="text"
+                placeholder="Nombre completo"
+                pInputText
+                required
+                class="w-full"
+                style="padding: 1rem"
+                [ngClass]="{
+                    'ng-dirty':
+                        (fullname.invalid && submitted) ||
+                        (fullname.dirty && fullname.invalid)
+                }"
+            />
+            <small
+            class="p-error"
+            *ngIf="
+                (fullname.invalid && submitted) ||
+                (fullname.dirty && fullname.invalid)
+            "
+            >Parametro requerido.</small
+        >
         </div>
 
-       
-        <div class="col-12 xl:col-6">
+        <!-- <div > -->
+
+        <div class="field col-12 xl:col-6">
             <label for="cellphone" class="block font-small mb-2"
-            >Telefono
-        </label>
-        <input
+                >Telefono
+            </label>
+            <p-inputMask
+            #tel="ngModel"
+            required
+                placeholder="(809) 837-7384"
+                inputId="inputmask"
+                mask="(999) 999-9999"
+                [(ngModel)]="user.cellphone"
+                [ngClass]="{
+                    'ng-dirty':
+                        (tel.invalid && submitted) ||
+                        (tel.dirty && tel.invalid)
+                }"
+            ></p-inputMask>
+
+            <small
+            class="p-error"
+            *ngIf="
+                (tel.invalid && submitted) ||
+                (tel.dirty && tel.invalid)
+            "
+            >Parametro requerido.</small
+        >
+        </div>
+        <!-- <p-inputMask
+               
+                id="tel"
+                placeholder="(809) 837-7384"
+                [(ngModel)]="user.cellphone"
+                required
+                class="w-full"
+               
+                mask="(999) 999-9999"
+            ></p-inputMask> -->
+        <!-- <input
             id="cellphone"
+            mask="(999) 999-9999"
             [(ngModel)]="user.cellphone"
-            type="text"
+            
             placeholder="Telefono"
-            pInputText
+            pInputMask
             class="w-full  "
             style="padding: 1rem"
-        />
+        /> -->
+        <!-- </div> -->
+
+        <div class="col-12 xl:col-6">
+            <label for="email" class="block font-small mb-2"
+                >Correo electronico
+            </label>
+            <input
+            #email="ngModel"
+                id="email"
+                required
+                [(ngModel)]="user.email"
+                type="text"
+                placeholder="Correo electrónico"
+                pInputText
+                class="w-full"
+                style="padding: 1rem"
+                [ngClass]="{
+                    'ng-dirty':
+                        (email.invalid && submitted) ||
+                        (email.dirty && email.invalid)
+                }"
+            />
+            <small
+            class="p-error"
+            *ngIf="
+                (email.invalid && submitted) ||
+                (email.dirty && email.invalid)
+            "
+            >Parametro requerido.</small
+        >
         </div>
-       
-    <div class="col-12 xl:col-6">
-        <label for="email" class="block font-small mb-2"
-        >Correo electronico
-    </label>
-    <input
-        id="email"
-        [(ngModel)]="user.email"
-        type="text"
-        placeholder="Correo electrónico"
-        pInputText
-        class="w-full  "
-        style="padding: 1rem"
-    />
-    </div>
-       
+
         <div class="col-12 xl:col-6">
             <label for="password" class="block font-small mb-2"
-            >Contraseña</label
-        >
-        <p-password
-            id="password"
-            [(ngModel)]="user.password"
-            [toggleMask]="true"
-            placeholder="Contraseña"
-            promptLabel="Digita una contraseña"
-            weakLabel="Muy simple"
-            mediumLabel="Un poco mas compleja"
-            strongLabel="contraseña compleja"
-            styleClass=" w-full"
-            inputStyleClass="w-full p-3 "
-        >
-            <ng-template pTemplate="header">
-                <h6>Estado</h6>
-            </ng-template>
-            <ng-template pTemplate="footer">
-                <p-divider></p-divider>
-                <p class="mt-2">Sugerencia</p>
-                <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
-                    <li>Al menos una miniscula</li>
-                    <li>Al menos una mayuscula</li>
-                    <li>Al menos un numero</li>
-                    <li>Minimo 8 caracteres</li>
-                </ul>
-            </ng-template></p-password
+                >Contraseña</label
+            >
+            <p-password
+            #pwd="ngModel"
+                id="password"
+                [(ngModel)]="user.password"
+                [toggleMask]="true"
+                required
+                placeholder="Contraseña"
+                promptLabel="Digita una contraseña"
+                weakLabel="Muy simple"
+                mediumLabel="Un poco mas compleja"
+                strongLabel="contraseña compleja"
+                styleClass=" w-full"
+                inputStyleClass="w-full p-3 "
+                [ngClass]="{
+                    'ng-dirty':
+                        (pwd.invalid && submitted) ||
+                        (pwd.dirty && pwd.invalid)
+                }"
+                
+            >
+                <ng-template pTemplate="header">
+                    <h6>Estado</h6>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <p-divider></p-divider>
+                    <p class="mt-2">Sugerencia</p>
+                    <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                        <li>Al menos una miniscula</li>
+                        <li>Al menos una mayuscula</li>
+                        <li>Al menos un numero</li>
+                        <li>Minimo 8 caracteres</li>
+                    </ul>
+                </ng-template></p-password
+            >
+            <small
+            class="p-error"
+            *ngIf="
+                (pwd.invalid && submitted) ||
+                (pwd.dirty && pwd.invalid)
+            "
+            >Parametro requerido.</small
         >
         </div>
-       
-
-       
-       
     </div>
+</div>
+
+<div class="grid grid-nogutter justify-content-end">
+    <p-button
+        label="Next"
+        (onClick)="nextPage()"
+        icon="pi pi-angle-right"
+        iconPos="right"
+    ></p-button>
 </div>

@@ -5,6 +5,16 @@ import { TransactionService } from '../../service/transaction.service';
 import { MessageService } from 'primeng/api';
 import { Bank } from '../../interfaces/bank.interface';
 import { BankService } from '../../service/bank.service';
+interface Column {
+    field: string;
+    header: string;
+    customExportHeader?: string;
+}
+
+interface ExportColumn {
+    title: string;
+    dataKey: string;
+}
 
 @Component({
     selector: 'app-conciliacion',
@@ -27,9 +37,13 @@ export class ConciliacionComponent implements OnInit {
 
     submitted: boolean = false;
     public total = 0;
+    exportColumns!: ExportColumn[];
 
     fechaHasta: Date = new Date();
     fechadesde: Date = new Date();
+    fechadesden =''
+    fechaHastan=''
+    isReady=false
     cuentaSelected: string;
     bancos: Bank[] = [];
     tipo: any[] = [
@@ -51,7 +65,7 @@ export class ConciliacionComponent implements OnInit {
     ) {}
 
     async ngOnInit() {
-        this.fechadesde.setDate(this.fechadesde.getDate() - 1);
+        this.fechadesde.setDate(this.fechadesde.getDate() - 30);
         var company = localStorage.getItem('company') || '';
         var jsonCompany = JSON.parse(company);
         
@@ -75,6 +89,8 @@ export class ConciliacionComponent implements OnInit {
             { field: 'amount', header: 'Credito' },
             { field: 'amount', header: 'Debito' },
         ];
+        this.exportColumns = this.cols.map((col) => ({ title: col.header, dataKey: col.field }));
+
     }
     buscar() {
         
@@ -83,8 +99,20 @@ export class ConciliacionComponent implements OnInit {
         var jsonCompany = JSON.parse(company);
 
         if (jsonCompany.id) {
+            this.isReady=true
             this.getAllTransactionByCompany(jsonCompany.id);
         }
+    }
+    exportPdf() {
+        import('jspdf').then((jsPDF) => {
+            import('jspdf-autotable').then((x) => {
+                const doc = new jsPDF.default('p', 'px', 'a4');
+                (doc as any).autoTable(this.exportColumns, this.transactions);
+                doc.save(`${this.cuentaSelected} | ${this.fechadesden} - ${this.fechaHastan}.pdf`);
+            });
+        });
+
+        this.hideDialog();
     }
     getAllTransactionByCompany(companyId: number) {
         this.submitted = true;
@@ -101,7 +129,7 @@ export class ConciliacionComponent implements OnInit {
                 year: 'numeric',
             } as const;
 
-            var fechadesden = fechaParseadaDesde.toLocaleDateString(
+             this.fechadesden = fechaParseadaDesde.toLocaleDateString(
                 'es-BO',
                 options1
             );
@@ -113,13 +141,15 @@ export class ConciliacionComponent implements OnInit {
                 year: 'numeric',
             } as const;
 
-            var fechaHastan = fechaParseadaHasta.toLocaleDateString(
+             this.fechaHastan = fechaParseadaHasta.toLocaleDateString(
                 'es-BO',
                 options2
             );
+       
+            
 
             this.transactionService
-                .Get(companyId, fechadesden, fechaHastan, this.cuentaSelected)
+                .Get(companyId, this.fechadesden, this.fechaHastan, this.cuentaSelected)
                 .subscribe(
                     (response) => {
                         // Manejar la respuesta de la solicitud HTTP aquí
@@ -151,8 +181,8 @@ export class ConciliacionComponent implements OnInit {
                     (error) => {
                         // Manejar errores aquí
                         this.messageService.add({
-                            severity: 'success',
-                            summary: 'Successful',
+                            severity: 'error',
+                            summary: 'Error',
                             detail: error.message,
                             life: 3000,
                         });

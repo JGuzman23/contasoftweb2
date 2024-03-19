@@ -1,5 +1,5 @@
-<div class="grid flex">
-    <div class="col-12 sm: col-6">
+<div class="grid">
+    <div class="col-12 sm:col-6">
         <div class="card mb-0">
             <div class="flex justify-content-between mb-3">
                 <div>
@@ -16,10 +16,13 @@
             <span class="text-green-500 font-medium">24 new </span>
             <span class="text-500">since last visit</span>
         </div>
-       
-      
     </div>
-    <div class="col-12 sm: col-6">
-        <div id="myPaypalButtons"></div>
+    <div class="col-12 sm:col-6">
+        <div >
+            <div id="myPaypalButtons"></div>
+        </div>
     </div>
+</div>
+<div class="grid grid-nogutter justify-content-between">
+    <p-button label="Back" (onClick)="prevPage()" icon="pi pi-angle-left"></p-button>
 </div>

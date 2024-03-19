@@ -1,122 +1,49 @@
-<div class="grid">
-    <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card mb-0">
-            <div class="flex justify-content-between mb-3">
-                <div>
-                    <span class="block text-500 font-medium mb-3">Orders</span>
-                    <div class="text-900 font-medium text-xl">152</div>
-                </div>
-                <div
-                    class="flex align-items-center justify-content-center bg-blue-100 border-round"
-                    [ngStyle]="{ width: '2.5rem', height: '2.5rem' }"
-                >
-                    <i class="pi pi-shopping-cart text-blue-500 text-xl"></i>
-                </div>
-            </div>
-            <span class="text-green-500 font-medium">24 new </span>
-            <span class="text-500">since last visit</span>
-            <div class="flex align-items-center">
-                <p-radioButton name="pizza" value="Cheese" [(ngModel)]="ingredient" inputId="ingredient1"></p-radioButton>
-                <label for="ingredient1" class="ml-2">Cheese</label>
-            </div>
+<!-- <div class="" style="padding: 0;">
+    <h5 style="text-align: center; margin-top: 1em;">Selecciona un plan</h5>
+    <div class="p-grid">
+      <div class="p-col" *ngFor="let accountType of accountTypes">
+        <div class="p-card mb-5" style="padding: 1em; cursor: pointer;" (click)="selectAccountType(accountType.value)">
+          <div class="p-field-radiobutton">
+            <p-radioButton [value]="accountType.value" [(ngModel)]="selectedAccountType" inputId="accountType{{accountType.value}}"></p-radioButton>
+            <label for="accountType{{accountType.value}}">{{accountType.name}}</label>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <label for="accountType{{accountType.value}}" style="margin-left: auto;">{{accountType.savings}}</label>
+            <label for="accountType{{accountType.value}}" style="margin-left: 20px;">{{accountType.price}}</label>
+          </div>
         </div>
+      </div>
     </div>
-    <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card mb-0">
-            <div class="flex justify-content-between mb-3">
-                <div>
-                    <span class="block text-500 font-medium mb-3">Revenue</span>
-                    <div class="text-900 font-medium text-xl">$2.100</div>
-                </div>
-                <div
-                    class="flex align-items-center justify-content-center bg-orange-100 border-round"
-                    [ngStyle]="{ width: '2.5rem', height: '2.5rem' }"
-                >
-                    <i class="pi pi-map-marker text-orange-500 text-xl"></i>
-                </div>
-            </div>
-            <span class="text-green-500 font-medium">%52+ </span>
-            <span class="text-500">since last week</span>
+  </div> -->
+  
+  <div class="" style="padding: 0;">
+    <h5 style="text-align: center; margin-top: 1em;">Selecciona un plan</h5>
+    <div class="p-grid">
+      <div class="p-col" *ngFor="let plan of plans">
+        <div class="p-card mb-3" [ngClass]="{'selected-card': SelecctedPlan === plan.id}"  style="padding: 1em; cursor: pointer;" (click)="selectAccountType(plan.id)">
+          <div class="p-field-radiobutton">
+            <p-radioButton [value]="plan.id" [(ngModel)]="SelecctedPlan" inputId="accountType{{plan.id}}"></p-radioButton>
+            <label for="accountType{{plan.id}}" style="margin-left: 10px;">{{plan.name}}</label>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <label for="accountType{{plan.id}}" style="margin-left: auto;">20% </label>
+            <label for="accountType{{plan.id}}" style="margin-left: 20px;">{{plan.price}}</label>
+          </div>
         </div>
+      </div>
     </div>
-    <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card mb-0">
-            <div class="flex justify-content-between mb-3">
-                <div>
-                    <span class="block text-500 font-medium mb-3"
-                        >Customers</span
-                    >
-                    <div class="text-900 font-medium text-xl">28441</div>
-                </div>
-                <div
-                    class="flex align-items-center justify-content-center bg-cyan-100 border-round"
-                    [ngStyle]="{ width: '2.5rem', height: '2.5rem' }"
-                >
-                    <i class="pi pi-inbox text-cyan-500 text-xl"></i>
-                </div>
-            </div>
-            <span class="text-green-500 font-medium">520 </span>
-            <span class="text-500">newly registered</span>
-        </div>
-    </div>
-    <div class="col-12 lg:col-6 xl:col-3">
-        <div class="card mb-0">
-            <div class="flex justify-content-between mb-3">
-                <div>
-                    <span class="block text-500 font-medium mb-3"
-                        >Comments</span
-                    >
-                    <div class="text-900 font-medium text-xl">152 Unread</div>
-                </div>
-                <div
-                    class="flex align-items-center justify-content-center bg-purple-100 border-round"
-                    [ngStyle]="{ width: '2.5rem', height: '2.5rem' }"
-                >
-                    <i class="pi pi-comment text-purple-500 text-xl"></i>
-                </div>
-            </div>
-            <span class="text-green-500 font-medium">85 </span>
-            <span class="text-500">responded</span>
-        </div>
-    </div>
-</div>
+  </div>
 
-<div class="card flex justify-content-center">
-    <div class="flex flex-wrap gap-3">
-       
-       
-        <div class="flex align-items-center">
-            <p-radioButton name="pizza" value="Mushroom" [(ngModel)]="ingredient" inputId="ingredient2">
-               
-                <div class="card mb-0">
-                    <div class="flex justify-content-between mb-3">
-                        <div>
-                            <span class="block text-500 font-medium mb-3">Orders</span>
-                            <div class="text-900 font-medium text-xl">152</div>
-                        </div>
-                        <div
-                            class="flex align-items-center justify-content-center bg-blue-100 border-round"
-                            [ngStyle]="{ width: '2.5rem', height: '2.5rem' }"
-                        >
-                            <i class="pi pi-shopping-cart text-blue-500 text-xl"></i>
-                        </div>
-                    </div>
-                    <span class="text-green-500 font-medium">24 new </span>
-                    <span class="text-500">since last visit</span>
-                   
-                </div>
-            </p-radioButton>
-            
-        </div>
-        
-        <div class="flex align-items-center">
-            <p-radioButton name="pizza" value="Pepper" [(ngModel)]="ingredient" inputId="ingredient3"></p-radioButton>
-            <label for="ingredient3" class="ml-2">Pepper</label>
-        </div>
-        
-        <div class="flex align-items-center">
-            <p-radioButton name="pizza" value="Onion" [(ngModel)]="ingredient" inputId="ingredient4"></p-radioButton>
-            <label for="ingredient4" class="ml-2">Onion</label>
-        </div>
-    </div>
+<div class="grid grid-nogutter justify-content-between">
+    <p-button
+        label="Back"
+        (onClick)="prevPage()"
+        icon="pi pi-angle-left"
+    ></p-button>
+    <p-button
+        label="Next"
+        (onClick)="nextPage()"
+        icon="pi pi-angle-right"
+        iconPos="right"
+    ></p-button>
 </div>

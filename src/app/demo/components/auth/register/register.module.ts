@@ -37,7 +37,7 @@ import { PersonalComponent } from './personal/personal.component';
         RouterModule.forChild([
             {
 				path: '', component: RegisterComponent, children: [
-                    { path: '', redirectTo: 'personal', pathMatch: 'full' },
+                { path: 'register', redirectTo: 'personal' },
             { path: 'Personal', component: PersonalComponent },
             { path: 'Plan', component: PlanComponent },
             { path: 'Pago', component: PayComponent },

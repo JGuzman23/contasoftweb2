@@ -7,5 +7,5 @@ export interface Company  {
     rnc?: string;
     address?: string | null;
     telefono?: string | null;
-    photo?: string | null;
+    photo?: string | null ;
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { User } from '../../../contasoft/interfaces/user.interface';
 import { MessageService } from 'primeng/api';
 import { UserService } from 'src/app/demo/service/user.service';
@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { PasswordModule } from 'primeng/password';
 import { ToastModule } from 'primeng/toast';
 import { InputMaskModule } from 'primeng/inputmask';
+import { UserRegisterService } from '../userRegister.service';
 
 @Component({
     selector: 'app-personal',
@@ -28,10 +29,28 @@ export class PersonalComponent {
         planId: 0,
         roleId: 0,
     };
+    submitted: boolean = false;
+
 
     constructor(
         private messageService: MessageService,
         private userService: UserService,
-        private router: Router
+        private router: Router,
+        private UserRegister: UserRegisterService
     ) {}
+
+    nextPage() {
+
+        if (this.user.username && this.user.fullName && this.user.email && this.user.password) {
+           
+            this.UserRegister.sendUser(this.user)
+            this.router.navigate(['register/Plan']);
+
+            return;
+        }
+
+        this.submitted = true;
+    }
+
+  
 }
