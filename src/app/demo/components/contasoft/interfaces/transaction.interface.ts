@@ -3,6 +3,8 @@ export interface Transaction {
     bankNumberOut?: string;
     bankNumberIn?: string;
     amount?: number;
+    debit?: number;
+    credit?: number;
     noCheck?: string;
     concept?: string;
     tipo?: string;

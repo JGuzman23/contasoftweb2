@@ -1,8 +1,8 @@
 
 export interface VoidInvoice  {
-    invoiceId: number;
-    comment: string;
-    tipo:number;
-    CompanyId:number;
+    invoiceId?: number  | null; 
+    comment?: string  | null;
+    tipo?:number | null;
+    CompanyId?:number  | null;
     
 }

@@ -74,14 +74,13 @@ export class TransactionComponent implements OnInit {
             { field: 'noCheck', header: 'Transaccion' },
             { field: 'concept', header: 'Concepto' },
             { field: 'transactionDate', header: 'Fecha' },
-            { field: 'amount', header: 'Credito' },
-            { field: 'amount', header: 'Debito' },
+            { field: 'credit', header: 'Credito' },
+            { field: 'debit', header: 'Debito' },
         ];
     }
 
     search(event: AutoCompleteCompleteEvent) {
         this.bancosFiltrados = this.bancos.map(cuenta => cuenta.name);
-        console.log(this.bancosFiltrados);
         
         this.bancosFiltrados = this.bancos.filter((cuenta) => {
             // Convertir el nombre de la cuenta a minúsculas para hacer la comparación
@@ -98,23 +97,24 @@ export class TransactionComponent implements OnInit {
             (response) => {
                 // Manejar la respuesta de la solicitud HTTP aquí
                 this.transactions = response.data;
+                console.log( this.transactions);
+                
+                // for (
+                //     let index = this.transactions.length - 1;
+                //     index >= 0;
+                //     index--
+                // ) {
+                //     const t = this.transactions[index];
 
-                for (
-                    let index = this.transactions.length - 1;
-                    index >= 0;
-                    index--
-                ) {
-                    const t = this.transactions[index];
+                //     if (t.tipo === 'debito') {
+                //         this.total -= t.amount;
+                //     } else {
+                //         this.total += t.amount;
+                //     }
 
-                    if (t.tipo === 'debito') {
-                        this.total -= t.amount;
-                    } else {
-                        this.total += t.amount;
-                    }
-
-                    // Actualizar la propiedad `total` en cada objeto de transacción
-                    this.transactions[index].total = this.total;
-                }
+                //     // Actualizar la propiedad `total` en cada objeto de transacción
+                //     this.transactions[index].total = this.total;
+                // }
             },
             (error) => {
                 // Manejar errores aquí

@@ -95,10 +95,10 @@
                             Fecha
                             <p-sortIcon field="transactionDate"></p-sortIcon>
                         </th>
-                        <th pSortableColumn="amount">
+                        <th pSortableColumn="credit">
                             Crédito
                         </th>
-                        <th pSortableColumn="amount">
+                        <th pSortableColumn="debit">
                             Débito
                         </th>
                         <!-- <th pSortableColumn="accountNumber">Total <p-sortIcon field="accountNumber"></p-sortIcon></th> -->
@@ -131,26 +131,14 @@
                             }}
                         </td>
 
-                        @if (transaction.tipo ==="debito") {
                         <td style="width: 20%; min-width: 10rem">
                             <span class="p-column-title">accountNumber</span>
-                            0.00
+                            {{ transaction.credit | number }}
                         </td>
                         <td style="width: 20%; min-width: 10rem">
                             <span class="p-column-title">accountNumber</span>
-                            {{ transaction.amount | number }}
+                            {{ transaction.debit | number }}
                         </td>
-                        } @else {
-                        <td style="width: 20%; min-width: 10rem">
-                            <span class="p-column-title">accountNumber</span>
-                            {{ transaction.amount | number }}
-                        </td>
-                        <td style="width: 20%; min-width: 10rem">
-                            <span class="p-column-title">accountNumber</span>
-                            0.00
-                        </td>
-
-                        }
                         <!-- <td style="width:20%; min-width:10rem;">
                             <span class="p-column-title">accountNumber</span>
                             {{transaction.total}}

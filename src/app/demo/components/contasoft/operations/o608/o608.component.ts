@@ -11,7 +11,7 @@ import * as FileSaver from 'file-saver';
     templateUrl: './o608.component.html',
 })
 export class O608Component implements OnInit {
-    bankDialog: boolean = false;
+    o608Dialog: boolean = false;
 
     o608s: O608[] = [];
     o608: O608 = {};
@@ -22,6 +22,14 @@ export class O608Component implements OnInit {
 
     cols: any[] = [];
 
+    periodRange: any[] = [
+        '2024/01',
+        '2024/02',
+        '2024/03',
+        '2024/04',
+        '2024/05',
+    ];
+    peridod = '';
     statuses: any[] = [];
     rowsPerPageOptions = [5, 10, 20];
     rangeDates: Date[] | undefined;
@@ -57,7 +65,38 @@ export class O608Component implements OnInit {
     openNew() {
         this.o608 = {};
         this.submitted = false;
-        this.bankDialog = true;
+        this.o608Dialog = true;
+    }
+    genarar608() {
+        this.invoiceService.Generar608(this.peridod).subscribe(
+            (response) => {
+                if (response.success) {
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Successful',
+                        detail: response.message,
+                        life: 3000,
+                    });
+                    this.o608Dialog = false;
+                    this.getAll608();
+                } else {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error',
+                        detail: response.message,
+                        life: 3000,
+                    });
+                }
+            },
+            (error) => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: error.message,
+                    life: 3000,
+                });
+            }
+        );
     }
 
     descargarxlsx608(id: number, formato: number) {
@@ -161,7 +200,7 @@ export class O608Component implements OnInit {
     }
 
     hideDialog() {
-        this.bankDialog = false;
+        this.o608Dialog = false;
         this.submitted = false;
     }
 

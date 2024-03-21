@@ -3,6 +3,7 @@ import { Table } from 'primeng/table';
 import { InvoiceIncome } from '../../interfaces/income.interface';
 import { InvoiceService } from '../../service/invoice.service';
 import { MessageService } from 'primeng/api';
+import { VoidInvoice } from '../../interfaces/void.interface';
 
 @Component({
   selector: 'app-income',
@@ -15,13 +16,20 @@ export class IncomeComponent implements OnInit {
   incomeDialog: boolean = false;
 
   deleteBillDialog: boolean = false;
-
+  voidInvoiceBillDialog: boolean=false
   deleteCompaniesDialog: boolean = false;
 
   incomes: InvoiceIncome[]=[]
 
   income: InvoiceIncome = {};
+  public voidInvoice: VoidInvoice ={
+    invoiceId:0,
+    comment:'',
+    tipo:0,
+    CompanyId:0
+  };
 
+  
   selectedCompanies: InvoiceIncome[] = [];
 
   submitted: boolean = false;
@@ -32,6 +40,8 @@ export class IncomeComponent implements OnInit {
 
   rowsPerPageOptions = [5, 10, 20];
 
+  
+  companyId=0
   public TiposIngresos: any[] = [
     {
       id: 1,
@@ -58,6 +68,52 @@ export class IncomeComponent implements OnInit {
       valor: 'Otros Ingresos',
     }
   ];
+  public TiposAnulacion: any[] = [
+    {
+      id: 1,
+      valor: 'Deterioro de Factura Pre-Impresa',
+    },
+    {
+      id: 2,
+      valor: 'Errores de Impresión (Factura Pre-Impresa)',
+    },
+    {
+      id: 3,
+      valor: 'Impresión Defectuosa',
+    },
+    {
+      id: 4,
+      valor: 'Corrección de la Información',
+    },
+    {
+      id: 5,
+      valor: 'Cambio de Productos',
+    },
+    {
+      id: 6,
+      valor: 'Devolución de Productos',
+    }
+    ,
+    {
+      id: 7,
+      valor: 'Omisión de Productos',
+    }
+    ,
+    {
+      id: 8,
+      valor: 'Errores en Secuencia NCF',
+    }
+    ,
+    {
+      id: 9,
+      valor: 'Por Cese de Operaciones',
+    }
+    ,
+    {
+      id: 10,
+      valor: 'Perdida o Hurto de Talonario(S)',
+    }
+  ];
 
   public formasVentas:any[]=[]
 
@@ -70,9 +126,13 @@ export class IncomeComponent implements OnInit {
 
   ngOnInit() {
    
-
+    var company = localStorage.getItem('company') || '';
+    var jsonCompany = JSON.parse(company);
+    if (jsonCompany) {
+      this.companyId =jsonCompany.id
+    }
     
-      this.getAllInvoiceByCompany()
+      this.getAllInvoiceByCompany(this.companyId)
 
 
       this.cols = [
@@ -85,13 +145,10 @@ export class IncomeComponent implements OnInit {
 
      
   }
-  getAllInvoiceByCompany(){
+  getAllInvoiceByCompany(id:number){
 
-    var company = localStorage.getItem('company') || '';
-    var jsonCompany = JSON.parse(company);
-    if (jsonCompany) {
-      
-    this.invoiceService.GetMyInvoice607(jsonCompany.id).subscribe(
+    
+    this.invoiceService.GetMyInvoice607(id).subscribe(
       (response)=>{
         this.incomes = response.data
         this.incomes = this.incomes.sort((a, b)=> a.id - b.id )
@@ -101,7 +158,7 @@ export class IncomeComponent implements OnInit {
 
       }
     )
-    }
+    
   }
 
   openNew() {
@@ -124,7 +181,36 @@ export class IncomeComponent implements OnInit {
       this.income = { ...income };
   }
 
+  voidInvoiceBill(income: InvoiceIncome){
+    this.voidInvoiceBillDialog= true;
+    this.income = { ...income };
+  }
  
+  confirmVoidInvoiceBill() {
+    this.voidInvoice.invoiceId = this.income.id
+    this.voidInvoice.CompanyId = this.companyId 
+    console.log(this.voidInvoice);
+    
+   
+    this.invoiceService.anular(this.voidInvoice).subscribe(
+      (response) => {
+        if (response.success) {
+
+          this.messageService.add({ severity: 'success', summary: 'Successful', detail: response.message, life: 3000 });
+          this.getAllInvoiceByCompany(this.companyId);
+        }else{
+          this.messageService.add({ severity: 'success', summary: 'Successful', detail: response.message, life: 3000 });
+
+        }
+      },
+      (error) => {
+        this.messageService.add({ severity: 'success', summary: 'Successful', detail: error.message, life: 3000 });
+
+      }
+    );
+      this.voidInvoiceBillDialog = false;
+      
+  }
 
   confirmDelete() {
     this.invoiceService.deleteInvoiceBill(this.income.id).subscribe(
@@ -132,7 +218,7 @@ export class IncomeComponent implements OnInit {
         if (response.success) {
 
           this.messageService.add({ severity: 'success', summary: 'Successful', detail: response.message, life: 3000 });
-          this.getAllInvoiceByCompany();
+          this.getAllInvoiceByCompany(this.companyId);
         }else{
           this.messageService.add({ severity: 'success', summary: 'Successful', detail: response.message, life: 3000 });
 
@@ -149,6 +235,7 @@ export class IncomeComponent implements OnInit {
   }
 
   hideDialog() {
+      this.voidInvoiceBillDialog=false;
       this.incomeDialog = false;
       this.submitted = false;
   }
@@ -171,7 +258,7 @@ export class IncomeComponent implements OnInit {
                         life: 3000,
                     });
                     this.incomeDialog = false;
-                    this.getAllInvoiceByCompany();
+                    this.getAllInvoiceByCompany(this.companyId);
                 } else {
                     this.messageService.add({
                         severity: 'error',

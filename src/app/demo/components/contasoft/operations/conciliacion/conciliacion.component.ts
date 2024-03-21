@@ -86,8 +86,8 @@ export class ConciliacionComponent implements OnInit {
             { field: 'noCheck', header: 'Transaccion' },
             { field: 'concept', header: 'Concepto' },
             { field: 'transactionDate', header: 'Fecha' },
-            { field: 'amount', header: 'Credito' },
-            { field: 'amount', header: 'Debito' },
+            { field: 'credit', header: 'Credito' },
+            { field: 'debit', header: 'Debito' },
         ];
         this.exportColumns = this.cols.map((col) => ({ title: col.header, dataKey: col.field }));
 
@@ -105,9 +105,20 @@ export class ConciliacionComponent implements OnInit {
     }
     exportPdf() {
         import('jspdf').then((jsPDF) => {
+            
             import('jspdf-autotable').then((x) => {
                 const doc = new jsPDF.default('p', 'px', 'a4');
-                (doc as any).autoTable(this.exportColumns, this.transactions);
+
+                doc.setFontSize(18);
+                doc.setTextColor(46,128,186); 
+                doc.text("Conciliación bancaria", 160, 40,);
+                doc.setFontSize(11);
+                doc.setTextColor(0);
+                doc.text(`Cuenta: ${this.cuentaSelected}` , 30, 60,);
+                doc.text(`Fecha: ${this.fechadesden} - ${this.fechaHastan}` , 30, 70,);
+                (doc as any).autoTable(this.exportColumns, this.transactions, {
+                    startY: 90 // Ajusta este valor según sea necesario
+                  });
                 doc.save(`${this.cuentaSelected} | ${this.fechadesden} - ${this.fechaHastan}.pdf`);
             });
         });

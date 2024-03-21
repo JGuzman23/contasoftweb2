@@ -7,10 +7,11 @@
             <h3>Configuración</h3>
 
             <div class="grid">
-                <div class="col-12 sm:col-6">
+                <div class="col-12 md:col-6">
                     <p-fieldset legend="Cuenta de usuario">
                         <div style="display: flex; flex-direction: column;">
                                 
+                            
                                 <app-user></app-user>
                                 <app-changepassword></app-changepassword>
                                
@@ -36,6 +37,25 @@
                                 [link]="true"
                                 icon="pi pi-paypal"
                                 label="Metodo de pago"
+                            ></p-button>
+                        </div>  
+                    </p-fieldset>
+                </div>
+                <div class="col-12 md:col-6">
+                    <p-fieldset legend="Empresas">
+                        <div style="display: flex; flex-direction: column;">
+                          <p-button
+                                (click)="showDialogPlanconf()"
+                                [link]="true"
+                                icon="pi pi-folder"
+                                label="Lista archivadas"
+                            ></p-button>
+                          
+                                <p-button
+                                (click)="showDialogMenbershipconf()"
+                                [link]="true"
+                                icon="pi pi-times-circle"
+                                label="Lista eliminadas"
                             ></p-button>
                         </div>  
                     </p-fieldset>

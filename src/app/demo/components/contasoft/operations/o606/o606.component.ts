@@ -11,7 +11,7 @@ import * as FileSaver from 'file-saver';
     templateUrl: './o606.component.html',
 })
 export class O606Component implements OnInit {
-    bankDialog: boolean = false;
+    o606Dialog: boolean = false;
 
     o606s: O606[] = [];
     o606: O606 = {};
@@ -21,6 +21,14 @@ export class O606Component implements OnInit {
     submitted: boolean = false;
 
     cols: any[] = [];
+    periodRange: any[] = [
+        '2024/01',
+        '2024/02',
+        '2024/03',
+        '2024/04',
+        '2024/05',
+    ];
+    peridod = '';
 
     statuses: any[] = [];
     rowsPerPageOptions = [5, 10, 20];
@@ -57,22 +65,49 @@ export class O606Component implements OnInit {
     openNew() {
         this.o606 = {};
         this.submitted = false;
-        this.bankDialog = true;
+        this.o606Dialog = true;
+    }
+    genarar606() {
+        this.invoiceService.Generar606(this.peridod).subscribe(
+            (response) => {
+                if (response.success) {
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Successful',
+                        detail: response.message,
+                        life: 3000,
+                    });
+                    this.o606Dialog = false;
+                    this.getAll606();
+                } else {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error',
+                        detail: response.message,
+                        life: 3000,
+                    });
+                }
+            },
+            (error) => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: error.message,
+                    life: 3000,
+                });
+            }
+        );
     }
 
     descargarxlsx606(id: number, formato: number) {
         this.invoiceService.descargar606(id, formato).subscribe(
             (response) => {
-
                 const blob = this.b64toBlob(
                     response.data.fileContents,
                     response.data.contentType
                 );
-
-                // Crear un URL para el Blob
                 const blobUrl = URL.createObjectURL(blob);
 
-                // Crear un enlace y descargar el archivo
                 const link = document.createElement('a');
                 link.href = blobUrl;
                 link.download = response.data.fileDownloadName;
@@ -81,23 +116,22 @@ export class O606Component implements OnInit {
                 document.body.removeChild(link);
 
                 if (response.success) {
-                  this.messageService.add({
-                    severity: 'success',
-                    summary: 'Successful',
-                    detail: response.message,
-                    life: 3000,
-                });
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Successful',
+                        detail: response.message,
+                        life: 3000,
+                    });
                 } else {
-                  this.messageService.add({
-                    severity: 'error',
-                    summary: 'Erro',
-                    detail: response.message,
-                    life: 3000,
-                });
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Erro',
+                        detail: response.message,
+                        life: 3000,
+                    });
                 }
             },
-            (error) => {
-            }
+            (error) => {}
         );
     }
 
@@ -132,7 +166,6 @@ export class O606Component implements OnInit {
                 const blob = new Blob([contenido], {
                     type: 'text/plain;charset=utf-8',
                 });
-                
 
                 // Utilizar FileSaver para guardar el Blob como un archivo
                 FileSaver.saveAs(
@@ -141,19 +174,19 @@ export class O606Component implements OnInit {
                 );
 
                 if (response.success) {
-                  this.messageService.add({
-                    severity: 'success',
-                    summary: 'Successful',
-                    detail: response.message,
-                    life: 3000,
-                });
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Successful',
+                        detail: response.message,
+                        life: 3000,
+                    });
                 } else {
-                  this.messageService.add({
-                    severity: 'error',
-                    summary: 'Error',
-                    detail: response.message,
-                    life: 3000,
-                });
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error',
+                        detail: response.message,
+                        life: 3000,
+                    });
                 }
             },
             (error) => {}
@@ -161,15 +194,8 @@ export class O606Component implements OnInit {
     }
 
     hideDialog() {
-        this.bankDialog = false;
+        this.o606Dialog = false;
         this.submitted = false;
-    }
-
-    saveProduct() {
-        var company = localStorage.getItem('company') || '';
-        var jsonCompany = JSON.parse(company);
-        if (jsonCompany) {
-        }
     }
 
     findIndexById(id: number): number {
@@ -182,16 +208,6 @@ export class O606Component implements OnInit {
         }
 
         return index;
-    }
-
-    createId(): string {
-        let id = '';
-        const chars =
-            'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        for (let i = 0; i < 5; i++) {
-            id += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        return id;
     }
 
     onGlobalFilter(table: Table, event: Event) {

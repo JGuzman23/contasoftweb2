@@ -16,10 +16,8 @@ export class AppTopBarComponent implements OnInit {
     username: string;
     ngOnInit() {
        
-        let token = localStorage.getItem('token');
         
-       let  decodedToken = jwtDecode(token);
-       ;
+   
         var company = localStorage.getItem('company');
         if (company) {
             var jsonCompany = JSON.parse(company);

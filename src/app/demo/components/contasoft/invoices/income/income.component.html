@@ -144,7 +144,7 @@
                             <div class="flex justify-content-center">
                                 <p-button icon="pi pi-pencil" [rounded]="true" class=" mr-2" (click)="editBill(income)"[text]="true" [raised]="true"></p-button>
                              
-                                <p-button icon="pi pi-ban" [rounded]="true" severity="warning" class=" mr-2" [text]="true" [raised]="true" (click)="deleteBill(income)"></p-button>
+                                <p-button icon="pi pi-ban" [rounded]="true" severity="warning" class=" mr-2" [text]="true" [raised]="true" (click)="voidInvoiceBill(income)"></p-button>
                                 <p-button icon="pi pi-trash" [rounded]="true" severity="danger" [text]="true" [raised]="true" (click)="deleteBill(income)"></p-button>
 
                                 
@@ -346,5 +346,70 @@
                 ></button>
             </ng-template>
         </p-dialog>
+
+        <p-dialog
+        [(visible)]="voidInvoiceBillDialog"
+        [style]="{ width: '550px' }"
+        header="Anular factura"
+        [modal]="true"
+        class="p-fluid"
+    >
+        <ng-template pTemplate="content">
+            <div class="p-formgrid grid">
+               
+                <div class="col-12 ">
+                    <label for="status">Tipo de anulacion</label>
+                    <p-dropdown
+                        [options]="TiposAnulacion"
+                        id="anulacion"
+                        appendTo="body"
+                        [(ngModel)]="voidInvoice.tipo"
+                        required
+                        autofocus
+                        placeholder="Selecciona un tipo."
+                        optionValue="id"
+                        optionLabel="valor"
+                    ></p-dropdown>
+                </div>
+                
+                <div class="col-12 ">
+                    <label for="name">Comentario.</label>
+                    <textarea
+                            rows="5"
+                            cols="30"
+                            name="NCF"
+                            id="NCF"
+                            [(ngModel)]="voidInvoice.comment"
+                            pInputTextarea
+                        ></textarea>
+                    <small
+                        class="ng-dirty ng-invalid"
+                        *ngIf="submitted && !voidInvoice.comment"
+                        >Name is required.</small
+                    >
+                </div>
+             
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <button
+                pButton
+                pRipple
+                label="Cancel"
+                icon="pi pi-times"
+                class="p-button-text"
+                (click)="hideDialog()"
+            ></button>
+            <button
+                pButton
+                pRipple
+                label="Save"
+                icon="pi pi-check"
+                class="p-button-text"
+                (click)="confirmVoidInvoiceBill()"
+            ></button>
+        </ng-template>
+    </p-dialog>
     </div>
 </div>

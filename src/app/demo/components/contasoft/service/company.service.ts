@@ -24,10 +24,20 @@ export class CompanyService {
   Get(id: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/company?userID=${id}`);
   }
+  
+  GetOne(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/company/${id}`);
+  }
 
   create (model:Company): Observable<any>{
 
     return this.http.post<any>(`${this.apiUrl}/company`, model,this.httpOptions)
       
   }
+  Update (model:Company): Observable<any>{
+
+    return this.http.put<any>(`${this.apiUrl}/company`, model,this.httpOptions)
+      
+  }
+ 
 }

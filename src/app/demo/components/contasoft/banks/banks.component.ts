@@ -199,35 +199,70 @@ export class BanksComponent implements OnInit {
         var jsonCompany = JSON.parse(company);
         if (jsonCompany) {
             this.bank.companyId = jsonCompany.id;
-            this.bankService.asingnar(this.bank).subscribe(
-                (response) => {
-                    if (response.success) {
-                        this.messageService.add({
-                            severity: 'success',
-                            summary: 'Successful',
-                            detail: response.message,
-                            life: 3000,
-                        });
-                        this.bankDialog = false;
-                        this.getAllBankByCompany(jsonCompany.id);
-                    } else {
+            console.log(this.bank);
+            
+            if(this.bank.bankSelectedID==0){
+                this.bankService.asingnar(this.bank).subscribe(
+                    (response) => {
+                        if (response.success) {
+                            this.messageService.add({
+                                severity: 'success',
+                                summary: 'Successful',
+                                detail: response.message,
+                                life: 3000,
+                            });
+                            this.bankDialog = false;
+                            this.getAllBankByCompany(jsonCompany.id);
+                        } else {
+                            this.messageService.add({
+                                severity: 'error',
+                                summary: 'Error',
+                                detail: response.message,
+                                life: 3000,
+                            });
+                        }
+                    },
+                    (error) => {
                         this.messageService.add({
                             severity: 'error',
                             summary: 'Error',
-                            detail: response.message,
+                            detail: error.message,
                             life: 3000,
                         });
                     }
-                },
-                (error) => {
-                    this.messageService.add({
-                        severity: 'error',
-                        summary: 'Error',
-                        detail: error.message,
-                        life: 3000,
-                    });
-                }
-            );
+                );
+            }else{
+                this.bankService.updateMyBank(this.bank).subscribe(
+                    (response) => {
+                        if (response.success) {
+                            this.messageService.add({
+                                severity: 'success',
+                                summary: 'Successful',
+                                detail: response.message,
+                                life: 3000,
+                            });
+                            this.bankDialog = false;
+                            this.getAllBankByCompany(jsonCompany.id);
+                        } else {
+                            this.messageService.add({
+                                severity: 'error',
+                                summary: 'Error',
+                                detail: response.message,
+                                life: 3000,
+                            });
+                        }
+                    },
+                    (error) => {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: error.message,
+                            life: 3000,
+                        });
+                    }
+                );
+            }
+          
         }
     }
 

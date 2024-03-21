@@ -1,1 +1,267 @@
-<p>setting works!</p>
+<div class="card w-full h-full">
+    <h3>Configuración</h3>
+    <p-toast></p-toast>
+
+    <div class="grid">
+        <div class="col-12 md:col-6">
+            <p-fieldset legend="Empresa">
+                <div style="display: flex; flex-direction: column">
+                    <p-button
+                        [link]="true"
+                        icon="pi pi-building"
+                        label="Informacion"
+                        (onClick)="editCompany()"
+                    ></p-button>
+                </div>
+            </p-fieldset>
+        </div>
+
+        <div class="col-12 md:col-6">
+            <p-fieldset legend="Facturacion Electronica">
+                <div style="display: flex; flex-direction: column">
+                    <p-button
+                        [link]="true"
+                        icon="pi pi-file"
+                        label="Firma electronica"
+                    ></p-button>
+
+                    <p-button
+                        [link]="true"
+                        icon="pi pi-key"
+                        label="Credenciales"
+                    ></p-button>
+                </div>
+            </p-fieldset>
+        </div>
+        <div class="col-12 md:col-6">
+            <p-fieldset legend="Zona peligrosa">
+                <div style="display: flex; flex-direction: column">
+                    <p-button
+                        icon="pi pi-send"
+                        label="Tranferir empresa"
+                        severity="info"
+                        class="mb-2"
+                    ></p-button>
+
+                    <p-button
+                        (onClick)="archCompany()"
+                        icon="pi pi-folder-open"
+                        label="Archivar empresa"
+                        severity="warning"
+                        class="mb-2"
+                    ></p-button>
+
+                    <p-button
+                        (onClick)="deleteCompany()"
+                        severity="danger"
+                        icon="pi pi-times"
+                        label="Eliminar empresa"
+                    ></p-button>
+                </div>
+            </p-fieldset>
+        </div>
+    </div>
+</div>
+
+<p-dialog
+    [(visible)]="companyDialog"
+    [style]="{ width: '550px' }"
+    header="Detalle de la empresa"
+    [modal]="true"
+    class="p-fluid"
+>
+    <ng-template pTemplate="content">
+        <div class="p-formgrid grid">
+            <div class="col-12 sm:col-12">
+                <label for="name">Nombre de la empresa.</label>
+                <input
+                    type="text"
+                    pInputText
+                    id="accountName"
+                    [(ngModel)]="company.name"
+                    required
+                />
+                <small
+                    class="ng-dirty ng-invalid"
+                    *ngIf="submitted && !company.name"
+                    >Name is required.</small
+                >
+            </div>
+
+            <div class="col-12 sm:col-6">
+                <label for="name">RNC o Cédula.</label>
+                <input
+                    type="text"
+                    pInputText
+                    id="accountNumber"
+                    [(ngModel)]="company.rnc"
+                    required
+                />
+                <small
+                    class="ng-dirty ng-invalid"
+                    *ngIf="submitted && !company.rnc"
+                    >Name is required.</small
+                >
+            </div>
+
+            <div class="col-12 sm:col-6">
+                <label for="name">Teléfono.</label>
+                <input
+                    type="text"
+                    pInputText
+                    id="accountNumber"
+                    [(ngModel)]="company.telefono"
+                    required
+                />
+                <small
+                    class="ng-dirty ng-invalid"
+                    *ngIf="submitted && !company.telefono"
+                    >Name is required.</small
+                >
+            </div>
+            <div class="col-12 sm:col-12">
+                <label for="name">Dirección</label>
+                <input
+                    type="text"
+                    pInputText
+                    id="accountNumber"
+                    [(ngModel)]="company.address"
+                    required
+                />
+                <small
+                    class="ng-dirty ng-invalid"
+                    *ngIf="submitted && !company.address"
+                    >Name is required.</small
+                >
+            </div>
+            <div class="col-12 sm:col-4">
+                <label for="name">Logo de la empresa</label>
+                <div class="card w-full">
+                    <label
+                        for="image_uploads"
+                        title="Publicar Foto"
+                        style="font-size: 20px; cursor: pointer"
+                    >
+                        <i class="fa-solid fa-plus" style="height: 20px"></i>
+                    </label>
+
+                    <input
+                        type="file"
+                        style="display: none"
+                        id="image_uploads"
+                        (change)="onFileSelected($event)"
+                        accept="image/*"
+                    />
+                </div>
+            </div>
+            <div class="col-12 sm:col-8">
+                <img
+                    *ngIf="imageUrl"
+                    width="250px"
+                    [src]="imageUrl"
+                    alt="Ninguna imagen"
+                />
+
+                <!-- <p-image
+                            [src]="imageUrl"
+                            alt="Image"
+                            class=" w-30rem w-max"
+                        ></p-image> -->
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button
+            pButton
+            pRipple
+            label="Cancel"
+            icon="pi pi-times"
+            class="p-button-text"
+            (click)="hideDialog()"
+        ></button>
+        <button
+            pButton
+            pRipple
+            label="Save"
+            icon="pi pi-check"
+            class="p-button-text"
+            (click)="updateCompany()"
+        ></button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog
+    [(visible)]="deleteCompanyDialog"
+    header="Confirmación"
+    [modal]="true"
+    [style]="{ width: '450px' }"
+>
+    <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+        <span *ngIf="company"
+            >¿Estas seguro que deseas eliminar a <b>{{ company.name }}</b
+            >?
+            <br />
+            <br />
+
+            Esta empresa podra ser restaurada en un lapso de una semana, luego
+            sera eliminada completamente.
+        </span>
+    </div>
+    <ng-template pTemplate="footer">
+        <button
+            pButton
+            pRipple
+            icon="pi pi-times"
+            class="p-button-text"
+            label="No"
+            (click)="deleteCompanyDialog = false"
+        ></button>
+        <button
+            pButton
+            pRipple
+            icon="pi pi-check"
+            class="p-button-text"
+            label="Yes"
+            (click)="confirmDelete()"
+        ></button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog
+    [(visible)]="archCompanyDialog"
+    header="Confirmación"
+    [modal]="true"
+    [style]="{ width: '450px' }"
+>
+    <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+        <span *ngIf="company"
+            >¿Estas seguro que deseas archivar a <b>{{ company.name }}</b
+            >?
+            <br />
+            <br />
+
+            Esta empresa podra ser restaurada en cualquier momento.
+        </span>
+    </div>
+    <ng-template pTemplate="footer">
+        <button
+            pButton
+            pRipple
+            icon="pi pi-times"
+            class="p-button-text"
+            label="No"
+            (click)="archCompanyDialog = false"
+        ></button>
+        <button
+            pButton
+            pRipple
+            icon="pi pi-check"
+            class="p-button-text"
+            label="Yes"
+            (click)="confirmDelete()"
+        ></button>
+    </ng-template>
+</p-dialog>

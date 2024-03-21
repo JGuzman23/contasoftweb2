@@ -87,3 +87,48 @@
       
     </div>
 </div>
+
+<p-dialog
+            [(visible)]="o607Dialog"
+            header="Seleccione el periodo"
+            [modal]="true"
+            [style]="{ width: '450px' }"
+            class="p-fluid"
+        >
+        <ng-template pTemplate="content">
+            <div class="p-formgrid grid mt-2">
+                <div class="col-12 ">
+                 
+                    <p-dropdown
+                        [options]="periodRange"
+                        id="accountType"
+                        appendTo="body"
+                        [(ngModel)]="peridod"
+                        required
+                        autofocus
+                        class="w-full"
+                        placeholder="2020/01"
+                        
+                    ></p-dropdown>
+                </div>
+            </div>
+        </ng-template>
+            <ng-template pTemplate="footer">
+                <button
+                    pButton
+                    pRipple
+                    icon="pi pi-times"
+                    class="p-button-text"
+                    label="No"
+                    (click)="o607Dialog = false"
+                ></button>
+                <button
+                    pButton
+                    pRipple
+                    icon="pi pi-check"
+                    class="p-button-text"
+                    label="Yes"
+                    (click)="genarar607()"
+                ></button>
+            </ng-template>
+        </p-dialog>

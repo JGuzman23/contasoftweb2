@@ -8,4 +8,5 @@ export interface Company  {
     address?: string | null;
     telefono?: string | null;
     photo?: string | null ;
+    isActive?:boolean;
 }
