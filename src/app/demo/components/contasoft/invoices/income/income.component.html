@@ -142,10 +142,10 @@
 
                         <td style="width: 15%; min-width: 10rem">
                             <div class="flex justify-content-center">
-                                <p-button icon="pi pi-pencil" [rounded]="true" class=" mr-2" (click)="editBill(income)"[text]="true" [raised]="true"></p-button>
+                                <p-button icon="pi pi-pencil" tooltipPosition="bottom" pTooltip="Editar" [rounded]="true" class=" mr-2" (click)="editBill(income)"[text]="true" [raised]="true"></p-button>
                              
-                                <p-button icon="pi pi-ban" [rounded]="true" severity="warning" class=" mr-2" [text]="true" [raised]="true" (click)="voidInvoiceBill(income)"></p-button>
-                                <p-button icon="pi pi-trash" [rounded]="true" severity="danger" [text]="true" [raised]="true" (click)="deleteBill(income)"></p-button>
+                                <p-button icon="pi pi-ban" tooltipPosition="bottom" pTooltip="Anular" [rounded]="true" severity="warning" class=" mr-2" [text]="true" [raised]="true" (click)="voidInvoiceBill(income)"></p-button>
+                                <p-button icon="pi pi-trash" tooltipPosition="bottom" pTooltip="Eliminar" [rounded]="true" severity="danger" [text]="true" [raised]="true" (click)="deleteBill(income)"></p-button>
 
                                 
                                

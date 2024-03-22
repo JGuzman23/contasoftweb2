@@ -14,6 +14,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import { CalendarModule } from 'primeng/calendar';
+import { TooltipModule } from 'primeng/tooltip';
+
 import { O606RoutingModule } from './o606-routing.module';
 import { FormsModule } from '@angular/forms';
 import { O606Component } from './o606.component';
@@ -38,7 +40,8 @@ import { O606Component } from './o606.component';
     RadioButtonModule,
     InputNumberModule,
     DialogModule,
-    CalendarModule
+    CalendarModule,
+    TooltipModule
   ]
 })
 export class O606Module { }

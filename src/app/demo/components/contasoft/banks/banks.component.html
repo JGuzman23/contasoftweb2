@@ -122,9 +122,9 @@
 
                         <td>
                             <div class="flex">
-                                <p-button icon="pi pi-pencil" [rounded]="true" class=" mr-2" (click)="editProduct(bank)" [text]="true" [raised]="true"></p-button>
+                                <p-button icon="pi pi-pencil" [rounded]="true" pTooltip="Editar" tooltipPosition="bottom" class=" mr-2" (click)="editProduct(bank)" [text]="true" [raised]="true"></p-button>
                              
-                                <p-button icon="pi pi-trash" [rounded]="true" severity="danger" [text]="true" [raised]="true" (click)="deleteProduct(bank)"></p-button>
+                                <p-button icon="pi pi-trash" [rounded]="true" pTooltip="Eliminar" tooltipPosition="bottom" severity="danger" [text]="true" [raised]="true" (click)="deleteProduct(bank)"></p-button>
                                 
                             </div>
                         </td>

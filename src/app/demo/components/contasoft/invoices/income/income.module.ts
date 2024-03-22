@@ -19,6 +19,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { CalendarModule } from 'primeng/calendar';
 import { IncomeRoutingModule } from './income-routing.module';
 import { IncomeComponent } from './income.component';
+import { TooltipModule } from 'primeng/tooltip';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { IncomeComponent } from './income.component';
     InputNumberModule,
     DialogModule,
     TabViewModule,
-    CalendarModule
+    CalendarModule,
+    TooltipModule
   ]
 })
 export class IncomeModule { }

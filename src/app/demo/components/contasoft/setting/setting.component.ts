@@ -11,16 +11,17 @@ import { Router } from '@angular/router';
 })
 export class SettingComponent {
     companyDialog: boolean = false;
-    archCompanyDialog:boolean=false
+    archCompanyDialog: boolean = false;
     deleteCompanyDialog: boolean = false;
     company: Company = {};
     userID = '';
+ 
     imageUrl: string | ArrayBuffer | null = null;
 
     constructor(
         private companyService: CompanyService,
         private messageService: MessageService,
-        private router:Router
+        private router: Router
     ) {}
     ngOnInit() {
         if (typeof localStorage !== 'undefined') {
@@ -37,9 +38,11 @@ export class SettingComponent {
                 this.companyService.GetOne(jsonCompany.id).subscribe(
                     (response) => {
                         this.company = response.data;
-                        this.imageUrl = 'data:image/jpg;base64,'.concat(
-                            this.company.photo
-                        );
+                            this.imageUrl = 'data:image/png;base64,'.concat(
+                                this.company.photo
+                            );
+                        
+                       
                         console.log(response.data);
                     },
                     (error) => {}
@@ -56,12 +59,48 @@ export class SettingComponent {
             reader.onload = () => {
                 this.imageUrl = reader.result;
                 var image = this.imageUrl as string;
-                this.company.photo = image.replace(
-                    'data:image/png;base64,',
-                    ''
+                const imageType = this.getImageType(image);
+                if (imageType) {
+                  // La cadena de datos de imagen es válida
+                  const imageData = this.getBase64ImageData(image, imageType);
+                  this.company.photo = imageData;
+                } else {
+
+                  // La cadena de datos de imagen no es válida
+                  this.imageUrl = 'data:image/png;base64,'.concat(
+                    this.company.photo
                 );
+                  this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'Formato de imagen no aceptada!.',
+                    life: 3000,
+                });
+                }
             };
         }
+    }
+    getImageType(imageData: string): string | null {
+        // Definir los encabezados correspondientes a los tipos de imagen admitidos
+        const imageHeaders = [
+            'data:image/png;base64,',
+            'data:image/jpeg;base64,',
+            'data:image/jpg;base64,',
+            'data:image/gif;base64,',
+            'data:image/tiff;base64,',
+            'data:image/ico;base64,',
+        ];
+        // Verificar si la cadena comienza con alguno de los encabezados
+        for (const header of imageHeaders) {
+            if (imageData.startsWith(header)) {
+                return header;
+            }
+        }
+        return null; // No se encontró un tipo de imagen válido
+    }
+    getBase64ImageData(imageData: string, imageType: string): string {
+        // Remover el encabezado correspondiente al tipo de imagen para obtener solo los datos base64
+        return imageData.replace(imageType, '');
     }
 
     editCompany() {
@@ -106,7 +145,7 @@ export class SettingComponent {
 
     confirmDelete() {
         this.deleteCompanyDialog = false;
-        this.company.isActive=false;
+        this.company.isActive = false;
         if (this.company.name?.trim()) {
             this.companyService.Update(this.company).subscribe(
                 (response) => {
@@ -117,7 +156,7 @@ export class SettingComponent {
                         life: 3000,
                     });
                     this.companyDialog = false;
-                  this.router.navigateByUrl('/');
+                    this.router.navigateByUrl('/');
                 },
                 (error) => {
                     this.messageService.add({

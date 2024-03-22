@@ -18,6 +18,7 @@ import { BillComponent } from './bill.component';
 import { FormsModule } from '@angular/forms';
 import { TabViewModule } from 'primeng/tabview';
 import { CalendarModule } from 'primeng/calendar';
+import { TooltipModule } from 'primeng/tooltip';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { CalendarModule } from 'primeng/calendar';
     InputNumberModule,
     DialogModule,
     TabViewModule,
-    CalendarModule
+    CalendarModule,
+    TooltipModule
   ]
 })
 export class BillModule { }

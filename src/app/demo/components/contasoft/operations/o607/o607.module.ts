@@ -17,6 +17,8 @@ import { CalendarModule } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
 import { O607RoutingModule } from './o607-routing.module';
 import { O607Component } from './o607.component';
+import { TooltipModule } from 'primeng/tooltip';
+
 
 
 @NgModule({
@@ -38,7 +40,8 @@ import { O607Component } from './o607.component';
     RadioButtonModule,
     InputNumberModule,
     DialogModule,
-    CalendarModule
+    CalendarModule,
+    TooltipModule
   ]
 })
 export class O607Module { }
