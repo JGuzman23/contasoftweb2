@@ -47,6 +47,10 @@ export class LoginComponent {
             this.loading=false
            
           }
+        },(error)=>{
+          this.loading= false
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.message, life: 3000 });
+
         })
         
     }

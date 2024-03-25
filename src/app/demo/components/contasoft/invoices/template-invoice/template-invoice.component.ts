@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { Product } from '../../interfaces/product.interface';
+import { CompanyService } from '../../service/company.service';
+import { Company } from '../../interfaces/company.interface';
+import { Income } from '../../interfaces/income.interface';
+
 
 @Component({
     selector: 'app-template-invoice',
@@ -64,42 +68,114 @@ export class TemplateInvoiceComponent {
         },
     ];
     clonedProducts: { [s: number]: Product } = {};
+    Income: Income = {
+        id: 0,
+        subtotal: 0,
+        total: 0,
+        itbis: 0,
+        nota: '',
+        date: '',
+        ncf: '',
+        invoiceNumber: '0',
+        products:[]
 
-    public products: Product[] = [
-        
-    ];
+    };
+    company: Company = {};
 
-    onRowEditInit(product: Product) {
-        this.clonedProducts[product.id ] = { ...product };
+    
+
+    imageUrl: string | ArrayBuffer | null = null;
+
+    /**
+     *
+     */
+    constructor(private companyService: CompanyService) {}
+    ngOnInit() {
+        var company = localStorage.getItem('company');
+        if (company) {
+            var jsonCompany = JSON.parse(company);
+
+            if (jsonCompany.name) {
+                this.companyService.GetOne(jsonCompany.id).subscribe(
+                    (response) => {
+                        this.company = response.data;
+                        this.imageUrl = 'data:image/png;base64,'.concat(
+                            this.company.photo
+                        );
+
+                        console.log(response.data);
+                    },
+                    (error) => {}
+                );
+            }
+        }
     }
 
+    onRowEditInit(product: Product) {
+        this.clonedProducts[product.id] = { ...product };
+    }
+    getSubTotales() {}
+
     onRowEditSave(product: Product) {
+        this.getSubTotales();
         if (product.price > 0) {
-            delete this.clonedProducts[product.id ];
-            
+            delete this.clonedProducts[product.id];
         } else {
-           
         }
     }
 
     onRowEditCancel(product: Product, index: number) {
-        this.products[index] = this.clonedProducts[product.id ];
-        delete this.clonedProducts[product.id ];
+        this.Income.products[index] = this.clonedProducts[product.id];
+        delete this.clonedProducts[product.id];
     }
-    onRowdelete(index:number){
-      this.products.splice(index,1)
-
+    onRowdelete(index: number) {
+        this.Income.products.splice(index, 1);
     }
 
-    agregar(){
-      
-      this.products.push( {
-        id: this.products.length,
-        name: '',
-        amount: 0.0,
-        price: 0.0,
-    })
-    console.log(this.products);
-    
+    agregar() {
+        this.Income.products.push({
+            id: this.Income.products.length,
+            name: '',
+            amount: 0.0,
+            price: 0.0,
+            iTBIS: 0.0,
+            total: 0.0,
+        });
+    }
+
+    getTotal(product: Product) {
+        // Actualizar el total del producto
+        this.Income.products[product.id].total = product.amount * product.price;
+        console.log(this.Income.products[product.id].total);
+
+        // Calcular subtotal de ingresos sumando los totales de los productos
+        this.Income.subtotal = this.Income.products.reduce(
+            (acc, p) => acc + p.total,
+            0
+        );
+
+        // Calcular ITBIS
+        this.Income.itbis = this.Income.subtotal * 0.18;
+
+        // Calcular total de ingresos sumando el subtotal y el ITBIS
+        this.Income.total = this.Income.subtotal + this.Income.itbis;
+    }
+    exportPdf() {
+        // Obtener una referencia al elemento <input>
+
+        import('jspdf').then((jsPDF) => {
+            const doc = new jsPDF.default('p', 'pt', 'a4');
+
+            doc.html(document.getElementById('invoice'), {
+                callback: function (doc) {
+                    doc.save();
+                },
+            });
+        });
+    }
+
+    save(){
+        console.log(this.Income);
+        
     }
 }

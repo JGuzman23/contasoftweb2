@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
-import { InvoiceIncome } from '../../interfaces/income.interface';
+import { Invoice606 } from '../../interfaces/invoice607.interface';
 import { InvoiceService } from '../../service/invoice.service';
 import { MessageService } from 'primeng/api';
 import { VoidInvoice } from '../../interfaces/void.interface';
@@ -19,9 +19,9 @@ export class IncomeComponent implements OnInit {
   voidInvoiceBillDialog: boolean=false
   deleteCompaniesDialog: boolean = false;
 
-  incomes: InvoiceIncome[]=[]
+  incomes: Invoice606[]=[]
 
-  income: InvoiceIncome = {};
+  income: Invoice606 = {};
   public voidInvoice: VoidInvoice ={
     invoiceId:0,
     comment:'',
@@ -30,7 +30,7 @@ export class IncomeComponent implements OnInit {
   };
 
   
-  selectedCompanies: InvoiceIncome[] = [];
+  selectedCompanies: Invoice606[] = [];
 
   submitted: boolean = false;
 
@@ -39,7 +39,7 @@ export class IncomeComponent implements OnInit {
   statuses: any[] = [];
 
   rowsPerPageOptions = [5, 10, 20];
-
+  status:string='';
   
   companyId=0
   public TiposIngresos: any[] = [
@@ -142,6 +142,7 @@ export class IncomeComponent implements OnInit {
           { field: 'montoFacturado', header: 'Monto Facturado' },
           { field: 'itbisFacturado', header: 'ITBIS Facturado' }
       ];
+     
 
      
   }
@@ -161,6 +162,23 @@ export class IncomeComponent implements OnInit {
     
   }
 
+  getStatues(status:string){
+
+    switch (status) {
+      case 'completed':
+        this.status= 'instock'
+        break;
+    
+      default:
+        break;
+    }
+    this.statuses = [
+      { label: 'INSTOCK', value: 'instock' },
+      { label: 'LOWSTOCK', value: 'lowstock' },
+      { label: 'OUTOFSTOCK', value: 'outofstock' }
+  ];
+  }
+
   openNew() {
       this.income = {};
       this.submitted = false;
@@ -171,17 +189,17 @@ export class IncomeComponent implements OnInit {
       this.deleteCompaniesDialog = true;
   }
 
-  editBill(income: InvoiceIncome) {
+  editBill(income: Invoice606) {
       this.income = { ...income };
       this.incomeDialog = true;
   }
 
-  deleteBill(income: InvoiceIncome) {
+  deleteBill(income: Invoice606) {
       this.deleteBillDialog = true;
       this.income = { ...income };
   }
 
-  voidInvoiceBill(income: InvoiceIncome){
+  voidInvoiceBill(income: Invoice606){
     this.voidInvoiceBillDialog= true;
     this.income = { ...income };
   }

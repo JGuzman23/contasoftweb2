@@ -94,6 +94,10 @@
                             ITBIS
                             
                         </th>
+                        <th pSortableColumn="Estado" class="text-center">
+                            Estado
+                            
+                        </th>
                         <th pSortableColumn="fechaComprobante" class="text-center">
                             Fecha de Factura
                             <p-sortIcon field="fechaComprobante"></p-sortIcon>
@@ -133,6 +137,10 @@
                         >
                          {{income.itbisFacturado}}
                          </td>
+                         <td>
+                            <span [class]="'product-badge status-' + (income.status? income.status.toLowerCase() : '')">{{income.status}}</span>
+
+                         </td>
                         <td
                             style="width: 15%; min-width: 10rem"
                             class="text-center"
@@ -144,8 +152,8 @@
                             <div class="flex justify-content-center">
                                 <p-button icon="pi pi-pencil" tooltipPosition="bottom" pTooltip="Editar" [rounded]="true" class=" mr-2" (click)="editBill(income)"[text]="true" [raised]="true"></p-button>
                              
-                                <p-button icon="pi pi-ban" tooltipPosition="bottom" pTooltip="Anular" [rounded]="true" severity="warning" class=" mr-2" [text]="true" [raised]="true" (click)="voidInvoiceBill(income)"></p-button>
-                                <p-button icon="pi pi-trash" tooltipPosition="bottom" pTooltip="Eliminar" [rounded]="true" severity="danger" [text]="true" [raised]="true" (click)="deleteBill(income)"></p-button>
+                                <p-button *ngIf="income.isActive" icon="pi pi-ban" tooltipPosition="bottom" pTooltip="Anular" [rounded]="true" severity="warning" class=" mr-2" [text]="true" [raised]="true" (click)="voidInvoiceBill(income)"></p-button>
+                                <p-button *ngIf="income.isActive" icon="pi pi-trash" tooltipPosition="bottom" pTooltip="Eliminar" [rounded]="true" severity="danger" [text]="true" [raised]="true" (click)="deleteBill(income)"></p-button>
 
                                 
                                
@@ -175,7 +183,7 @@
                             <div class="p-formgrid grid">
                                 <div class=" col-12 sm:col-6">
                                     <span>RNC</span>
-                                    <input pInputText id="RNC" [(ngModel)]="income.rncCedulaPasaporte" name="RNC" type="text" />
+                                    <input  [disabled]="!income.isActive" pInputText id="RNC" [(ngModel)]="income.rncCedulaPasaporte" name="RNC" type="text" />
                                 </div>
                                 <div class=" col-12 sm:col-6">
                                    <span>Tipo de Ingresos</span>
@@ -294,7 +302,7 @@
                 <button
                     pButton
                     pRipple
-                    label="Cancel"
+                    label="Cancelar"
                     icon="pi pi-times"
                     class="p-button-text"
                     (click)="hideDialog()"
@@ -302,7 +310,7 @@
                 <button
                     pButton
                     pRipple
-                    label="Save"
+                    label="Guardar"
                     icon="pi pi-check"
                     class="p-button-text"
                     (click)="saveProduct()"
@@ -366,6 +374,7 @@
                         [(ngModel)]="voidInvoice.tipo"
                         required
                         autofocus
+                       
                         placeholder="Selecciona un tipo."
                         optionValue="id"
                         optionLabel="valor"
@@ -396,7 +405,7 @@
             <button
                 pButton
                 pRipple
-                label="Cancel"
+                label="Cancelar"
                 icon="pi pi-times"
                 class="p-button-text"
                 (click)="hideDialog()"
@@ -404,7 +413,7 @@
             <button
                 pButton
                 pRipple
-                label="Save"
+                label="Guardar"
                 icon="pi pi-check"
                 class="p-button-text"
                 (click)="confirmVoidInvoiceBill()"

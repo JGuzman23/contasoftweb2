@@ -5,21 +5,18 @@
                 <div class="flex justify-content-between">
                     <div>
                         <p-image
-                            src="assets/logo.png"
+                            [src]="imageUrl"
                             alt="Image"
                             width="100"
                         ></p-image>
                     </div>
-                    <h3 >Factura de Crédito Fiscal</h3>
-                   
+                    <h3>Factura de Crédito Fiscal</h3>
                 </div>
-               
+
                 <div class="grid">
-                    
                     <div class="col-12 sm:col-7">
-                        
                         <div>
-                            <h2>Your Company</h2>
+                            <h2>{{ company.name }}</h2>
                         </div>
                         <div style="display: flex; flex-direction: column">
                             <div style="display: flex">
@@ -30,7 +27,7 @@
                                     "
                                     >RNC:
                                 </label>
-                                <label for=""> 402-09382893-2</label>
+                                <label for=""> {{ company.rnc }}</label>
                             </div>
                             <div style="display: flex">
                                 <label
@@ -50,7 +47,7 @@
                                     "
                                     >Direccion:
                                 </label>
-                                <label for=""> C/La vida meos</label>
+                                <label for=""> {{ company.address }}</label>
                             </div>
                             <div style="display: flex">
                                 <label
@@ -60,12 +57,11 @@
                                     "
                                     >Telefono:
                                 </label>
-                                <label for="">839-928-3938</label>
+                                <label for="">{{ company.telefono }}</label>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 sm:col-5">
-                       
                         <div style="display: flex; flex-direction: column">
                             <div
                                 style="
@@ -77,19 +73,41 @@
                                 <label
                                     style="
                                         margin-left: 0;
-                                        
                                         font-weight: bold;
-                                        font-size: 16px;
+                                        font-size: 14px;
                                     "
-                                    >NCF:</label
+                                    >No.:</label
                                 >
                                 <input
-                                    
+                                    id="numero"
+                                    [(ngModel)]="Income.invoiceNumber"
                                     pInputText
                                     type="text"
                                     class="p-inputtext-sm w-auto"
                                 />
-                                
+                            </div>
+                            <div
+                                style="
+                                    display: flex;
+                                    justify-content: space-between;
+                                    margin-bottom: 10px;
+                                "
+                            >
+                                <label
+                                    style="
+                                        margin-left: 0;
+                                        font-weight: bold;
+                                        font-size: 14px;
+                                    "
+                                    >NCF:</label
+                                >
+                                <input
+                                id="ncf"
+                                [(ngModel)]="Income.ncf"
+                                    pInputText
+                                    type="text"
+                                    class="p-inputtext-sm w-auto"
+                                />
                             </div>
                             <div
                                 style="
@@ -101,12 +119,11 @@
                                     style="
                                         margin-right: 0;
                                         font-weight: bold;
-                                        font-size: 16px;
+                                        font-size: 14px;
                                     "
                                     >Fecha:</label
                                 >
-                                <p-calendar class="p-inputtext-sm" ></p-calendar>
-
+                                <p-calendar class="p-inputtext-sm"></p-calendar>
                             </div>
                         </div>
                     </div>
@@ -121,45 +138,79 @@
                                 <p-autoComplete></p-autoComplete>
                             </span>
                         </div>
-                        <div class="col-12 sm:col-6">
-                            <h4>Detalle del pago:</h4>
+                        <div class="col-12 sm:col-5">
                             <div style="display: flex; flex-direction: column">
-                                <div style="display: flex">
+                                <div
+                                    style="
+                                        display: flex;
+                                        justify-content: space-between;
+                                        margin-bottom: 10px;
+                                    "
+                                >
                                     <label
                                         style="
-                                            margin-right: 10px;
-                                            margin-bottom: 10px;
+                                            margin-left: 0;
                                             font-weight: bold;
+                                            font-size: 14px;
                                         "
-                                        >Total:
-                                    </label>
-                                    <label for="">DOP$ 12,000.00</label>
+                                        >Entidad:</label
+                                    >
+                                    <input
+                                        id="entidad"
+                                        [(ngModel)]="Income.empresa"
+                                        pInputText
+                                        type="text"
+                                        class="p-inputtext-sm w-auto"
+                                    />
                                 </div>
-                                <div style="display: flex">
+                                <div
+                                    style="
+                                        display: flex;
+                                        justify-content: space-between;
+                                        margin-bottom: 10px;
+                                    "
+                                >
                                     <label
                                         style="
-                                            margin-right: 10px;
-                                            margin-bottom: 10px;
+                                            margin-left: 0;
                                             font-weight: bold;
+                                            font-size: 14px;
                                         "
-                                        >Metodo de pago:
-                                    </label>
-                                    <label for="">Tranferencia</label>
+                                        >RNC:</label
+                                    >
+                                    <input
+                                        id="rnc"
+                                       [(ngModel)]="Income.rnc"
+                                        pInputText
+                                        type="text"
+                                        class="p-inputtext-sm w-auto"
+                                    />
                                 </div>
-
-                                <div style="display: flex">
+                                <div
+                                    style="
+                                        display: flex;
+                                        justify-content: space-between;
+                                    "
+                                >
                                     <label
                                         style="
-                                            margin-right: 10px;
-                                            margin-bottom: 10px;
+                                            margin-right: 0;
                                             font-weight: bold;
+                                            font-size: 14px;
                                         "
-                                        >Pais:
-                                    </label>
-                                    <label for="">Republica Dominicana</label>
+                                        >Dirección:</label
+                                    >
+                                    <input
+                                    id="address"
+                                        pInputText
+                                        [(ngModel)]="Income.direccion"
+                                        type="text"
+                                        class="p-inputtext-sm w-auto"
+                                    />
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
                 <p-divider></p-divider>
@@ -168,62 +219,143 @@
                         <div class="col-12">
                             <div class="flex justify-content-between mb-3">
                                 <h4>Elementos de la factura</h4>
-                                <p-button (onClick)="agregar()" icon="pi pi-plus" label="Elementos"></p-button>
+                                <p-button
+                                    (onClick)="agregar()"
+                                    icon="pi pi-plus"
+                                    label=""
+                                ></p-button>
                             </div>
-                            
 
-                            <p-table [value]="products" dataKey="id" editMode="row" [tableStyle]="{ 'min-width': '50rem' }">
+                            <p-table
+                                [value]="Income.products"
+                                dataKey="id"
+                                editMode="row"
+                                [tableStyle]="{ 'min-width': '50rem' }"
+                            >
                                 <ng-template pTemplate="header">
                                     <tr>
-                                        <th>Producto </th>
-                                        <th>Cantidad</th>
-                                        <th>Precio</th>
-                                        <th>Total</th>
-                                        <th></th>
+                                        <th >Producto</th>
+                                        <th >Cantidad</th>
+                                        <th >Precio</th>
+                                        <th >Total</th>
+                                        <th class="text-center" >Acciones</th>
                                     </tr>
                                 </ng-template>
-                                <ng-template  pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
+                                <ng-template
+                                    pTemplate="body"
+                                    let-product
+                                    let-editing="editing"
+                                    let-ri="rowIndex"
+                                >
                                     <tr [pEditableRow]="product">
-                                        <td>
+                                        <td >
                                             <p-cellEditor>
                                                 <ng-template pTemplate="input">
-                                                    <input pInputText type="text" [(ngModel)]="product.name">
+                                                    <input
+                                                    
+                                                        pInputText
+                                                        type="text"
+                                                        [(ngModel)]="
+                                                            product.name
+                                                        "
+                                                    />
                                                 </ng-template>
                                                 <ng-template pTemplate="output">
-                                                    {{product.name}}
+                                                    {{ product.name }}
                                                 </ng-template>
                                             </p-cellEditor>
                                         </td>
-                                        <td>
+                                        <td >
                                             <p-cellEditor>
                                                 <ng-template pTemplate="input">
-                                                    <input pInputText type="text" [(ngModel)]="product.amount">
-                                                </ng-template>
-                                                <ng-template pTemplate="output">
-                                                    {{product.amount}}
-                                                </ng-template>
-                                            </p-cellEditor>
-                                        </td>
-                                        <td>
-                                            <p-cellEditor>
-                                                <ng-template pTemplate="input">
-                                                    <input pInputText type="text" [(ngModel)]="product.price">
-                                                </ng-template>
-                                                <ng-template pTemplate="output">
-                                                    {{product.price}}
-                                                </ng-template>
-                                            </p-cellEditor>
-                                        </td>
-                                        <td>
-                                           
-                                        </td>
-                                        <td>
-                                            <div class="flex align-items-center justify-content-center gap-2">
-                                                <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(product)" class="p-button-rounded p-button-text"></button>
-                                                <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-times" (click)="onRowdelete(product.id)" class="p-button-rounded p-button-text  p-button-danger"></button>
+                                                    <p-inputNumber (onInput)="getTotal(product)" [(ngModel)]="product.amount" id="amount" name="amount" inputId="locale-us" mode="decimal" inputId="withoutgrouping" [useGrouping]="false" locale="en-US"> </p-inputNumber>
 
-                                                <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(product)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
-                                                <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(product, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    {{ product.amount }}
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                        <td >
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input">
+                                                    <p-inputNumber (onInput)="getTotal(product)"  [(ngModel)]="product.price" id="price" name="price" inputId="locale-us" mode="decimal" locale="en-US" [minFractionDigits]="2"> </p-inputNumber>
+
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    {{ product.price  |number  }}
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                       
+                                        <td >
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input">
+                                                  
+                                                    <p-inputNumber  [(ngModel)]="product.total" id="total" name="total" inputId="locale-us" mode="decimal" locale="en-US" [minFractionDigits]="2"> </p-inputNumber>
+
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    {{ product.total |number }}
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </td>
+                                        <td class="text-center">
+                                            <div
+                                                class="flex align-items-center justify-content-center gap-2"
+                                            >
+                                                <button
+                                                    *ngIf="!editing"
+                                                    pButton
+                                                    pRipple
+                                                    type="button"
+                                                    pInitEditableRow
+                                                    icon="pi pi-pencil"
+                                                    (click)="
+                                                        onRowEditInit(product)
+                                                    "
+                                                    class="p-button-rounded p-button-text"
+                                                ></button>
+                                                <button
+                                                    *ngIf="!editing"
+                                                    pButton
+                                                    pRipple
+                                                    type="button"
+                                                    pInitEditableRow
+                                                    icon="pi pi-times"
+                                                    (click)="
+                                                        onRowdelete(product.id)
+                                                    "
+                                                    class="p-button-rounded p-button-text p-button-danger"
+                                                ></button>
+
+                                                <button
+                                                    *ngIf="editing"
+                                                    pButton
+                                                    pRipple
+                                                    type="button"
+                                                    pSaveEditableRow
+                                                    icon="pi pi-check"
+                                                    (click)="
+                                                        onRowEditSave(product)
+                                                    "
+                                                    class="p-button-rounded p-button-text p-button-success mr-2"
+                                                ></button>
+                                                <button
+                                                    *ngIf="editing"
+                                                    pButton
+                                                    pRipple
+                                                    type="button"
+                                                    pCancelEditableRow
+                                                    icon="pi pi-times"
+                                                    (click)="
+                                                        onRowEditCancel(
+                                                            product,
+                                                            ri
+                                                        )
+                                                    "
+                                                    class="p-button-rounded p-button-text p-button-danger"
+                                                ></button>
                                             </div>
                                         </td>
                                     </tr>
@@ -234,13 +366,54 @@
                     </div>
                 </div>
                 <p-divider></p-divider>
+
+                <div class="grid">
+                    <div class="col-12 sm:col-6"></div>
+
+                    <div class="col-12 sm:col-6">
+                        <div style="display: flex; flex-direction: column ; align-items: center;" >
+                            <div style="display: flex">
+                                <label
+                                    style="
+                                        margin-right: 10px;
+                                        margin-bottom: 10px;
+                                        font-weight: bold;
+                                    "
+                                    >Sub-total:
+                                </label>
+                                <label for="">{{Income.subtotal |number  }}</label>
+                            </div>
+                            <div style="display: flex">
+                                <label
+                                    style="
+                                        margin-right: 10px;
+                                        margin-bottom: 10px;
+                                        font-weight: bold;
+                                    "
+                                    >ITBIS:
+                                </label>
+                                <label for="">{{Income.itbis |number  }}</label>
+                            </div>
+
+                            <div style="display: flex">
+                                <label
+                                    style="
+                                        margin-right: 10px;
+                                        margin-bottom: 10px;
+                                        font-weight: bold;
+                                    "
+                                    >Total:
+                                </label>
+                                <label for="">{{Income.total |number  }}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p-divider></p-divider>
                 <div style="display: flex; flex-direction: column">
-                    
                     <div
-                        style="
-                            display: flex; justify-content: space-between;
-                           
-                        "
+                        style="display: flex; justify-content: space-between"
                         class="p-fluid"
                     >
                         <label
@@ -251,14 +424,32 @@
                             "
                             >Nota:</label
                         >
-                        <textarea rows="2" cols="30" pInputTextarea ></textarea>
+                        <textarea rows="2" [(ngModel)]="Income.nota" cols="30" pInputTextarea></textarea>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-12 md:col-3">
             <div class="card">
-                <div class="p-fluid mb-3">
+                <div class="p-fluid">
+                    <div class="p-fluid mb-3">
+                        <p-button
+                            label="Vista previa"
+                            icon="pi pi-eye"
+                            [text]="true"
+                            [raised]="true"
+                        ></p-button>
+                    </div> 
+                    <p-button
+                        label="Guardar"
+                        icon="pi pi-save"
+                        (onClick)="save()"
+                        [text]="true"
+                        [raised]="true"
+                    ></p-button>
+                </div>
+              
+                <!-- <div class="p-fluid mb-3">
                     <p-button
                         label="Enviar por correo"
                         icon="pi pi-send"
@@ -273,15 +464,16 @@
                         [text]="true"
                         [raised]="true"
                     ></p-button>
-                </div>
-                <div class="p-fluid">
+                </div> -->
+                <!-- <div class="p-fluid">
                     <p-button
                         label="Descargar"
                         icon="pi pi-download"
+                        (onClick)="exportPdf()"
                         [text]="true"
                         [raised]="true"
                     ></p-button>
-                </div>
+                </div> -->
                 <p-divider></p-divider>
                 <!-- <span>Tipo de Ingresos</span>
                                   
@@ -293,3 +485,5 @@
         </div>
     </div>
 </div>
+
+

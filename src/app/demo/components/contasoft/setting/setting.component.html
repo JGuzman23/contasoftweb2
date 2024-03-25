@@ -12,6 +12,13 @@
                         label="Informacion"
                         (onClick)="editCompany()"
                     ></p-button>
+
+                    <p-button
+                    [link]="true"
+                    icon="pi pi-file"
+                    label="Factura"
+                    (onClick)="editCompany()"
+                ></p-button>
                 </div>
             </p-fieldset>
         </div>
@@ -43,13 +50,13 @@
                         class="mb-2"
                     ></p-button>
 
-                    <p-button
+                    <!-- <p-button
                         (onClick)="archCompany()"
                         icon="pi pi-folder-open"
                         label="Archivar empresa"
                         severity="warning"
                         class="mb-2"
-                    ></p-button>
+                    ></p-button> -->
 
                     <p-button
                         (onClick)="deleteCompany()"
@@ -175,7 +182,7 @@
         <button
             pButton
             pRipple
-            label="Cancel"
+            label="Cancelar"
             icon="pi pi-times"
             class="p-button-text"
             (click)="hideDialog()"
@@ -183,7 +190,7 @@
         <button
             pButton
             pRipple
-            label="Save"
+            label="Guardar"
             icon="pi pi-check"
             class="p-button-text"
             (click)="updateCompany()"
@@ -191,7 +198,7 @@
     </ng-template>
 </p-dialog>
 
-<p-dialog
+<!-- <p-dialog
     [(visible)]="deleteCompanyDialog"
     header="Confirmación"
     [modal]="true"
@@ -227,7 +234,7 @@
             (click)="confirmDelete()"
         ></button>
     </ng-template>
-</p-dialog>
+</p-dialog> -->
 
 <p-dialog
     [(visible)]="archCompanyDialog"

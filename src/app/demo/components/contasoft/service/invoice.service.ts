@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { InvoiceIncome } from '../interfaces/income.interface';
+import { Invoice606 } from '../interfaces/invoice607.interface';
 import { InvoiceBill } from '../interfaces/bill.interface';
 import { VoidInvoice } from '../interfaces/void.interface';
 
@@ -29,21 +29,21 @@ export class InvoiceService {
     return this.http.get<any>(`${this.apiUrl}/Invoice/607/${companyId}`);
   }
 
-  createInvoice607(model: InvoiceIncome): Observable<any> {
+  createInvoice607(model: Invoice606): Observable<any> {
     return this.http.post<any>(
       `${this.apiUrl}/Invoice/invoice607`,
       model,
       this.httpOptions
     );
   }
-  updateInvoice607(model: InvoiceIncome): Observable<any> {
+  updateInvoice607(model: Invoice606): Observable<any> {
     return this.http.put<any>(
       `${this.apiUrl}/Invoice/invoice607/${model.id}`,
       model,
       this.httpOptions
     );
   }
-  deleteInvoiceIncome(id: number): Observable<any> {
+  deleteInvoice606(id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/Invoice/invoice607/${id}`);
   }
 
