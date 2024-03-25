@@ -3,6 +3,7 @@ import { Product } from '../../interfaces/product.interface';
 import { CompanyService } from '../../service/company.service';
 import { Company } from '../../interfaces/company.interface';
 import { Income } from '../../interfaces/income.interface';
+import { Invoice607 } from '../../interfaces/invoice607.interface';
 
 
 @Component({
@@ -80,6 +81,8 @@ export class TemplateInvoiceComponent {
         products:[]
 
     };
+
+    Invoice607:Invoice607
     company: Company = {};
 
     
@@ -176,6 +179,16 @@ export class TemplateInvoiceComponent {
 
     save(){
         console.log(this.Income);
+        this.Invoice607.rncCedulaPasaporte = this.Income.rnc
+        this.Invoice607.tipoIdentificacion=1;
+        this.Invoice607.numeroComprobanteFiscal = this.Income.ncf;
+        this.Invoice607.fechaComprobante= this.Income.date;
+        this.Invoice607.fechaRetencion = this.Income.date;
+        this.Invoice607.montoFacturado = this.Income.total;
+        this.Invoice607.itbisFacturado = this.Income.itbis;
+        
+
+
         
     }
 }

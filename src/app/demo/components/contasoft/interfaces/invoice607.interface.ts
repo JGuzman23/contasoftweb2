@@ -1,4 +1,4 @@
-export interface Invoice606
+export interface Invoice607
  {
     id?: number;
     rncCedulaPasaporte?: string | '';

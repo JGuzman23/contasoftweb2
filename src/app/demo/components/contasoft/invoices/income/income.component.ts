@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
-import { Invoice606 } from '../../interfaces/invoice607.interface';
+import { Invoice607 } from '../../interfaces/invoice607.interface';
 import { InvoiceService } from '../../service/invoice.service';
 import { MessageService } from 'primeng/api';
 import { VoidInvoice } from '../../interfaces/void.interface';
@@ -19,9 +19,9 @@ export class IncomeComponent implements OnInit {
   voidInvoiceBillDialog: boolean=false
   deleteCompaniesDialog: boolean = false;
 
-  incomes: Invoice606[]=[]
+  incomes: Invoice607[]=[]
 
-  income: Invoice606 = {};
+  income: Invoice607 = {};
   public voidInvoice: VoidInvoice ={
     invoiceId:0,
     comment:'',
@@ -30,7 +30,7 @@ export class IncomeComponent implements OnInit {
   };
 
   
-  selectedCompanies: Invoice606[] = [];
+  selectedCompanies: Invoice607[] = [];
 
   submitted: boolean = false;
 
@@ -189,17 +189,17 @@ export class IncomeComponent implements OnInit {
       this.deleteCompaniesDialog = true;
   }
 
-  editBill(income: Invoice606) {
+  editBill(income: Invoice607) {
       this.income = { ...income };
       this.incomeDialog = true;
   }
 
-  deleteBill(income: Invoice606) {
+  deleteBill(income: Invoice607) {
       this.deleteBillDialog = true;
       this.income = { ...income };
   }
 
-  voidInvoiceBill(income: Invoice606){
+  voidInvoiceBill(income: Invoice607){
     this.voidInvoiceBillDialog= true;
     this.income = { ...income };
   }
