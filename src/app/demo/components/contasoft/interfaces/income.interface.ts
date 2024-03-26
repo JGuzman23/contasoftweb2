@@ -1,18 +1,15 @@
-import { Product } from "./product.interface";
+import { Invoice607 } from "./invoice607.interface";
+import { InvoiceProduct } from "./product.interface";
 
 export interface Income
  {
     id?:number|null;
-    subtotal?:number |null;
-    total?:number | null;
-    itbis?:number| null;
-    nota?:string| null;
-    date?:string| null;
-    ncf?:string| null;
+    note?:string| null;
     invoiceNumber?:string| null;
-    products?:Product[]| null;
-    rnc?:string|null
-    empresa?:string|null
-    direccion?:string|null
-
+    companyName?:string|null
+    companyAddress?:string|null
+    status?:string|null
+    products?:InvoiceProduct[]| null;
+    invoice607?:Invoice607
+    companyID?:number
  }

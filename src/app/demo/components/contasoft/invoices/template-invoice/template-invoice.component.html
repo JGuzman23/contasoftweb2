@@ -103,7 +103,7 @@
                                 >
                                 <input
                                 id="ncf"
-                                [(ngModel)]="Income.ncf"
+                                [(ngModel)]="Income.invoice607.numeroComprobanteFiscal"
                                     pInputText
                                     type="text"
                                     class="p-inputtext-sm w-auto"
@@ -123,7 +123,7 @@
                                     "
                                     >Fecha:</label
                                 >
-                                <p-calendar [(ngModel)]="Income.date" name="date" id="date" class="p-inputtext-sm"></p-calendar>
+                                <p-calendar [(ngModel)]="Income.invoice607.fechaComprobante" name="date" id="date" class="p-inputtext-sm"></p-calendar>
                             </div>
                         </div>
                     </div>
@@ -157,7 +157,7 @@
                                     >
                                     <input
                                         id="entidad"
-                                        [(ngModel)]="Income.empresa"
+                                        [(ngModel)]="Income.companyName"
                                         pInputText
                                         type="text"
                                         class="p-inputtext-sm w-auto"
@@ -180,7 +180,7 @@
                                     >
                                     <input
                                         id="rnc"
-                                       [(ngModel)]="Income.rnc"
+                                       [(ngModel)]="Income.invoice607.rncCedulaPasaporte"
                                         pInputText
                                         type="text"
                                         class="p-inputtext-sm w-auto"
@@ -203,7 +203,7 @@
                                     <input
                                     id="address"
                                         pInputText
-                                        [(ngModel)]="Income.direccion"
+                                        [(ngModel)]="Income.companyAddress"
                                         type="text"
                                         class="p-inputtext-sm w-auto"
                                     />
@@ -381,7 +381,7 @@
                                     "
                                     >Sub-total:
                                 </label>
-                                <label for="">{{Income.subtotal |number  }}</label>
+                                <label for="">{{Income.invoice607.montoFacturado|number  }}</label>
                             </div>
                             <div style="display: flex">
                                 <label
@@ -392,7 +392,7 @@
                                     "
                                     >ITBIS:
                                 </label>
-                                <label for="">{{Income.itbis |number  }}</label>
+                                <label for="">{{Income.invoice607.itbisFacturado |number  }}</label>
                             </div>
 
                             <div style="display: flex">
@@ -404,7 +404,7 @@
                                     "
                                     >Total:
                                 </label>
-                                <label for="">{{Income.total |number  }}</label>
+                                <label for="">{{Income.invoice607.itbisFacturado + Income.invoice607.montoFacturado|number  }}</label>
                             </div>
                         </div>
                     </div>
@@ -424,7 +424,7 @@
                             "
                             >Nota:</label
                         >
-                        <textarea rows="2" [(ngModel)]="Income.nota" cols="30" pInputTextarea></textarea>
+                        <textarea rows="2" [(ngModel)]="Income.note" cols="30" pInputTextarea></textarea>
                     </div>
                 </div>
             </div>

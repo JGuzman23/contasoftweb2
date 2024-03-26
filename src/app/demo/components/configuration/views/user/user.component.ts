@@ -30,7 +30,6 @@ export class UserComponent {
       this.userService.getMyUser(1).subscribe(
           (response) => {
               this.user = response.data;
-              console.log(response.data);
           },
           (error) => {}
       );

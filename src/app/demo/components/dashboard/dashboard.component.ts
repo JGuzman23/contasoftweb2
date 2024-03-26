@@ -50,7 +50,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 acumulador.push( elemento.montoTotalIngresos.toString());
                 return acumulador;
             }, []);
-            console.log(this.invoiceCount);
             this.skeleton=false
              this.initChart();
         })

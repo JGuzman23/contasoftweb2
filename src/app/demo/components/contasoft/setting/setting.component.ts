@@ -41,9 +41,6 @@ export class SettingComponent {
                             this.imageUrl = 'data:image/png;base64,'.concat(
                                 this.company.photo
                             );
-                        
-                       
-                        console.log(response.data);
                     },
                     (error) => {}
                 );

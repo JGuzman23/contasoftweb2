@@ -1,4 +1,4 @@
-export interface Product {
+export interface InvoiceProduct {
 
     id:number;
     name :string;

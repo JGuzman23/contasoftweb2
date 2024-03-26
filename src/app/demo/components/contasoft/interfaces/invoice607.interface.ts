@@ -24,6 +24,5 @@ export interface Invoice607
     bonosOCertificadosRegalo?: number | 0;
     permuta?: number | 0;
     otrasFormasVentas?: number | 0;
-    status?:string|null;
     companyID?: number;
 }

@@ -65,7 +65,6 @@ export class AdminuserComponent {
         this.userService.getUserByCompany(1, 3).subscribe(
             (response) => {
                 this.users = response.data;
-                console.log(this.users);
             },
             (error) => {}
         );
@@ -94,7 +93,6 @@ export class AdminuserComponent {
  }
 
     showDialogAdminUserconf() {
-        console.log('hola mundo');
 
         this.showAdminUserconf = true;
     }

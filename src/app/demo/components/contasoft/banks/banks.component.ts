@@ -199,7 +199,6 @@ export class BanksComponent implements OnInit {
         var jsonCompany = JSON.parse(company);
         if (jsonCompany) {
             this.bank.companyId = jsonCompany.id;
-            console.log(this.bank);
             
             if(this.bank.bankSelectedID==0){
                 this.bankService.asingnar(this.bank).subscribe(

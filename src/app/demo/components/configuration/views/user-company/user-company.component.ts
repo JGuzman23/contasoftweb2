@@ -38,7 +38,6 @@ export class UserCompanyComponent {
         this.userService.getUserByCompany(1, 3).subscribe(
             (response) => {
                 this.users = response.data;
-                console.log(this.users);
             },
             (error) => {}
         );
@@ -52,7 +51,6 @@ export class UserCompanyComponent {
     }
 
     showDialogUserCompanyconf() {
-        console.log('hola mundo');
 
         this.showUserCompanyconf = true;
     }
@@ -68,7 +66,6 @@ export class UserCompanyComponent {
         );
     }
     save(){
-      console.log(this.companiesSelected);
       
     }
 }

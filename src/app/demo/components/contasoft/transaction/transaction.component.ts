@@ -97,7 +97,6 @@ export class TransactionComponent implements OnInit {
             (response) => {
                 // Manejar la respuesta de la solicitud HTTP aquí
                 this.transactions = response.data;
-                console.log( this.transactions);
                 
                 // for (
                 //     let index = this.transactions.length - 1;
@@ -167,7 +166,6 @@ export class TransactionComponent implements OnInit {
     }
 
     saveProduct() {
-        console.log(this.transaction);
         
         const fechaParseada = new Date(this.transaction.transactionDate);
         const options = {
@@ -247,13 +245,11 @@ export class TransactionComponent implements OnInit {
     }
 
     onGlobalFilter(table: Table, event: Event) {
-        console.log(event);
-        console.log(table);
-
+    
         table.filterGlobal(
             (event.target as HTMLInputElement).value,
             'contains'
         );
-        console.log(table);
+       
     }
 }

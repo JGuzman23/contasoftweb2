@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
-import { Product } from '../../interfaces/product.interface';
+import { InvoiceProduct } from '../../interfaces/product.interface';
 import { CompanyService } from '../../service/company.service';
 import { Company } from '../../interfaces/company.interface';
 import { Income } from '../../interfaces/income.interface';
 import { Invoice607 } from '../../interfaces/invoice607.interface';
-
+import { MessageService } from 'primeng/api';
+import { InvoiceService } from '../../service/invoice.service';
 
 @Component({
     selector: 'app-template-invoice',
+    providers: [MessageService],
 
     templateUrl: './template-invoice.component.html',
 })
@@ -68,31 +70,19 @@ export class TemplateInvoiceComponent {
             valor: 'Mixto',
         },
     ];
-    clonedProducts: { [s: number]: Product } = {};
+    clonedProducts: { [s: number]: InvoiceProduct } = {};
     Income: Income = {
         id: 0,
-        subtotal: 0,
-        total: 0,
-        itbis: 0,
-        nota: '',
-        date: '',
-        ncf: '',
+        note: '',
         invoiceNumber: '0',
-        products:[]
-
+        products: [],
+        invoice607: {},
     };
-
-    Invoice607:Invoice607
+    Invoice607: Invoice607;
     company: Company = {};
-
-    
-
     imageUrl: string | ArrayBuffer | null = null;
 
-    /**
-     *
-     */
-    constructor(private companyService: CompanyService) {}
+    constructor(private companyService: CompanyService, private messageService: MessageService, private InvoiceService:InvoiceService) {}
     ngOnInit() {
         var company = localStorage.getItem('company');
         if (company) {
@@ -105,8 +95,6 @@ export class TemplateInvoiceComponent {
                         this.imageUrl = 'data:image/png;base64,'.concat(
                             this.company.photo
                         );
-
-                        console.log(response.data);
                     },
                     (error) => {}
                 );
@@ -114,12 +102,12 @@ export class TemplateInvoiceComponent {
         }
     }
 
-    onRowEditInit(product: Product) {
+    onRowEditInit(product: InvoiceProduct) {
         this.clonedProducts[product.id] = { ...product };
     }
     getSubTotales() {}
 
-    onRowEditSave(product: Product) {
+    onRowEditSave(product: InvoiceProduct) {
         this.getSubTotales();
         if (product.price > 0) {
             delete this.clonedProducts[product.id];
@@ -127,7 +115,7 @@ export class TemplateInvoiceComponent {
         }
     }
 
-    onRowEditCancel(product: Product, index: number) {
+    onRowEditCancel(product: InvoiceProduct, index: number) {
         this.Income.products[index] = this.clonedProducts[product.id];
         delete this.clonedProducts[product.id];
     }
@@ -146,22 +134,21 @@ export class TemplateInvoiceComponent {
         });
     }
 
-    getTotal(product: Product) {
+    getTotal(product: InvoiceProduct) {
         // Actualizar el total del producto
         this.Income.products[product.id].total = product.amount * product.price;
-        console.log(this.Income.products[product.id].total);
 
-        // Calcular subtotal de ingresos sumando los totales de los productos
-        this.Income.subtotal = this.Income.products.reduce(
+        // // Calcular subtotal de ingresos sumando los totales de los productos
+        this.Income.invoice607.montoFacturado = this.Income.products.reduce(
             (acc, p) => acc + p.total,
             0
         );
 
         // Calcular ITBIS
-        this.Income.itbis = this.Income.subtotal * 0.18;
+        this.Income.invoice607.itbisFacturado =
+            this.Income.invoice607.montoFacturado * 0.18;
 
         // Calcular total de ingresos sumando el subtotal y el ITBIS
-        this.Income.total = this.Income.subtotal + this.Income.itbis;
     }
     exportPdf() {
         // Obtener una referencia al elemento <input>
@@ -177,18 +164,42 @@ export class TemplateInvoiceComponent {
         });
     }
 
-    save(){
-        console.log(this.Income);
-        this.Invoice607.rncCedulaPasaporte = this.Income.rnc
-        this.Invoice607.tipoIdentificacion=1;
-        this.Invoice607.numeroComprobanteFiscal = this.Income.ncf;
-        this.Invoice607.fechaComprobante= this.Income.date;
-        this.Invoice607.fechaRetencion = this.Income.date;
-        this.Invoice607.montoFacturado = this.Income.total;
-        this.Invoice607.itbisFacturado = this.Income.itbis;
+    save() {
+        // this.submitted = true;
         
-
-
-        
+        var company = localStorage.getItem('company') || '';
+        var jsonCompany = JSON.parse(company);
+        if (jsonCompany) {
+            this.Income.companyID = jsonCompany.id;
+            this.InvoiceService.createInvoice607(this.Income).subscribe(
+                (response) => {
+                    if (response.success) {
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Successful',
+                            detail: response.message,
+                            life: 3000,
+                        });
+                        
+                    
+                    } else {
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: response.message,
+                            life: 3000,
+                        });
+                    }
+                },
+                (error) => {
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'Error',
+                        detail: error.message,
+                        life: 3000,
+                    });
+                }
+            );
+        }
     }
 }

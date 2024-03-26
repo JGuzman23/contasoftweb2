@@ -2,25 +2,6 @@
     <div class="col-12">
         <div class="card">
             <p-toast></p-toast>
-            <!-- <p-toolbar styleClass="mb-4">
-                <ng-template pTemplate="left">
-                    
-                </ng-template>
-
-               <ng-template pTemplate="center">
-                
-              
-                <p-calendar [(ngModel)]="rangeDates" placeholder="Desde" [iconDisplay]="'input'"  [showIcon]="true"></p-calendar>
-                <span class="m-3" >a</span>
-                <p-calendar [(ngModel)]="rangeDates" placeholder="Hasta" [iconDisplay]="'input'" [showIcon]="true"></p-calendar>
-
-               </ng-template >
-                <ng-template pTemplate="right">
-                    <button pButton pRipple label="Asignar" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
-
-                    <button pButton pRipple label="Export" icon="pi pi-upload"  class="p-button-secondary" (click)="dt.exportCSV()"></button>
-                </ng-template>
-            </p-toolbar> -->
 
             <p-table
                 #dt
@@ -29,12 +10,15 @@
                 responsiveLayout="scroll"
                 selectionMode="single"
                 [rows]="10"
-                [globalFilterFields]="['rncCedulaPasaporte', 'numeroComprobanteFiscal','fechaComprobante']"
+                [globalFilterFields]="[
+                    'invoice607.rncCedulaPasaporte',
+                    'invoice607.numeroComprobanteFiscal',
+                    'invoice607.fechaComprobante'
+                ]"
                 [paginator]="true"
                 [rowsPerPageOptions]="[10, 20, 30]"
                 [showCurrentPageReport]="true"
                 currentPageReportTemplate="Mostrando del {first} al {last} de {totalRecords} facturas"
-                [(selection)]="selectedCompanies"
                 [rowHover]="true"
                 dataKey="id"
             >
@@ -77,30 +61,50 @@
                 </ng-template>
                 <ng-template pTemplate="header">
                     <tr>
-                        <th pSortableColumn="id" class="text-center">
-                            Factura ID <p-sortIcon field="id"></p-sortIcon>
+                        <th
+                            pSortableColumn="invoice607.rncCedulaPasaporte"
+                            class="text-center"
+                        >
+                            RNC
+                            <p-sortIcon
+                                field="invoice607.rncCedulaPasaporte"
+                            ></p-sortIcon>
                         </th>
-                        <th pSortableColumn="rncCedulaPasaporte" class="text-center">
-                            RNC <p-sortIcon field="rncCedulaPasaporte"></p-sortIcon>
+                        <th
+                            pSortableColumn="invoice607.numeroComprobanteFiscal"
+                            class="text-center"
+                        >
+                            NCF
+                            <p-sortIcon
+                                field="invoice607.numeroComprobanteFiscal"
+                            ></p-sortIcon>
                         </th>
-                        <th pSortableColumn="numeroComprobanteFiscal" class="text-center">
-                            NCF <p-sortIcon field="numeroComprobanteFiscal"></p-sortIcon>
-                        </th>
-                        <th pSortableColumn="montoFacturado" class="text-center">
+                        <th
+                            pSortableColumn="invoice607.montoFacturado"
+                            class="text-center"
+                        >
                             Monto Total
-                            
                         </th>
-                        <th pSortableColumn="itbisFacturado" class="text-center">
+                        <th
+                            pSortableColumn="invoice607.itbisFacturado"
+                            class="text-center"
+                        >
                             ITBIS
-                            
                         </th>
-                        <th pSortableColumn="Estado" class="text-center">
+                        <th
+                            pSortableColumn="invoice607.Estado"
+                            class="text-center"
+                        >
                             Estado
-                            
                         </th>
-                        <th pSortableColumn="fechaComprobante" class="text-center">
+                        <th
+                            pSortableColumn="invoice607.fechaComprobante"
+                            class="text-center"
+                        >
                             Fecha de Factura
-                            <p-sortIcon field="fechaComprobante"></p-sortIcon>
+                            <p-sortIcon
+                                field="invoice607.fechaComprobante"
+                            ></p-sortIcon>
                         </th>
                         <th class="text-center">Acciones</th>
                     </tr>
@@ -111,53 +115,83 @@
                             style="width: 15%; min-width: 10rem"
                             class="text-center"
                         >
-                            {{ income.id }}
-                        </td>
-                        <td
-                            style="width: 15%; min-width: 10rem"
-                            class="text-center"
-                        >
-                            {{ income.rncCedulaPasaporte }}
+                            {{ income.invoice607.rncCedulaPasaporte }}
                         </td>
                         <td
                             style="width: 20%; min-width: 10rem"
                             class="text-center"
                         >
-                            {{ income.numeroComprobanteFiscal }}
+                            {{ income.invoice607.numeroComprobanteFiscal }}
                         </td>
                         <td
                             style="width: 15%; min-width: 10rem"
                             class="text-center"
                         >
-                            {{ income.montoFacturado | number }}
+                            {{ income.invoice607.montoFacturado | number }}
                         </td>
                         <td
                             style="width: 15%; min-width: 10rem"
                             class="text-center"
                         >
-                         {{income.itbisFacturado}}
-                         </td>
-                         <td>
-                            <span [class]="'product-badge status-' + (income.status? income.status.toLowerCase() : '')">{{income.status}}</span>
-
-                         </td>
+                            {{ income.invoice607.itbisFacturado | number }}
+                        </td>
+                        <td>
+                            <span
+                                [class]="
+                                    'product-badge status-' +
+                                    (income.status
+                                        ? income.status.toLowerCase()
+                                        : '')
+                                "
+                                >{{ income.status }}</span
+                            >
+                        </td>
                         <td
                             style="width: 15%; min-width: 10rem"
                             class="text-center"
                         >
-                            {{ income.fechaComprobante  | date : "dd/MM/yyyy" }}
+                            {{
+                                income.invoice607.fechaComprobante
+                                    | date : "dd/MM/yyyy"
+                            }}
                         </td>
 
                         <td style="width: 15%; min-width: 10rem">
                             <div class="flex justify-content-center">
-                                <p-button icon="pi pi-pencil" tooltipPosition="bottom" pTooltip="Editar" [rounded]="true" class=" mr-2" (click)="editBill(income)"[text]="true" [raised]="true"></p-button>
-                             
-                                <p-button *ngIf="income.isActive" icon="pi pi-ban" tooltipPosition="bottom" pTooltip="Anular" [rounded]="true" severity="warning" class=" mr-2" [text]="true" [raised]="true" (click)="voidInvoiceBill(income)"></p-button>
-                                <p-button *ngIf="income.isActive" icon="pi pi-trash" tooltipPosition="bottom" pTooltip="Eliminar" [rounded]="true" severity="danger" [text]="true" [raised]="true" (click)="deleteBill(income)"></p-button>
+                                <p-button
+                                    icon="pi pi-eye"
+                                    tooltipPosition="bottom"
+                                    pTooltip="Editar"
+                                    [rounded]="true"
+                                    class="mr-2"
+                                    (click)="editBill(income)"
+                                    [text]="true"
+                                    [raised]="true"
+                                ></p-button>
 
-                                
-                               
-                               
+                                <p-button
+                                    *ngIf="income.isActive"
+                                    icon="pi pi-ban"
+                                    tooltipPosition="bottom"
+                                    pTooltip="Anular"
+                                    [rounded]="true"
+                                    severity="warning"
+                                    class="mr-2"
+                                    [text]="true"
+                                    [raised]="true"
+                                    (click)="voidInvoiceBill(income)"
+                                ></p-button>
+                                <p-button
+                                    *ngIf="income.isActive"
+                                    icon="pi pi-trash"
+                                    tooltipPosition="bottom"
+                                    pTooltip="Eliminar"
+                                    [rounded]="true"
+                                    severity="danger"
+                                    [text]="true"
+                                    [raised]="true"
+                                    (click)="deleteBill(income)"
+                                ></p-button>
                             </div>
                         </td>
                     </tr>
@@ -167,14 +201,373 @@
 
         <p-dialog
             [(visible)]="incomeDialog"
-            [style]="{ width: '550px' }"
+            [style]="{ width: '750px' }"
             header="Detalle de Factura"
             [modal]="true"
             class="p-fluid"
         >
             <ng-template pTemplate="content">
-             
-                    <p-tabView styleClass="tabview-custom">
+                <div id="invoice">
+                    <div class="grid">
+                        <div class="col-12">
+                            <div style="align-items: center;">
+                                <div class="flex justify-content-between">
+                                    <div>
+                                        <p-image
+                                            [src]="imageUrl"
+                                            alt="Image"
+                                            width="100"
+                                        ></p-image>
+                                    </div>
+                                    <h3>Factura de Crédito Fiscal</h3>
+                                </div>
+
+                                <div class="grid">
+                                    <div class="col-12 sm:col-7">
+                                        <div>
+                                            <h2>{{ company.name }}</h2>
+                                        </div>
+                                        <div
+                                            style="
+                                                display: flex;
+                                                flex-direction: column;
+                                            "
+                                        >
+                                            <div style="display: flex">
+                                                <label
+                                                    style="
+                                                        margin-right: 10px;
+                                                        font-weight: bold;
+                                                    "
+                                                    >RNC:
+                                                </label>
+                                                <label for="">
+                                                    {{ company.rnc }}</label
+                                                >
+                                            </div>
+                                            <div style="display: flex">
+                                                <label
+                                                    style="
+                                                        margin-right: 10px;
+                                                        font-weight: bold;
+                                                    "
+                                                    >Sucursal:
+                                                </label>
+                                                <label for="">La mejor</label>
+                                            </div>
+                                            <div style="display: flex">
+                                                <label
+                                                    style="
+                                                        margin-right: 10px;
+                                                        font-weight: bold;
+                                                    "
+                                                    >Direccion:
+                                                </label>
+                                                <label for="">
+                                                    {{ company.address }}</label
+                                                >
+                                            </div>
+                                            <div style="display: flex">
+                                                <label
+                                                    style="
+                                                        margin-right: 10px;
+                                                        font-weight: bold;
+                                                    "
+                                                    >Telefono:
+                                                </label>
+                                                <label for="">{{
+                                                    company.telefono
+                                                }}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 sm:col-5">
+                                        <div
+                                            style="
+                                                display: flex;
+                                                flex-direction: column;
+                                                align-items: center;
+                                            "
+                                        >
+                                            <div
+                                                style="
+                                                    display: flex;
+                                                    justify-content: space-between;
+                                                    margin-bottom: 10px;
+                                                "
+                                            >
+                                                <label
+                                                    style="
+                                                        margin-left: 0;
+                                                        font-weight: bold;
+                                                        font-size: 14px;
+                                                    "
+                                                    >No.:
+                                                    {{
+                                                        income.invoiceNumber
+                                                    }}</label
+                                                >
+                                            </div>
+                                            <div
+                                                style="
+                                                    display: flex;
+                                                    justify-content: space-between;
+                                                    margin-bottom: 10px;
+                                                "
+                                            >
+                                                <label
+                                                    style="
+                                                        margin-left: 0;
+                                                        font-weight: bold;
+                                                        font-size: 14px;
+                                                    "
+                                                    >NCF:
+                                                    {{
+                                                        income.invoice607
+                                                            .numeroComprobanteFiscal
+                                                    }}
+                                                </label>
+                                            </div>
+                                            <div
+                                                style="
+                                                    display: flex;
+                                                    justify-content: space-between;
+                                                "
+                                            >
+                                                <label
+                                                    style="
+                                                        margin-right: 0;
+                                                        font-weight: bold;
+                                                        font-size: 14px;
+                                                    "
+                                                    >Fecha:
+                                                    {{
+                                                        income.invoice607
+                                                            .fechaComprobante | date: "dd/MM/yyyy"
+                                                    }}</label
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p-divider></p-divider>
+
+                                <div class="">
+                                    <div class="grid">
+                                        <div class="col-12 sm:col-5">
+                                            <div
+                                                style="
+                                                    display: flex;
+                                                    flex-direction: column;
+                                                "
+                                            >
+                                                <div
+                                                    style="
+                                                        display: flex;
+                                                        justify-content: space-between;
+                                                        margin-bottom: 10px;
+                                                    "
+                                                >
+                                                    <label
+                                                        style="
+                                                            margin-left: 0;
+                                                            font-weight: bold;
+                                                            font-size: 14px;
+                                                        "
+                                                        >{{
+                                                            income.companyName
+                                                        }}</label
+                                                    >
+                                                </div>
+                                                <div
+                                                    style="
+                                                        display: flex;
+                                                        justify-content: space-between;
+                                                        margin-bottom: 10px;
+                                                    "
+                                                >
+                                                    <label
+                                                        style="
+                                                            margin-left: 0;
+                                                            font-weight: bold;
+                                                            font-size: 14px;
+                                                        "
+                                                        >{{
+                                                            income.invoice607
+                                                                .rncCedulaPasaporte
+                                                        }}</label
+                                                    >
+                                                </div>
+                                                <div
+                                                    style="
+                                                        display: flex;
+                                                        justify-content: space-between;
+                                                    "
+                                                >
+                                                    <label
+                                                        style="
+                                                            margin-right: 0;
+                                                            font-weight: bold;
+                                                            font-size: 14px;
+                                                        "
+                                                        >{{
+                                                            income.companyAddress
+                                                        }}</label
+                                                    >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p-divider></p-divider>
+                                <div class="">
+                                    <div class="grid">
+                                        <div class="col-12">
+                                            <div
+                                                class="flex justify-content-between mb-3"
+                                            >
+                                                <h4>Elementos de la factura</h4>
+                                            </div>
+
+                                            <p-table
+                                                [value]="income.products"
+                                                dataKey="id"
+                                                editMode="row"
+                                                [tableStyle]="{
+                                                    'min-width': '50rem'
+                                                }"
+                                            >
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                        <th>Producto</th>
+                                                        <th>Cantidad</th>
+                                                        <th>Precio</th>
+                                                        <th>Total</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template
+                                                    pTemplate="body"
+                                                    let-product
+                                                    let-editing="editing"
+                                                    let-ri="rowIndex"
+                                                >
+                                                    <tr
+                                                        [pEditableRow]="product"
+                                                    >
+                                                        <td>
+                                                            {{ product.name }}
+                                                        </td>
+                                                        <td>
+                                                            {{ product.amount }}
+                                                        </td>
+                                                        <td>
+                                                            {{
+                                                                product.price
+                                                                    | number
+                                                            }}
+                                                        </td>
+
+                                                        <td>
+                                                            {{
+                                                                product.total
+                                                                    | number
+                                                            }}
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                        <div class="col-12 sm:col-6"></div>
+                                    </div>
+                                </div>
+                                <p-divider></p-divider>
+
+                                <div class="grid">
+                                    <div class="col-12 sm:col-6"></div>
+
+                                    <div class="col-12 sm:col-6">
+                                        <div
+                                            style="
+                                                display: flex;
+                                                flex-direction: column;
+                                                align-items: center;
+                                            "
+                                        >
+                                            <div style="display: flex">
+                                                <label
+                                                    style="
+                                                        margin-right: 10px;
+                                                        margin-bottom: 10px;
+                                                        font-weight: bold;
+                                                    "
+                                                    >Sub-total:
+                                                </label>
+                                                <label for="">{{
+                                                    income.invoice607
+                                                        .montoFacturado | number
+                                                }}</label>
+                                            </div>
+                                            <div style="display: flex">
+                                                <label
+                                                    style="
+                                                        margin-right: 10px;
+                                                        margin-bottom: 10px;
+                                                        font-weight: bold;
+                                                    "
+                                                    >ITBIS:
+                                                </label>
+                                                <label for="">{{
+                                                    income.invoice607
+                                                        .itbisFacturado | number
+                                                }}</label>
+                                            </div>
+
+                                            <div style="display: flex">
+                                                <label
+                                                    style="
+                                                        margin-right: 10px;
+                                                        margin-bottom: 10px;
+                                                        font-weight: bold;
+                                                    "
+                                                    >Total:
+                                                </label>
+                                                <label for="">{{
+                                                    income.invoice607
+                                                        .itbisFacturado +
+                                                        income.invoice607
+                                                            .montoFacturado
+                                                        | number
+                                                }}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <p-divider></p-divider>
+                                <div
+                                    style="
+                                        display: flex;
+                                        flex-direction: column;
+                                    "
+                                >
+                                    <div>
+                                        <label
+                                            style="
+                                                margin-right: 10px;
+                                                font-weight: bold;
+                                                font-size: 16px;
+                                            "
+                                            >Nota:</label
+                                        >
+                                        <label for="">{{ income.note }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <p-tabView styleClass="tabview-custom">
                         <p-tabPanel>
                             <ng-template pTemplate="header">
                                 
@@ -294,8 +687,7 @@
                                 
                             </div>
                         </p-tabPanel>
-                    </p-tabView>
-             
+                    </p-tabView> -->
             </ng-template>
 
             <ng-template pTemplate="footer">
@@ -313,7 +705,7 @@
                     label="Guardar"
                     icon="pi pi-check"
                     class="p-button-text"
-                    (click)="saveProduct()"
+                    (click)="exportPdf()"
                 ></button>
             </ng-template>
         </p-dialog>
@@ -356,34 +748,32 @@
         </p-dialog>
 
         <p-dialog
-        [(visible)]="voidInvoiceBillDialog"
-        [style]="{ width: '550px' }"
-        header="Anular factura"
-        [modal]="true"
-        class="p-fluid"
-    >
-        <ng-template pTemplate="content">
-            <div class="p-formgrid grid">
-               
-                <div class="col-12 ">
-                    <label for="status">Tipo de anulacion</label>
-                    <p-dropdown
-                        [options]="TiposAnulacion"
-                        id="anulacion"
-                        appendTo="body"
-                        [(ngModel)]="voidInvoice.tipo"
-                        required
-                        autofocus
-                       
-                        placeholder="Selecciona un tipo."
-                        optionValue="id"
-                        optionLabel="valor"
-                    ></p-dropdown>
-                </div>
-                
-                <div class="col-12 ">
-                    <label for="name">Comentario.</label>
-                    <textarea
+            [(visible)]="voidInvoiceBillDialog"
+            [style]="{ width: '550px' }"
+            header="Anular factura"
+            [modal]="true"
+            class="p-fluid"
+        >
+            <ng-template pTemplate="content">
+                <div class="p-formgrid grid">
+                    <div class="col-12">
+                        <label for="status">Tipo de anulacion</label>
+                        <p-dropdown
+                            [options]="TiposAnulacion"
+                            id="anulacion"
+                            appendTo="body"
+                            [(ngModel)]="voidInvoice.tipo"
+                            required
+                            autofocus
+                            placeholder="Selecciona un tipo."
+                            optionValue="id"
+                            optionLabel="valor"
+                        ></p-dropdown>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="name">Comentario.</label>
+                        <textarea
                             rows="5"
                             cols="30"
                             name="NCF"
@@ -391,34 +781,33 @@
                             [(ngModel)]="voidInvoice.comment"
                             pInputTextarea
                         ></textarea>
-                    <small
-                        class="ng-dirty ng-invalid"
-                        *ngIf="submitted && !voidInvoice.comment"
-                        >Name is required.</small
-                    >
+                        <small
+                            class="ng-dirty ng-invalid"
+                            *ngIf="submitted && !voidInvoice.comment"
+                            >Name is required.</small
+                        >
+                    </div>
                 </div>
-             
-            </div>
-        </ng-template>
+            </ng-template>
 
-        <ng-template pTemplate="footer">
-            <button
-                pButton
-                pRipple
-                label="Cancelar"
-                icon="pi pi-times"
-                class="p-button-text"
-                (click)="hideDialog()"
-            ></button>
-            <button
-                pButton
-                pRipple
-                label="Guardar"
-                icon="pi pi-check"
-                class="p-button-text"
-                (click)="confirmVoidInvoiceBill()"
-            ></button>
-        </ng-template>
-    </p-dialog>
+            <ng-template pTemplate="footer">
+                <button
+                    pButton
+                    pRipple
+                    label="Cancelar"
+                    icon="pi pi-times"
+                    class="p-button-text"
+                    (click)="hideDialog()"
+                ></button>
+                <button
+                    pButton
+                    pRipple
+                    label="Guardar"
+                    icon="pi pi-check"
+                    class="p-button-text"
+                    (click)="confirmVoidInvoiceBill()"
+                ></button>
+            </ng-template>
+        </p-dialog>
     </div>
 </div>

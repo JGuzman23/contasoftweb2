@@ -146,7 +146,6 @@ export class HomeComponent implements OnInit {
     saveCompany() {
         //this.submitted = true;
         this.company.userid= Number.parseInt(this.userID) 
-        console.log(this.company);
 
         if (this.company.name?.trim()) {
             

@@ -13,14 +13,14 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
-
+import { ImageModule } from 'primeng/image';
 import { FormsModule } from '@angular/forms';
 import { TabViewModule } from 'primeng/tabview';
 import { CalendarModule } from 'primeng/calendar';
 import { IncomeRoutingModule } from './income-routing.module';
 import { IncomeComponent } from './income.component';
 import { TooltipModule } from 'primeng/tooltip';
-
+import { DividerModule } from 'primeng/divider';
 
 @NgModule({
   declarations: [IncomeComponent],
@@ -43,7 +43,9 @@ import { TooltipModule } from 'primeng/tooltip';
     DialogModule,
     TabViewModule,
     CalendarModule,
-    TooltipModule
+    TooltipModule,
+    ImageModule,
+    DividerModule
   ]
 })
 export class IncomeModule { }

@@ -72,7 +72,6 @@ export class PlanComponent {
         );
     }
     selectAccountType(id: number) {
-        console.log(id);
         this.SelecctedPlan= id
         
     }

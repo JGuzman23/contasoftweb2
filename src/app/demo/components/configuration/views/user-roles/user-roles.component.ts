@@ -28,7 +28,6 @@ export class UserRolesComponent {
       this.userService.getUserByCompany(1,3).subscribe(
           (response) => {
               this.users = response.data;
-              console.log(this.users);
               
           },
           (error) => {}

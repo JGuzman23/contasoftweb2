@@ -318,14 +318,13 @@ export class ConciliacionComponent implements OnInit {
     }
 
     onGlobalFilter(table: Table, event: Event) {
-        console.log(event);
-        console.log(table);
+  
         
         
         table.filterGlobal(
             (event.target as HTMLInputElement).value,
             'contains'
         );
-        console.log(table);
+      
     }
 }

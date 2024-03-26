@@ -41,8 +41,6 @@ export class UserService {
   }
   createUser(user:User):Observable<any>{
   
-    console.log('heo');
-    debugger
     return this.http.post<any>(`${this.apiUrl}/Users`, user,this.httpOptions)
 
   }
